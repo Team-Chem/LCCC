@@ -1,0 +1,17 @@
+.custom-alert {
+    background-color: #2799c3;
+    color: #fff;
+    border-color: #2799c3;
+  }
+  
+  .custom-alert h4 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .custom-alert hr {
+    border-top-color: #fff;
+  }
+  
+  .custom-alert p {
+    margin-bottom: 0;
+  }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+</head>
+<body>
+
+    <div class="sign-in-div">
+
+        <h1 style="color: black;">Sign In</h1>
+        <hr>
+
+
+        <span class="material-symbols-outlined" style="font-size: 60px; color:black">person</span>
+
+        <form class="sign-in-form" method="POST">
+
+            <div class="container">
+
+                <label style="position: relative; right: 225px;" for="email"><b>Email</b></label>
+                <input type="text" class="email-user" placeholder="Email" id="input-email-user" name="email" #userName required>
+        
+                <label style="position: relative; right: 210px;" class="label_password" for="password"><b>Password</b></label>
+                <input type="password" placeholder="Password" name="password" required #userPassword required>
+
+                <div class="formGroup">
+                    <input type="button" style="color: aliceblue;" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)" routerLink="/dashboard">
+                  </div>
+        
+                <!-- <a style="position: relative; right: 170px;" routerLink="/passsword_reset">Forgot your password</a> -->
+
+                <p style="color:black;"><b>Forgot your password?</b> <a routerLink="/password_reset">Reset</a></p>
+                
+                <p class="check-box">
+                    <input type="checkbox" id="remember-user">
+                    <label for="remember-user">Remember me</label>
+                </p>
+
+                <!-- <button style="position: relative; left: 0px;" type="submit">Sign In</button> -->
+
+                <!-- Calling GoogleAuth Api from AuthService -->
+            <div class="formGroup">
+                <button type="button" style="color: black;" class="btn googleBtn" (click)="authService.GoogleAuth()">
+                <i class="fab fa-google-plus-g"></i>
+                Log in with Google
+                </button>
+            </div>
+            
+
+            <hr>
+            <p><b>Don't have an account?</b> <a routerLink="/sign_up">Sign Up</a></p>
+    
+            <hr>
+            <!-- <input style="position: relative; left: 190px;"  type="button" value="Go Back" onclick="history.back()"> -->
+    
+            <button style="position: relative; left: 0px;" type="submit" value="Go Back" onclick="history.back()">Go Back</button>
+    
+        </div>
+        </form>
+        </div>
+
+        
+</body>
+</html>

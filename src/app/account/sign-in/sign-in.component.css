@@ -1,0 +1,27 @@
+.sign-in-div {
+    width: 675px;
+    box-shadow: 0 0 3px 0 rgb(106, 13, 212);
+    background: 25px;
+    padding: 75px;
+    text-align: center;
+    margin: 8% auto 0;
+    background-color: rgb(255, 255, 255);
+    display: block;
+    margin-top: 125px;
+}
+
+.sign-in-form {
+    color: rgb(13, 13, 14);
+    margin-bottom: 30px;
+}
+
+#input-email-user {
+    margin-left: 0px;
+    border-radius: 7px;
+    width: 215px;
+
+}
+
+#submit-sign-in{
+    background-color: black;
+}

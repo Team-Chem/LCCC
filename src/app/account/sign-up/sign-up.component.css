@@ -1,0 +1,50 @@
+.sign-up-div {
+    width: 675px;
+    box-shadow: 0 0 3px 0 rgb(106, 13, 212);
+    background: 25px;
+    padding: 75px;
+    text-align: center;
+    margin: 8% auto 0;
+    background-color: rgb(255, 255, 255);
+    display: block;
+    margin-top: 125px;
+}
+
+.sign_up-form {
+    color: rgb(13, 13, 14);
+    margin-bottom: 30px;
+}
+
+#first_name_sign_up {
+    margin-left: 10px;
+    border-radius: 7px;
+    width: 215px;
+}
+
+#last_name_sign_up {
+    margin-left: 10px;
+    border-radius: 7px;
+    width: 215px;
+}
+
+#email_sign_up {
+    margin-left: 10px;
+    border-radius: 7px;
+    width: 215px;
+}
+
+#password_sign_up {
+    margin-left: 10px;
+    border-radius: 7px;
+    width: 215px;
+}
+
+#re-password_sign_up {
+    margin-left: 10px;
+    border-radius: 7px;
+    width: 215px;
+}
+
+#submit-sign-up{
+    background-color: black;
+}

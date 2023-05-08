@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "lccc-951e9": {
+      "hosting": {
+        "lccc-project": [
+          "lccc-951e9"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "lccc-951e9"
+  }
+}
