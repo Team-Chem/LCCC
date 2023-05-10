@@ -1,4 +1,5 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
+/* Changed the baseURL to -> "baseUrl": "src" since it was generating many errors and then changed it back to "baseUrl": "./" to fix the problem.  https://stackoverflow.com/questions/45903511/vscode-cannot-find-module-angular-core-or-any-other-modules*/
 {
   "compileOnSave": false,
   "compilerOptions": {
