@@ -75,7 +75,7 @@
   
           <!-- <input style="position: relative; left: 190px;" type="submit" name="submit" id="submit-sign-up" value="Submit"> -->
   
-          <button id="signup" style="position: relative; left: 0px;" type="submit" (click)="authService.SignUp(userEmail.value, userPwd.value, firstName.value, lastName.value)">Sign up</button>
+          <button id="signup" style="position: relative; left: 0px;" type="submit" (click)="authService.SignUp(userEmail.value, userPwd.value, firstName.value, lastName.value)" routerLink="/sign_in">Sign up</button>
 
           <!-- Continue with Google -->
       <!-- <div class="formGroup">

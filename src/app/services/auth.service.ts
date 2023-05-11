@@ -151,7 +151,7 @@ SignUp(email: string, password: string, firstName: string, lastName: string) {
     });
   }
 
-  // Will need to create a button that allows the user to sign out. Can add this button on the navbar.
+  // TODO: Will need to create a button that allows the user to sign out. Can add this button on the navbar.
   async SignOut() {
     try {
       await this.afAuth.signOut();
@@ -162,7 +162,7 @@ SignUp(email: string, password: string, firstName: string, lastName: string) {
   }
 
 
-
+// When the user makes an account a verification email will be sent to them to verify.
   SendVerificationMail() {
     return this.afAuth.currentUser
       .then((user: any) => {
@@ -184,7 +184,7 @@ SignUp(email: string, password: string, firstName: string, lastName: string) {
       });
   } 
   
-
+// Allow the user to be able to reset their password
 async PasswordReset(email: string) {
   try {
     await this.afAuth.sendPasswordResetEmail(email)
@@ -194,6 +194,7 @@ async PasswordReset(email: string) {
   }
 }
 
+// This will allows the user to sign in with different accounts like google, facebook, or github through a pop up. Only Google sign in is implemented so far.
 AuthLogin(provider: any) {
   return this.afAuth
     .signInWithPopup(provider)
@@ -205,11 +206,12 @@ AuthLogin(provider: any) {
     });
 }
 
-
+// Allow the user to login with their google account
 GoogleAuth() {
   return this.AuthLogin(new GoogleAuthProvider());
 }
 
+// Keeps track of the user when they login
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
@@ -223,7 +225,7 @@ GoogleAuth() {
 
 } */
   
-  
+  // Send data to firebase
   SetUserData(user: firebase.default.User, firstName: string, lastName: string, email: string, hashedPassword: string, emailVerified: boolean, accountCreated: string) {
     const userRef = this.afs.collection('users').doc(user.uid);
     const userData = {
