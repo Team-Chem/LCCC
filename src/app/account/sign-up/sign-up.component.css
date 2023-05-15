@@ -15,13 +15,13 @@
     margin-bottom: 30px;
 }
 
-#first_name_sign_up {
+/* #first_name_sign_up {
     margin-left: 10px;
     border-radius: 7px;
     width: 215px;
-}
+} */
 
-#last_name_sign_up {
+/* #last_name_sign_up {
     margin-left: 10px;
     border-radius: 7px;
     width: 215px;
@@ -43,8 +43,29 @@
     margin-left: 10px;
     border-radius: 7px;
     width: 215px;
+} */
+
+/* #submit-sign-up{
+    background-color: black;
+} */
+
+/*All of the labels for the input boxes of the form*/
+.label_first_sign_up{
+    position: relative; right: 207px;
 }
 
-#submit-sign-up{
-    background-color: black;
+.label_last_sign_up{
+    position: relative; right: 207px;
+}
+
+.label_email_sign_up{
+    position: relative; right: 227px;
+}
+
+.label_password_sign_up{
+    position: relative; right: 213px;
+}
+
+.label_confirm_password_sign_up{
+    position: relative; right: 178px;
 }

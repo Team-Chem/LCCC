@@ -42,38 +42,53 @@
         <form class="sign_up-form" [formGroup]="signUpGroup" (ngSubmit)="onSubmit()">
 
             <span class="fa fa-solid fa-user-plus" style="font-size: 60px; color:black"></span>
-            
-            <div class="form-field success">
-                <label style="position: relative; right: 207px;" class="label_first_sign_up" generated="true"
-                    for="first_name"><b>First Name</b></label>
-                <input type="text" placeholder="First Name" id="first_name" name="FirstName" formControlName="firstName" #firstName >
+
+            <div class="form-field-firstname">
+                <label class="label_first_sign_up" generated="true" for="first_name"><b>First Name</b></label>
+                <input type="text" placeholder="First Name" id="first_name" name="FirstName" formControlName="firstName"
+                    #firstNameInput>
+                <div *ngIf="signUpGroup.controls['firstName'].invalid && signUpGroup.controls['firstName'].touched"
+                    class="alert alert-danger">
+                    <p><strong style="color: black;">First letter must be capitalized, no numbers, or special
+                            characters</strong></p>
+                </div>
             </div>
 
-            <div class="form-field success">
-                <label style="position: relative; right: 207px;" class="label_last_sign_up" for="last_name"><b>Last
+            <div class="form-field-lastname">
+                <label class="label_last_sign_up" for="last_name"><b>Last
                         Name</b></label>
-                <input type="text" placeholder="Last Name" id="last_name" name="LastName" formControlName="lastName" #lastName >
+                <input type="text" placeholder="Last Name" id="last_name" name="LastName" formControlName="lastName"
+                    #lastNameInput>
+                <div *ngIf="signUpGroup.controls['lastName'].invalid && signUpGroup.controls['lastName'].touched"
+                    class="alert alert-danger">
+                    <p><strong style="color: black;">First letter must be capitalized, no numbers, or special
+                            characters</strong></p>
+                </div>
             </div>
 
-            <div class="form-field success">
-                <label style="position: relative; right: 227px;" class="label_email_sign_up"
-                    for="email"><b>Email</b></label>
-                <input type="email" placeholder="Email" id="email" name="Email" formControlName="email" #userEmail >
-
+            <div class="form-field-email">
+                <label class="label_email_sign_up" for="email"><b>Email</b></label>
+                <input type="email" placeholder="Email" id="email" name="Email" formControlName="email" #userEmailInput>
+                <div *ngIf="signUpGroup.controls['email'].invalid && signUpGroup.controls['email'].touched"
+                    class="alert alert-danger">
+                    <p><strong style="color: black;">Enter a valid email address!</strong></p>
+                </div>
             </div>
 
-            <div class="form-field success">
-                <label style="position: relative; right: 213px;" class="label_password_sign_up"
-                    for="password"><b>Password</b></label>
-                <input type="password" id="password" placeholder="Password" name="password" formControlName="password" #userPwd >
-
+            <div class="form-field-password">
+                <label class="label_password_sign_up" for="password"><b>Password</b></label>
+                <input type="password" id="password" placeholder="Password" name="password" formControlName="password"
+                    #userPwdInput>
+                <div *ngIf="signUpGroup.controls['password'].invalid && signUpGroup.controls['password'].touched"
+                    class="alert alert-danger">
+                    <p><strong style="color: black;">Password length must be at least 6</strong></p>
+                </div>
             </div>
 
-            <div class="form-field success">
-                <label style="position: relative; right: 178px;" class="label_re-pass_sign_up"
-                    for="re-enter-password"><b>Re-enter password</b></label>
-                <input type="password" placeholder="Re-enter Password" id="confirm_password" name="Re-Password" formControlName="confirmPass"
-                    >
+            <div class="form-field-confirm-password">
+                <label class="label_confirm_password_sign_up" for="re-enter-password"><b>Re-enter password</b></label>
+                <input type="password" placeholder="Re-enter Password" id="confirm_password" name="Re-Password"
+                    formControlName="confirmPass">
 
             </div>
 
@@ -85,7 +100,7 @@
             <!-- <input style="position: relative; left: 190px;" type="submit" name="submit" id="submit-sign-up" value="Submit"> -->
 
             <button id="signup" style="position: relative; left: 0px;" type="submit"
-                (click)="authService.SignUp(userEmail.value, userPwd.value, firstName.value, lastName.value)"
+                (click)="authService.SignUp(userEmailInput.value, userPwdInput.value, firstNameInput.value, lastNameInput.value)"
                 routerLink="/sign_in" [disabled]="!signUpGroup.valid">Sign up</button>
 
             <!-- Continue with Google -->
@@ -112,8 +127,6 @@
             Back</button>
 
     </div>
-
-    <!-- Adds the following CSS to the fields to make it look more organized -->
 
 </body>
 
