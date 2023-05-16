@@ -40,7 +40,7 @@ export class SignUpComponent implements OnInit {
 
     confirmPass: new FormControl('', [Validators.required])
 
-  },  {validators: MatchPasswordValidator()});
+  }, { validators: MatchPasswordValidator() });
 
 
 
