@@ -2,18 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
 
     <!-- <link rel="stylesheet" href="../../assets/stylesheets/styles.css"> -->
     <!-- Used to connect to the google reCAPTCHA V2 -->
-    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Stylesheet imported from jsdeliver.net. No CSS stylesheet for the form page -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
     <!-- Imported to allow the use of symbols for the form -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <!-- Imported to allow the use of symbols for the form -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -29,79 +29,149 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 -->
-
 </head>
 
 <body>
-
-    <!--This is for the sign up portion of the modal sign up pop up-->
+    <!--This is for the sign up portion of the reactive form-->
     <div class="sign-up-div">
-        <!--  <img class="image-flask" src="../../assets/images/flask.png"> -->
-        <h1 style="color: black;">Sign Up</h1>
-        <hr>
+        <h1 style="color: black">Sign Up</h1>
+        <hr />
+        <!--Start of the form where the user will start inputting data-->
         <form class="sign_up-form" [formGroup]="signUpGroup" (ngSubmit)="onSubmit()">
+            <span class="fa fa-solid fa-user-plus" style="font-size: 60px; color: black"></span>
 
-            <span class="fa fa-solid fa-user-plus" style="font-size: 60px; color:black"></span>
-
+            <!--This handels the first name of the input box-->
             <div class="form-field-firstname">
                 <label class="label_first_sign_up" generated="true" for="first_name"><b>First Name</b></label>
                 <input type="text" placeholder="First Name" id="first_name" name="FirstName" formControlName="firstName"
-                    #firstNameInput>
-                <div *ngIf="signUpGroup.controls['firstName'].invalid && signUpGroup.controls['firstName'].touched"
-                    class="alert alert-danger">
-                    <p><strong style="color: black;">First letter must be capitalized, no numbers, or special
-                            characters</strong></p>
+                    #firstNameInput />
+                <!--ngif is used in this case for validation-->
+                <div id="ng-style-firstName" *ngIf="
+              signUpGroup.controls['firstName'].invalid &&
+              signUpGroup.controls['firstName'].touched
+            " class="form-control-feedback">
+                    <!--Will show different messages based oon what the user types in the input box-->
+                    <div *ngIf="signUpGroup.controls['firstName'].errors?.['required']">
+                        First name is required
+                    </div>
+                    <div *ngIf="signUpGroup.controls['firstName'].errors?.['pattern']"> First letter must be upper case, no special characters or digits
+
+                    </div>
+                    <div *ngIf="signUpGroup.controls['firstName'].errors?.['minlength']">
+                        First name must be at least
+                        {{
+                        signUpGroup.controls['firstName'].errors?.['minlength'].requiredLength }}
+                        characters
+                    </div>
+                    <div *ngIf="signUpGroup.controls['firstName'].errors?.['maxlength']">
+                        First name must be at most
+                        {{
+                        signUpGroup.controls['firstName'].errors?.['maxlength'].requiredLength }}
+                        characters
+                    </div>
                 </div>
             </div>
 
             <div class="form-field-lastname">
-                <label class="label_last_sign_up" for="last_name"><b>Last
-                        Name</b></label>
+                <label class="label_last_sign_up" for="last_name"><b>Last Name</b></label>
                 <input type="text" placeholder="Last Name" id="last_name" name="LastName" formControlName="lastName"
-                    #lastNameInput>
-                <div *ngIf="signUpGroup.controls['lastName'].invalid && signUpGroup.controls['lastName'].touched"
-                    class="alert alert-danger">
-                    <p><strong style="color: black;">First letter must be capitalized, no numbers, or special
-                            characters</strong></p>
+                    #lastNameInput />
+                <div id="ng-style-lastName" *ngIf="
+              signUpGroup.controls['lastName'].invalid &&
+              signUpGroup.controls['lastName'].touched
+            " class="form-control-feedback">
+                    <div *ngIf="signUpGroup.controls['lastName'].errors?.['required']">
+                        Last name is required
+                    </div>
+                    <div *ngIf="signUpGroup.controls['lastName'].errors?.['minlength']">
+                        Last name must be at least
+                        {{
+                        signUpGroup.controls['lastName'].errors?.['minlength'].requiredLength }}
+                        characters
+                    </div>
+                    <div *ngIf="signUpGroup.controls['lastName'].errors?.['maxlength']">
+                        Last name must be at most
+                        {{
+                        signUpGroup.controls['lastName'].errors?.['maxlength'].requiredLength }}
+                        characters
+                    </div>
                 </div>
             </div>
 
             <div class="form-field-email">
                 <label class="label_email_sign_up" for="email"><b>Email</b></label>
-                <input type="email" placeholder="Email" id="email" name="Email" formControlName="email" #userEmailInput>
-                <div *ngIf="signUpGroup.controls['email'].invalid && signUpGroup.controls['email'].touched"
-                    class="alert alert-danger">
-                    <p><strong style="color: black;">Enter a valid email address!</strong></p>
+                <input type="email" placeholder="Email" id="email" name="Email" formControlName="email"
+                    #userEmailInput />
+                <div id="ng-style-email" *ngIf="
+              signUpGroup.controls['email'].invalid &&
+              signUpGroup.controls['email'].touched
+            " class="form-control-feedback">
+                    <div *ngIf="
+                signUpGroup.controls['email'].invalid &&
+                signUpGroup.controls['email'].touched
+              ">
+                        <div *ngIf="signUpGroup.controls['email'].errors?.['required']">
+                            Email is required
+                        </div>
+                        <div *ngIf="signUpGroup.controls['email'].errors?.['email']">
+                            Invalid email
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="form-field-password">
                 <label class="label_password_sign_up" for="password"><b>Password</b></label>
                 <input type="password" id="password" placeholder="Password" name="password" formControlName="password"
-                    #userPwdInput>
-                <div *ngIf="signUpGroup.controls['password'].invalid && signUpGroup.controls['password'].touched"
-                    class="alert alert-danger">
-                    <p><strong style="color: black;">Password length must be at least 6</strong></p>
+                    #userPwdInput />
+                <div id="ng-style-password" *ngIf="
+              signUpGroup.controls['password'].invalid &&
+              signUpGroup.controls['password'].touched
+            " class="form-control-feedback">
+                    <div *ngIf="signUpGroup.controls['password'].errors?.['required']">
+                        Password is required
+                    </div>
+                    <div *ngIf="signUpGroup.controls['password'].errors?.['minlength']">
+                        Password must be at least
+                        {{
+                        signUpGroup.controls['password'].errors?.['minlength'].requiredLength }}
+                        characters
+                    </div>
+                    <div *ngIf="signUpGroup.controls['password'].errors?.['maxlength']">
+                        Password must be at most
+                        {{
+                        signUpGroup.controls['password'].errors?.['maxlength'].requiredLength }}
+                        characters
+                    </div>
                 </div>
             </div>
 
             <div class="form-field-confirm-password">
                 <label class="label_confirm_password_sign_up" for="re-enter-password"><b>Re-enter password</b></label>
                 <input type="password" placeholder="Re-enter Password" id="confirm_password" name="Re-Password"
-                    formControlName="confirmPass">
-
+                    formControlName="confirmPass" />
+                    <div id="ng-style-confirm-password" *ngIf="signUpGroup.hasError('passwordMismatch') && signUpGroup.get('confirmPass')?.dirty">
+                          Passwords do not match.
+                      </div>
             </div>
 
             <!--reCAPTCHA key -->
             <div id="recaptcha-sign_up" class="g-recaptcha" data-sitekey="6LemIYAiAAAAAN7dsn6digu1hltW9LANmmBQKSoo">
             </div>
-            <span id="captcha" style="color:red"></span>
+            <span id="captcha" style="color: red"></span>
 
             <!-- <input style="position: relative; left: 190px;" type="submit" name="submit" id="submit-sign-up" value="Submit"> -->
 
-            <button id="signup" style="position: relative; left: 0px;" type="submit"
-                (click)="authService.SignUp(userEmailInput.value, userPwdInput.value, firstNameInput.value, lastNameInput.value)"
-                routerLink="/sign_in" [disabled]="!signUpGroup.valid">Sign up</button>
+            <button id="signup" style="position: relative; left: 0px" type="submit" (click)="
+            authService.SignUp(
+              userEmailInput.value,
+              userPwdInput.value,
+              firstNameInput.value,
+              lastNameInput.value
+            )
+          " routerLink="/sign_in" [disabled]="!signUpGroup.valid">
+                Sign up
+            </button>
 
             <!-- Continue with Google -->
             <!-- <div class="formGroup">
@@ -113,21 +183,21 @@
           Continue with Google
         </button> 
       </div> -->
-
         </form>
 
-        <hr>
+        <hr />
 
-        <p style="color:black;"><b>Already have an account?</b> <a routerLink="/sign_in">Sign In</a></p>
+        <p style="color: black">
+            <b>Already have an account?</b> <a routerLink="/sign_in">Sign In</a>
+        </p>
 
-        <hr>
+        <hr />
         <!-- <input style="position: relative; left: 190px;" type="button" value="Go Back" onclick="history.back()"> -->
 
-        <button style="position: relative; left: 0px;" type="submit" value="Go Back" onclick="history.back()">Go
-            Back</button>
-
+        <button style="position: relative; left: 0px" type="submit" value="Go Back" onclick="history.back()">
+            Go Back
+        </button>
     </div>
-
 </body>
 
 </html>

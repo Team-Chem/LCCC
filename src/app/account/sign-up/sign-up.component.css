@@ -50,22 +50,47 @@
 } */
 
 /*All of the labels for the input boxes of the form*/
-.label_first_sign_up{
-    position: relative; right: 207px;
+.label_first_sign_up {
+    position: relative;
+    right: 207px;
 }
 
-.label_last_sign_up{
-    position: relative; right: 207px;
+.label_last_sign_up {
+    position: relative;
+    right: 207px;
 }
 
-.label_email_sign_up{
-    position: relative; right: 227px;
+.label_email_sign_up {
+    position: relative;
+    right: 227px;
 }
 
-.label_password_sign_up{
-    position: relative; right: 213px;
+.label_password_sign_up {
+    position: relative;
+    right: 213px;
 }
 
-.label_confirm_password_sign_up{
-    position: relative; right: 178px;
+.label_confirm_password_sign_up {
+    position: relative;
+    right: 178px;
+}
+
+#ng-style-firstName {
+    color: red;
+}
+
+#ng-style-lastName {
+    color: red;
+}
+
+#ng-style-email {
+    color: red;
+}
+
+#ng-style-password {
+    color: red;
+}
+
+#ng-style-confirm-password {
+    color: red;
 }
