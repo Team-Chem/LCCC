@@ -54,7 +54,8 @@
                     <div *ngIf="signUpGroup.controls['firstName'].errors?.['required']">
                         First name is required
                     </div>
-                    <div *ngIf="signUpGroup.controls['firstName'].errors?.['pattern']"> First letter must be upper case, no special characters or digits
+                    <div *ngIf="signUpGroup.controls['firstName'].errors?.['pattern']"> First letter must be upper case,
+                        no special characters or digits
 
                     </div>
                     <div *ngIf="signUpGroup.controls['firstName'].errors?.['minlength']">
@@ -150,9 +151,10 @@
                 <label class="label_confirm_password_sign_up" for="re-enter-password"><b>Re-enter password</b></label>
                 <input type="password" placeholder="Re-enter Password" id="confirm_password" name="Re-Password"
                     formControlName="confirmPass" />
-                    <div id="ng-style-confirm-password" *ngIf="signUpGroup.hasError('passwordMismatch') && signUpGroup.get('confirmPass')?.dirty">
-                          Passwords do not match.
-                      </div>
+                <div id="ng-style-confirm-password"
+                    *ngIf="signUpGroup.hasError('passwordMismatch') && signUpGroup.get('confirmPass')?.dirty">
+                    Passwords do not match.
+                </div>
             </div>
 
             <!--reCAPTCHA key -->
