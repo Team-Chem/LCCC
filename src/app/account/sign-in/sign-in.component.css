@@ -1,3 +1,4 @@
+/*Controls the overall body of the page*/
 body {
     background-image: url('src\Images\testing-pic.jpg');
     background-position: center;
@@ -7,6 +8,7 @@ body {
     height: 100vh;
 }
 
+/*Container for the whole body*/
 .sign-in-div {
     position: relative;
     width: 525px;
@@ -23,17 +25,19 @@ body {
     top: 200px;
 }
 
+/*This also controls the sign in form*/
 .sign-in-form {
-    color: rgb(2, 2, 155);
     margin-bottom: 30px;
 }
 
+/*Header at top of sign in box*/
 h3 {
     color: rgb(0, 81, 255, 0.863);
     position: relative;
     left: 200px;
 }
 
+/*Email input box*/
 #input-email-user {
     position: relative;
     width: 350px;
@@ -45,10 +49,12 @@ h3 {
     /* transition: border-color 0.3s ease-in-out; */
 }
 
+/*Additonal styling to the email input box*/
 #input-email-user:focus {
     border-bottom: 2px solid rgb(0, 81, 255, 0.863);
 }
 
+/*Password input box*/
 #input-password-user {
     position: relative;
     width: 350px;
@@ -57,18 +63,20 @@ h3 {
     background-color: rgba(255, 255, 255, 0);
     border: none;
     outline: none;
-    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    /* transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; */
 }
 
+/*Additional styling to the password input box*/
 #input-password-user:focus {
     border-bottom: 2px solid rgb(0, 81, 255, 0.863);
 }
 
-.person-icon {
+/* .person-icon {
     text-align: center;
     color: blue;
-}
+} */
 
+/*The email icon next to the email text box*/
 #email-icon {
     position: relative;
     top: 20px;
@@ -76,6 +84,7 @@ h3 {
     color: rgb(0, 81, 255, 0.863);
 }
 
+/*The passowrd icon next to the password text box*/
 #password-icon {
     position: relative;
     top: 20px;
@@ -84,7 +93,7 @@ h3 {
 
 }
 
-.email {
+/* .email {
     position: relative;
     right: 225px;
 }
@@ -92,8 +101,9 @@ h3 {
 .password {
     position: relative;
     right: 210px;
-}
+} */
 
+/*Button to continue signing in*/
 .sign-in-button {
     position: relative;
     padding: 5px;
@@ -106,6 +116,7 @@ h3 {
 
 }
 
+/*Handles the "continue with Google for sign in"*/
 .google-sign-in {
     position: relative;
     text-align: center;
@@ -114,6 +125,7 @@ h3 {
     background-color: white;
 }
 
+/*Link for user to change password*/
 .forgot-password-link {
     position: relative;
     top: 0px;
@@ -121,18 +133,22 @@ h3 {
     color: rgb(0, 81, 255, 0.863);
 }
 
+/* Link to create account*/
 .create-acc-link {
+    color: rgb(2, 2, 155);
     position: relative;
     top: 15px;
     left: 50px;
 }
 
+/*Controls the horizontal bar and the display of it*/
 .hr-container {
     text-align: center;
     position: relative;
 }
 
 .hr-text {
+    color: black;
     position: absolute;
     top: 50%;
     left: 50%;
