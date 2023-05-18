@@ -1,7 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    background-color:#202b38;
+    background-color: #202b38;
     /*background-repeat: no-repeat;
     background-size: cover;*/
-    color:white;
+    color: white;
+}
+
+.navbar {
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-scrolled {
+    background-color: #333;
+    /* Dark color when scrolled */
 }

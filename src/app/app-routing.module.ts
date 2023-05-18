@@ -8,25 +8,25 @@ import { PasswordResetComponent } from "./account/authentication/password-reset/
 import { VerifyEmailComponent } from "./account/authentication/verify-email/verify-email.component";
 import { DashboardComponent } from "./account/dashboard/dashboard.component";
 import { AccountComponent } from "./account/account.component";
-import { EntryComponent } from "./entry/entry.component";
+import { MainSearchComponent } from "./search/main-search/main-search.component";
 
 // Route guard
 // import { AuthGuard } from "./services/guard/auth.guard";
 
 const appRoutes: Routes = [
-    {path: '', component: AboutComponent},
-    {path: 'sign_up', component: SignUpComponent},
-    {path: 'sign_in', component: SignInComponent},
-    {path: 'about', component: AboutComponent},
-    {path: 'password_reset', component: PasswordResetComponent},
-    {path: 'verify_email', component: VerifyEmailComponent},
-    {path: 'dashboard', component: DashboardComponent},
-    {path: 'account', component: AccountComponent},
-    {path: 'entry', component: EntryComponent}
+    { path: '', component: AboutComponent },
+    { path: 'sign_up', component: SignUpComponent },
+    { path: 'sign_in', component: SignInComponent },
+    { path: 'about', component: AboutComponent },
+    { path: 'password_reset', component: PasswordResetComponent },
+    { path: 'verify_email', component: VerifyEmailComponent },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'account', component: AccountComponent },
+    { path: 'search', component: MainSearchComponent },
 ];
 
 @NgModule({
-    imports:[RouterModule.forRoot(appRoutes)],
+    imports: [RouterModule.forRoot(appRoutes)],
     exports: [RouterModule]
 })
 export class AppRoutingModule {
