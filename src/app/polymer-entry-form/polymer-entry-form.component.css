@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 100px 0;
+  background: linear-gradient(to right, #ff5f6d, #ffc371);
+  color: white;
+  margin-top: 80px;
+  box-sizing: border-box;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+form {
+  width: 100%;
+  max-width: 600px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 10px #3f51b5;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  color: white;
+  background-color: #3f51b5;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #283593;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+.form-text {
+  color: white;
+  font-size: 0.8em;
+}
+
+/* side bar */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 80px;
+  bottom: 0;
+  width: 200px;
+  overflow: auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 2px 0 6px rgba(0,0,0,.1);
+  color: #333;
+}
+
+
+.sidebar {
+  position: fixed;
+  top: 80px;
+  bottom: 0;
+  width: 200px;
+  overflow-y: auto;
+}
+
+.sidebar .status-indicator {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.sidebar .status-indicator mat-icon {
+  font-size: 18px;
+}
+
+.sidebar a.complete {
+  color: #4caf50;
+}
+
+.sidebar a:not(.complete) {
+  color: #f44336;
+}

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MatIconModule} from "@angular/material/icon";
 
 import { AppComponent } from './app.component';
 import { GlobalsComponent } from './globals/globals.component';
@@ -57,6 +57,7 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './account/dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -116,6 +117,8 @@ import { DashboardComponent } from './account/dashboard/dashboard.component';
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [
     ScreenTrackingService,
