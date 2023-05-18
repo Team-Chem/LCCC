@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="sidebar">
+    <div *ngFor="let field of fields">
+      <a [routerLink]="'#' + field.name" [class.complete]="entryForm.controls[field.name].valid">
+        <span class="status-indicator" *ngIf="entryForm.controls[field.name].touched">
+          <ng-container *ngIf="entryForm.controls[field.name].valid; else incomplete">
+            <mat-icon>check_circle</mat-icon>
+          </ng-container>
+          <ng-template #incomplete>
+            <mat-icon>cancel</mat-icon>
+          </ng-template>
+        </span>
+        {{ field.label }}
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Polymer Entry</h2>
+    <p>Please enter the required fields *</p>
+
+    <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+      <div formGroupName="polymerData">
+        <label for="polymerName">Polymer Name*</label>
+        <input id="polymerName" type="text" formControlName="polymerName" placeholder="Enter a single polymer">
+        <small class="form-text text-muted">Enter in kilograms per mole</small>
+
+        <label for="molarMassRange">Molar Mass Range*</label>
+        <input id="molarMassRange" type="text" formControlName="molarMassRange" placeholder="Enter molar mass range">
+        <small class="form-text text-muted">Make sure the high is higher than the low</small>
+
+        <label for="kdCritical">Kd Critical*</label>
+        <input id="kdCritical" type="text" formControlName="kdCritical" placeholder="Enter Kd Critical in kg/mole">
+      </div>
+
+      <label for="mobilePhaseData">Mobile Phase Data*</label>
+      <input id="mobilePhaseData" type="text" formControlName="mobilePhaseData" placeholder="Enter a solvent or list of solvents">
+
+      <label for="composition">Composition*</label>
+      <div class="composition-input">
+        <input id="composition" type="text" formControlName="composition" placeholder="Enter your composition">
+        <select formControlName="compositionUnit">
+          <option value="wt">wt</option>
+          <option value="vol">vol</option>
+        </select>
+      </div>
+
+
+      <div formGroupName="stationaryPhaseData">
+        <label for="particleDiameter">Particle Diameter*</label>
+        <input id="particleDiameter" type="text" formControlName="particleDiameter" placeholder="Enter particle diameter in microns">
+
+        <label for="poreSizes">Pore Sizes*</label>
+        <input id="poreSizes" type="text" formControlName="poreSizes" placeholder="Enter pore sizes in Angstroms">
+      </div>
+
+      <label for="columnLength">Column Length*</label>
+      <input id="columnLength" type="text" formControlName="columnLength" placeholder="Enter column length in U l. centi">
+
+      <label for="columnName">Column Name*</label>
+      <input id="columnName" type="text" formControlName="columnName" placeholder="Enter column name">
+
+      <div formGroupName="chromatographyConditions">
+        <label for="temperature">Temperature*</label>
+        <input id="temperature" type="text" formControlName="temperature" placeholder="Enter temperature in Celsius">
+
+        <label for="pressure">Pressure*</label>
+        <input id="pressure" type="text" formControlName="pressure" placeholder="Enter pressure">
+
+        <label for="flowRate">Flow Rate*</label>
+        <input id="flowRate" type="text" formControlName="flowRate" placeholder="Enter flow rate in ml/min">
+
+        <label for="injectionVolume">Injection Volume*</label>
+        <input id="injectionVolume" type="text" formControlName="injectionVolume" placeholder="Enter injection volume in micro liters">
+
+        <label for="detectors">Detector(s)*</label>
+        <input id="detectors" type="text" formControlName="detectors" placeholder="Enter detectors as comma-separated list">
+      </div>
+
+      <div formGroupName="references">
+        <label for="doiNumber">DOI Number*</label>
+        <input id="doiNumber" type="text" formControlName="doiNumber" placeholder="Enter the DOI number or URL">
+      </div>
+
+      <button type="submit" [disabled]="!entryForm.valid">Continue</button>
+    </form>
+  </div>
+</div>
