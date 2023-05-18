@@ -38,6 +38,7 @@ import { SignInComponent } from './account/sign-in/sign-in.component';
 import { AppRoutingModule } from './app-routing.module';
 import { VerifyEmailComponent } from './account/authentication/verify-email/verify-email.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { DataEntryFormComponent } from "./data-entry-form/data-entry-form.component";
 
 // Firebase import for services and envirnment variable
 import { AngularFireModule } from '@angular/fire/compat';
@@ -94,6 +95,7 @@ import { DashboardComponent } from './account/dashboard/dashboard.component';
     SignInComponent,
     VerifyEmailComponent,
     DashboardComponent,
+    DataEntryFormComponent
   ],
   imports: [
     BrowserModule,
