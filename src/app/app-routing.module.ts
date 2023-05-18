@@ -9,6 +9,7 @@ import { VerifyEmailComponent } from "./account/authentication/verify-email/veri
 import { DashboardComponent } from "./account/dashboard/dashboard.component";
 import { AccountComponent } from "./account/account.component";
 import { MainSearchComponent } from "./search/main-search/main-search.component";
+import { PolymerEntryFormComponent } from "./polymer-entry-form/polymer-entry-form.component";
 
 // Route guard
 // import { AuthGuard } from "./services/guard/auth.guard";
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'account', component: AccountComponent },
     { path: 'search', component: MainSearchComponent },
+    { path: 'polymer-entry-form', component: PolymerEntryFormComponent }
 ];
 
 @NgModule({

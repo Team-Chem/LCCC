@@ -1,0 +1,27 @@
+<div class="form-container">
+  <h2>Polymer Entry</h2>
+  <p>Please enter the required fields *</p>
+  <form (ngSubmit)="onSubmit()" #polymerForm="ngForm">
+    <!-- Your form groups here. Here's an example: -->
+    <div class="form-group">
+      <label for="polymerName">Polymer Name:</label>
+      <input type="text" class="form-control" id="polymerName" placeholder="Enter in a single polymer" [(ngModel)]="polymerData.polymerName" name="polymerName" required>
+    </div>
+    <!-- More form groups... -->
+    <button type="button" class="btn btn-primary" (click)="openPreviewModal()">Preview</button>
+    <button type="submit" class="btn btn-success" [disabled]="!polymerForm.valid">Submit</button>
+  </form>
+</div>
+
+<!-- Preview Modal, using Angular Material Dialog -->
+<ng-template #previewModal let-data="data">
+  <h2 mat-dialog-title>Preview Data</h2>
+  <mat-dialog-content>
+    <!-- Preview data here. Here's an example: -->
+    <p>Polymer Name: {{data.polymerName}}</p>
+    <!-- More preview data... -->
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</ng-template>
