@@ -36,7 +36,7 @@ export class AuthService {
         }
     });
   }
-  
+
 //   SignUp(email: string, password: string, firstName: string, lastName: string) {
 //     return this.afAuth.createUserWithEmailAndPassword(email, password) // Creating a new user account in Firebase Authentication using the provided email address and password
 //     .then((userCredential) => { // Making a promise, user info is stored in userCredential object. Has the user property, which contains uid, email of user
@@ -46,14 +46,14 @@ export class AuthService {
 //       if (user != null) {
 //         // Will send verification email to the user
 //         this.SendVerificationEmail();
-        
+
 //         // Will only set the users data to Firebase if the email is verified
 //         user.reload().then(() =>{
 //           // Check to see if the email has been verified and set to true
 //           if (user.emailVerified) {
 //             this.SetUserData(user, email, password, firstName, lastName, );
 //             uid = user.uid; // Storing the uid from the user object
-      
+
 
 //             // Save additional for the user to the Firestore
 //             // Specifying what information that needs to be sent to the database
@@ -77,7 +77,7 @@ export class AuthService {
 //       console.log(`Failed to sign up user: ${errorCode} - ${errorMessage}`);
 //       // Optional: You can display an error message to the user
 //     });
-  
+
 //   }
 
 SignUp(email: string, password: string, firstName: string, lastName: string) {
@@ -89,19 +89,19 @@ SignUp(email: string, password: string, firstName: string, lastName: string) {
     if (user != null) {
       // Will send verification email to the user
       this.SendVerificationMail()
-      
+
       // Will only set the users data to Firebase if the email is verified
       if (user.emailVerified) {
         // Check to see if the email has been verified and set to true
-        
+
         // Hasing the password
         const saltRounds = 10; // number of times a random data string (known as a salt) is added to a password before it is hashed
-        bcrypt.hash(password, saltRounds) // passing in our password and the # of times we want to salt it 
+        bcrypt.hash(password, saltRounds) // passing in our password and the # of times we want to salt it
         .then((hashedPassword) => {
-        
+
         this.SetUserData(user, email, hashedPassword, firstName, lastName, false, Date());
           uid = user.uid; // Storing the uid from the user object
-    
+
 
           // Save additional for the user to the Firestore
           // Specifying what information that needs to be sent to the database
@@ -113,7 +113,7 @@ SignUp(email: string, password: string, firstName: string, lastName: string) {
           lastName: lastName,
           emailVerified: false,
           accountCreated: new Date()
-          
+
       });
     console.log(`User with email ${user.email} signed up successfully`);
     })
@@ -169,7 +169,7 @@ SignUp(email: string, password: string, firstName: string, lastName: string) {
         if (user != null) {
           return user.sendEmailVerification().then(() => {
             const userRef = this.afs.collection('users').doc(user.uid);
-            
+
             // Listen for changes to the user's authentication state
             this.afAuth.onAuthStateChanged((user: any) => {
               if (user && user.emailVerified) {
@@ -182,8 +182,8 @@ SignUp(email: string, password: string, firstName: string, lastName: string) {
           });
         }
       });
-  } 
-  
+  }
+
 // Allow the user to be able to reset their password
 async PasswordReset(email: string) {
   try {
@@ -224,7 +224,7 @@ GoogleAuth() {
 /* clickedOnVerificationLink() {
 
 } */
-  
+
   // Send data to firebase
   SetUserData(user: firebase.default.User, firstName: string, lastName: string, email: string, hashedPassword: string, emailVerified: boolean, accountCreated: string) {
     const userRef = this.afs.collection('users').doc(user.uid);

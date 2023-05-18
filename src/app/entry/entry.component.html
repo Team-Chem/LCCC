@@ -1,0 +1,7 @@
+<form action="" class="form-controll">
+  <input type="text" value="name" placeholder="Name" #name>
+  <input type="text" value="description" placeholder="Description"  #description>
+  <button class="btn btn-warning" (click)="entryService.addNewUser(name.value, description.value)">Submit</button>
+</form>
+
+<p>Showing current entry item</p>

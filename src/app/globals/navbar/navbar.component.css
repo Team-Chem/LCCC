@@ -1,18 +1,23 @@
+nav {
+  position: relative;
+  margin: 0 auto 0;
+  padding-top: 0px;
+}
+
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
   }
-  
+
   .navbar-nav .nav-link {
     font-size: 1.2rem;
     font-weight: normal;
   }
-  
+
   .navbar-nav .nav-link:hover {
     color: #007bff;
   }
-  
+
   .navbar-nav .active > .nav-link {
     color: #007bff;
   }
-  

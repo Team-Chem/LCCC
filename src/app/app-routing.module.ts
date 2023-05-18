@@ -8,6 +8,7 @@ import { PasswordResetComponent } from "./account/authentication/password-reset/
 import { VerifyEmailComponent } from "./account/authentication/verify-email/verify-email.component";
 import { DashboardComponent } from "./account/dashboard/dashboard.component";
 import { AccountComponent } from "./account/account.component";
+import { EntryComponent } from "./entry/entry.component";
 
 // Route guard
 // import { AuthGuard } from "./services/guard/auth.guard";
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
     {path: 'verify_email', component: VerifyEmailComponent},
     {path: 'dashboard', component: DashboardComponent},
     {path: 'account', component: AccountComponent},
+    {path: 'entry', component: EntryComponent}
 ];
 
 @NgModule({
