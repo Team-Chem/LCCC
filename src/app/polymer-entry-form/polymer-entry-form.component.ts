@@ -123,6 +123,9 @@ export class PolymerEntryFormComponent implements OnInit {
   */
 
   onSubmit() {
+
+    this.molarMassRange = [this.molarHigh, this.molarLow];
+
     this.entries.push(new PolymerEntry(this.polymerName, this.molarMassRange, this.solvent, this.diameter,
       this.poreSize, this.columnLength, this.columnName, this.temp, this.pressure, this.flowRate,
       this.injVolume, this.detectors, this.DOI))
