@@ -109,7 +109,7 @@ button:disabled {
   color: #f44336;
 }
 
-.nates-container{
+.polymer-entry-container{
   text-align: center;
   margin: 0 auto;
 }
@@ -121,4 +121,12 @@ form{
 .molarMassContainer{
   margin: 0 auto;
   text-align: center;
+}
+
+.polymerName-error-message {
+  position: absolute;
+  font-size: smaller;
+  left: 300px;
+  margin-top: -30px;
+
 }

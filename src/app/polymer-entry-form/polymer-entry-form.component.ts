@@ -1,8 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { PolymerEntry } from './polymer-entry-form.module';
 import { Injectable } from '@angular/core'; // Library for injection.
 import { HttpClient } from '@angular/common/http'; //Library for http requests
+import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB7ZIv9yI955npmzc5MSarDB4OJ75aM5p8",
+  authDomain: "lccc-951e9.firebaseapp.com",
+  databaseURL: "https://lccc-951e9-default-rtdb.firebaseio.com",
+  projectId: "lccc-951e9",
+  storageBucket: "lccc-951e9.appspot.com",
+  messagingSenderId: "490603146752",
+  appId: "1:490603146752:web:9667961e622f67770172e5",
+  measurementId: "G-TEPQ8F3KYQ"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 
 @Injectable({providedIn: 'root'}) //This allows for me to inject code through Http requests.
 @Component({
@@ -11,6 +33,7 @@ import { HttpClient } from '@angular/common/http'; //Library for http requests
   styleUrls: ['./polymer-entry-form.component.css']
 })
 export class PolymerEntryFormComponent implements OnInit {
+
   polymerName: string;
 
   molarHigh: number;
@@ -39,7 +62,7 @@ export class PolymerEntryFormComponent implements OnInit {
   entries: PolymerEntry[];
 
   //Need the constructor to initialize the http variable.
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient, private formBuilder: FormBuilder){
     this.polymerName = "";
 
     this.molarHigh = 0;
@@ -128,6 +151,24 @@ export class PolymerEntryFormComponent implements OnInit {
     this.molarMassRange = [this.molarHigh, this.molarLow];
     this.solvent = [this.solventList, this.solventType];
 
+    addDoc(collection(db, "PolymerData"), { //This adss a randomized document name and stores in the polymer information.
+      PolymerName: this.polymerName,
+      MolarMassRange: this.molarMassRange,
+      Solvent: this.solvent,
+      Diameter: this.diameter,
+      PoreSize: this.poreSize,
+      ColumnLength: this.columnLength,
+      ColumnName: this.columnName,
+      Temperature: this.temp,
+      Pressure: this.pressure,
+      FlowRate: this.flowRate,
+      InjectionVolume: this.injVolume,
+      Detectors: this.detectors,
+      DOI: this.DOI
+
+    });
+
+    /*
     this.entries.push(new PolymerEntry(this.polymerName, this.molarMassRange, this.solvent, this.diameter,
       this.poreSize, this.columnLength, this.columnName, this.temp, this.pressure, this.flowRate,
       this.injVolume, this.detectors, this.DOI))
@@ -135,6 +176,7 @@ export class PolymerEntryFormComponent implements OnInit {
     return this.http.put("https://lccc-951e9-default-rtdb.firebaseio.com/entries.json", this.entries
     ).subscribe(response => {
       console.log(response);
-    });
+    });*/
+
   }
 }
