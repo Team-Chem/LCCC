@@ -1,7 +1,7 @@
-<form action="" class="form-controll">
-  <input type="text" value="name" placeholder="Name" #name>
-  <input type="text" value="description" placeholder="Description"  #description>
-  <button class="btn btn-warning" (click)="entryService.addNewUser(name.value, description.value)">Submit</button>
-</form>
+<div class="form-controll">
+  <input type="text" [(ngModel)]="name">
+  <input type="text" [(ngModel)]="description">
+  <button class="btn btn-warning" (click)="addNewUser()"> Submit </button>
+</div>
 
 <p>Showing current entry item</p>

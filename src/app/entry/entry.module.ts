@@ -7,12 +7,4 @@ export class Entry{
     this.name = name;
     this.description = description;
   }
-
-  getEntryName() {
-    return this.name;
-  }
-
-  getEntryDescription(){
-    return this.description;
-  }
 }

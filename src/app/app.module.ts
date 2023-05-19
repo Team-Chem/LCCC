@@ -56,6 +56,8 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './account/dashboard/dashboard.component';
+import { EntryComponent } from './entry/entry.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -94,6 +96,7 @@ import { DashboardComponent } from './account/dashboard/dashboard.component';
     SignInComponent,
     VerifyEmailComponent,
     DashboardComponent,
+    EntryComponent
   ],
   imports: [
     BrowserModule,
@@ -114,6 +117,7 @@ import { DashboardComponent } from './account/dashboard/dashboard.component';
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     ScreenTrackingService,
