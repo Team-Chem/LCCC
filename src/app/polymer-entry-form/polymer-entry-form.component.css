@@ -22,7 +22,7 @@ form {
   margin-bottom: 20px;
 }
 
-input[type="text"] {
+input[type="text"], input[type=number], select {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -32,10 +32,16 @@ input[type="text"] {
   transition: all 0.3s ease;
 }
 
-input[type="text"]:focus {
+#molarMassRange{
+  width: 25%;
+  margin: 0 auto;
+}
+
+input[type="text"]:focus, input[type=number]:focus, select {
   border-color: #3f51b5;
   box-shadow: 0 0 10px #3f51b5;
 }
+
 
 button {
   display: block;
@@ -110,4 +116,9 @@ button:disabled {
 
 form{
   margin: 0 auto;
+}
+
+.molarMassContainer{
+  margin: 0 auto;
+  text-align: center;
 }

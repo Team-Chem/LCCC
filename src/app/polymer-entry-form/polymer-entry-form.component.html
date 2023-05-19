@@ -27,23 +27,46 @@
         <small class="form-text text-muted">Enter in kilograms per mole</small>
 
         <label for="molarMassRange">Molar Mass Range*</label>
-        <div class="input-group mb-3" formControlName="molarMassRange">
-          <input type="number" class="form-control" placeholder="High"
-          aria-label="MolarMassHigh" [(ngModel)]="molarHigh">
-          <span class="input-group-text">and</span>
-          <input type="number" class="form-control" placeholder="Low"
-          aria-label="MolarMassLow" [(ngModel)]="molarLow">
+        <div class="molarMassContainer">
+          <div class="input-group mb-3" formControlName="molarMassRange">
+            <input id="molarMassRange" type="number" formControlName="molarMassRange"
+            placeholder="Enter molar mass range"
+            (ngModelChange)="molarHigh = $event === 0 ? '' : $event" [ngModel]="molarHigh">
+            <!--<span class="input-group-text">and</span>-->
+            <input id="molarMassRange" type="number" formControlName="molarMassRange"
+            placeholder="Enter molar mass range"
+            (ngModelChange)="molarLow = $event === 0 ? '' : $event" [ngModel]="molarLow">
+          </div>
         </div>
+      </div>
         <small class="form-text text-muted">Make sure the high is higher than the low</small>
         <!--<input id="molarMassRange" type="text" formControlName="molarMassRange" placeholder="Enter molar mass range">
         <small class="form-text text-muted">Make sure the high is higher than the low</small>
 
         <label for="kdCritical">Kd Critical*</label>
         <input id="kdCritical" type="text" formControlName="kdCritical" placeholder="Enter Kd Critical in kg/mole">-->
-      </div>
 
       <label for="mobilePhaseData">Mobile Phase Data*</label>
-      <input id="mobilePhaseData" type="text" formControlName="mobilePhaseData"
+      <div class="cotainer">
+        <div class="row">
+          <div class="col-8">
+            <input id="mobilePhaseData" type="text" formControlName="mobilePhaseData"
+      placeholder="Enter a solvent or list of solvents" [(ngModel)]="solventList">
+          </div>
+          <div class="col-4">
+            <select formControlName="mobilePhaseData" style="float: left;"
+            [(ngModel)]="solventType">
+              <option value="wt">wt</option>
+              <option value="vol">vol</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <!--<input id="mobilePhaseData" type="text" formControlName="mobilePhaseData"
       placeholder="Enter a solvent or list of solvents" [(ngModel)]="solventList">
 
       <label for="composition">Composition*</label>
@@ -54,47 +77,57 @@
           <option value="wt">wt</option>
           <option value="vol">vol</option>
         </select>
-      </div>
+      </div>-->
 
 
       <div formGroupName="stationaryPhaseData">
         <label for="particleDiameter">Particle Diameter*</label>
-        <input id="particleDiameter" type="text" formControlName="particleDiameter"
-        placeholder="Enter particle diameter in microns" [(ngModel)]="diameter">
+        <input id="particleDiameter" type="number" formControlName="particleDiameter"
+        placeholder="Enter particle diameter in microns"
+        (ngModelChange)="diameter = $event === 0 ? '' : $event"
+        [ngModel]="diameter">
 
         <label for="poreSizes">Pore Sizes*</label>
         <input id="poreSizes" type="text" formControlName="poreSizes"
-        placeholder="Enter pore sizes in Angstroms" [(ngModel)]="poreSize">
+        placeholder="Enter pore sizes in Angstroms"
+        (ngModelChange)="poreSize = $event === 0 ? '' : $event" [ngModel]="poreSize">
       </div>
 
       <label for="columnLength">Column Length*</label>
       <input id="columnLength" type="text" formControlName="columnLength"
-      placeholder="Enter column length in U l. centi" [(ngModel)]="columnLength">
+      placeholder="Enter column length in U l. centi"
+      (ngModelChange)="columnLength = $event === 0 ? '' : $event" [ngModel]="columnLength">
 
       <label for="columnName">Column Name*</label>
       <input id="columnName" type="text" formControlName="columnName"
-      placeholder="Enter column name" [(ngModel)]="columnName">
+      placeholder="Enter column name"
+      (ngModelChange)="columnName = $event === 0 ? '' : $event" [ngModel]="columnName">
 
       <div formGroupName="chromatographyConditions">
         <label for="temperature">Temperature*</label>
         <input id="temperature" type="text" formControlName="temperature"
-        placeholder="Enter temperature in Celsius" [(ngModel)]="temp">
+        placeholder="Enter temperature in Celsius"
+        (ngModelChange)="temp = $event === 0 ? '' : $event" [ngModel]="temp">
 
         <label for="pressure">Pressure*</label>
         <input id="pressure" type="text" formControlName="pressure"
-        placeholder="Enter pressure" [(ngModel)]="pressure">
+        placeholder="Enter pressure"
+        (ngModelChange)="pressure = $event === 0 ? '' : $event" [ngModel]="pressure">
 
         <label for="flowRate">Flow Rate*</label>
         <input id="flowRate" type="text" formControlName="flowRate"
-        placeholder="Enter flow rate in ml/min" [(ngModel)]="flowRate">
+        placeholder="Enter flow rate in ml/min"
+        (ngModelChange)="flowRate = $event === 0 ? '' : $event" [ngModel]="flowRate">
 
         <label for="injectionVolume">Injection Volume*</label>
         <input id="injectionVolume" type="text" formControlName="injectionVolume"
-        placeholder="Enter injection volume in micro liters" [(ngModel)]="injVolume">
+        placeholder="Enter injection volume in micro liters"
+        (ngModelChange)="injVolume = $event === 0 ? '' : $event" [ngModel]="injVolume">
 
         <label for="detectors">Detector(s)*</label>
         <input id="detectors" type="text" formControlName="detectors"
-        placeholder="Enter detectors as comma-separated list" [(ngModel)]="detectors">
+        placeholder="Enter detectors as comma-separated list"
+        (ngModelChange)="detectors = $event === 0 ? '' : $event" [ngModel]="detectors">
       </div>
 
       <div formGroupName="references">

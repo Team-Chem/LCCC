@@ -124,7 +124,9 @@ export class PolymerEntryFormComponent implements OnInit {
 
   onSubmit() {
 
+    //These tuples need to have their individual values updated accordingly.
     this.molarMassRange = [this.molarHigh, this.molarLow];
+    this.solvent = [this.solventList, this.solventType];
 
     this.entries.push(new PolymerEntry(this.polymerName, this.molarMassRange, this.solvent, this.diameter,
       this.poreSize, this.columnLength, this.columnName, this.temp, this.pressure, this.flowRate,
