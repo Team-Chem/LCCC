@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
+//import { MatIconModule} from "@angular/material/icon";
 
 import { AppComponent } from './app.component';
 import { GlobalsComponent } from './globals/globals.component';
@@ -38,8 +38,9 @@ import { SignInComponent } from './account/sign-in/sign-in.component';
 import { AppRoutingModule } from './app-routing.module';
 import { VerifyEmailComponent } from './account/authentication/verify-email/verify-email.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { PolymerEntryFormComponent } from "./polymer-entry-form/polymer-entry-form.component";
 
-// Firebase import for services and envirnment variable
+// Firebase import for services and environment variable
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -57,6 +58,9 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './account/dashboard/dashboard.component';
 import { AuthGuard } from './services/guard/auth.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+//import { MatIconModule } from
 
 
 
@@ -95,6 +99,7 @@ import { AuthGuard } from './services/guard/auth.guard';
     SignInComponent,
     VerifyEmailComponent,
     DashboardComponent,
+    PolymerEntryFormComponent
   ],
   imports: [
     BrowserModule,
@@ -115,6 +120,9 @@ import { AuthGuard } from './services/guard/auth.guard';
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
+    //BrowserAnimationsModule,
+    //MatIconModule
   ],
   providers: [
     ScreenTrackingService,

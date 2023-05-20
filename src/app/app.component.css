@@ -1,0 +1,6 @@
+.background{
+  background-image: url('src\Images\periodic_table.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
