@@ -9,6 +9,7 @@ import { VerifyEmailComponent } from "./account/authentication/verify-email/veri
 import { DashboardComponent } from "./account/dashboard/dashboard.component";
 import { AccountComponent } from "./account/account.component";
 import { MainSearchComponent } from "./search/main-search/main-search.component";
+import { AuthGuard } from "./services/guard/auth.guard";
 
 // Route guard
 // import { AuthGuard } from "./services/guard/auth.guard";
@@ -16,7 +17,7 @@ import { MainSearchComponent } from "./search/main-search/main-search.component"
 const appRoutes: Routes = [
     { path: '', component: AboutComponent },
     { path: 'sign_up', component: SignUpComponent },
-    { path: 'sign_in', component: SignInComponent },
+    { path: 'sign_in', component: SignInComponent, canActivate: [AuthGuard] },
     { path: 'about', component: AboutComponent },
     { path: 'password_reset', component: PasswordResetComponent },
     { path: 'verify_email', component: VerifyEmailComponent },
