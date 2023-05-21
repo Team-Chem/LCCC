@@ -1,0 +1,39 @@
+:root {
+  --primary-color: #3A9DFF;
+  --secondary-color: #262626;
+  --tertiary-color: #C6C6C6;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 100px 0;
+  background: linear-gradient(to right, #8909ff, #ff2d97);
+  margin-top: 80px;
+  box-sizing: border-box;
+  /*height: calc(100vh - 80px);*/
+  border-radius: 25px;
+}
+
+.header {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.info-card {
+  background-color: var(--tertiary-color);
+  transition: transform .2s;
+}
+
+.info-card:hover {
+  transform: scale(1.03);
+}
+
+.card-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 1em;
+}
