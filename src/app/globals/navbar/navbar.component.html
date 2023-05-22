@@ -22,7 +22,8 @@
         <a class="nav-link" routerLink="/sign_up">Sign Up</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="authService.SignOut()" routerLink="/sign_in">
+        <a class="nav-link" *ngIf="authService.userData" (click)="authService.SignOut()" routerLink="/sign_in">
+          <!--There is a variable in the SetUserData function that holds this data. If the data is false then button won't show on navbar-->
           <i class="fas fa-sign-out-alt"></i>Log out
         </a>
       </li>

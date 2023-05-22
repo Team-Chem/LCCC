@@ -12,6 +12,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 // Password hahsing function
 import * as bcrypt from 'bcryptjs';
 import { Subscription } from 'rxjs';
+import { authState } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -19,7 +20,7 @@ import { Subscription } from 'rxjs';
 })
 export class AuthService {
 
-  // isLoggedIn = false;
+  // public loggedIn = false;
 
   userData: any;
   constructor(
@@ -27,18 +28,25 @@ export class AuthService {
     private afs: AngularFirestore, // Inject Firestore service
     private router: Router) {
 
-    // Takes the data from the user and saves it in a localstorage. Parsing over the data string to retrive info about the user
+    // this.loggedIn = !!sessionStorage.getItem('user');
+
+    // Takes the data from the user and saves it in a localstorage. Parsing over the data string to retrive info about the user. Tracks user login state.
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData)); // Putting data into JSON format from the localstorage where user data is saved
         JSON.parse(localStorage.getItem('user')!); // Retrieve data
+        console.log("Keeping track of user login!");
       } else {
         localStorage.setItem('user', 'null'); // Set user data to Null if there is none
         JSON.parse(localStorage.getItem('user')!); // Retrieve data
       }
     });
   }
+
+  // isLoggedIn() {
+  //   return this.loggedIn;
+  // }
 
   //   SignUp(email: string, password: string, firstName: string, lastName: string) {
   //     return this.afAuth.createUserWithEmailAndPassword(email, password) // Creating a new user account in Firebase Authentication using the provided email address and password
@@ -155,14 +163,29 @@ export class AuthService {
   }
 
   // TODO: Will need to create a button that allows the user to sign out. Can add this button on the navbar.
-  async SignOut() {
-    try {
-      await this.afAuth.signOut();
-      console.log('User signed out.');
-    } catch (error) {
-      console.error(error);
-    }
+  // async SignOut() {
+  //   try {
+  //     await this.afAuth.signOut();
+  //     console.log('User signed out.');
+  //     sessionStorage.removeItem('user');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  SignOut() {
+    // Perform sign-out operation
+    this.afAuth.signOut().then(() => {
+      this.userData = null; // Update the userData property immediately
+      sessionStorage.removeItem('user');
+      console.log("User has signed out successfully");
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(`Failed to sign out user: ${errorCode} - ${errorMessage}`);
+    });
   }
+
 
 
   // When the user makes an account a verification email will be sent to them to verify.
@@ -221,20 +244,10 @@ export class AuthService {
   //   return user !== null && user.emailVerified !== false ? true : false;
   // }
 
-  isLoggedIn() {
-    localStorage.setItem('user', JSON.stringify(this.userData))
 
-    const storedUserData = localStorage.getItem('user');
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData);
-    }
-
-    console.log("User has signed in!");
-  }
-
-  isAuthenticated() {
-    return this.isLoggedIn;
-  }
+  // isAuthenticated() {
+  //   return this.isLoggedIn;
+  // }
 
 
 
