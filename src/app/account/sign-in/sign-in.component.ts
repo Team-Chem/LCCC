@@ -6,8 +6,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+
+  // public showSignOutButton: boolean = false;
+
   constructor(
     public authService: AuthService
   ) { }
-  ngOnInit() { }
+  ngOnInit() {
+    // this.showSignOutButton = this.authService.isLoggedIn();
+  }
 }
