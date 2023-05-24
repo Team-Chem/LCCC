@@ -1,73 +1,16 @@
-<div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-6">
-        <form class="form-inline">
-          <div class="input-group w-100">
-            <input type="text" class="form-control form-control-lg" placeholder="Search for a polymer">
-            <div class="input-group-append">
-              <button class="btn btn-primary btn-lg" type="submit">Search</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-lg-8 offset-lg-2">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Search Results</h5>
-            <div class="list-group">
-                <p *ngFor="let item of items">
-                    <a href="#" class="list-group-item list-group-item-action" (click)="toggleDetails(item)">{{ item.name }}</a>
-                    <td colspan="4" *ngIf="item.showDetails">
-                        <div class="details">
-                          <p>Phone: {{ item.phone }}</p>
-                          <p>Email: {{ item.email }}</p>
-                          <p>Notes: {{ item.notes }}</p>
-                        </div>
-                      </td>
-                    <!--<td>{{ item.age }}</td>
-                    <td>{{ item.address }}</td>-->
-                    <!--<td><a href="#" (click)="toggleDetails(item)">Show Details</a></td>-->
-                </p>
-              
-              <!--<a href="#" class="list-group-item list-group-item-action">Polymer 2</a>
-              <a href="#" class="list-group-item list-group-item-action">Polymer 3</a>
-              <a href="#" class="list-group-item list-group-item-action">Polymer 4</a>-->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<div>
-   <!-- <table class="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Address</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of items">
-            <td>{{ item.name }}</td>
-            <td>{{ item.age }}</td>
-            <td>{{ item.address }}</td>
-            <td><a href="#" (click)="toggleDetails(item)">Show Details</a></td>
-          </tr>
-          <tr *ngFor="let item of items">
-            <td colspan="4" *ngIf="item.showDetails">
-              <div class="details">
-                <p>Phone: {{ item.phone }}</p>
-                <p>Email: {{ item.email }}</p>
-                <p>Notes: {{ item.notes }}</p>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>-->
-         
-      
+
+<div class="table-container mat-elevation-z8">
+  <mat-form-field>
+    <input matInput [formControl]="searchControl" placeholder="Enter search term" />
+  </mat-form-field>
+      <table mat-table [dataSource]="dataSource" matSort class="mat-table">
+        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSize]="pageSize" [length]="totalItems" (page)="onPageChange($event)"></mat-paginator>
+</div>

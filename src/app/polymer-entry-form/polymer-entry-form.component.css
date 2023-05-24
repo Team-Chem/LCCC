@@ -25,7 +25,7 @@ form {
 input[type="text"], input[type=number], select {
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 10px 0px;
   box-sizing: border-box;
   border-radius: 10px;
   border: 2px solid #ccc;
@@ -37,11 +37,14 @@ input[type="text"], input[type=number], select {
   margin: 0 auto;
 }
 
-input[type="text"]:focus, input[type=number]:focus, select {
+input[type="text"]:focus, input[type=number]:focus, select:focus {
   border-color: #3f51b5;
   box-shadow: 0 0 10px #3f51b5;
 }
 
+input[type=number]{
+  width: 25%;
+}
 
 button {
   display: block;
@@ -128,4 +131,58 @@ form{
   left: 300px;
   margin-top: -30px;
 
+}
+
+h4 {
+  color: black;
+  text-align: left;
+}
+
+hr{
+  width: 100%;
+}
+
+label{
+  color: black;
+  text-align: center;
+}
+
+#solventList {
+  width: 80%;
+}
+#solventType {
+  width: 15%;
+}
+span {
+  color: black;
+  margin-left: 0%;;
+}
+
+/*Alligning all of these input values. */
+#temp {
+  margin-left: 10%;
+}
+
+#particle {
+  margin-left: 4.5%;
+}
+
+#pore {
+  margin-left: 14%;
+}
+
+#col-length {
+  margin-left: 6.5%;
+}
+
+#pressure {
+  margin-left: 15%;
+}
+
+#flow {
+  margin-left: 13.5%;
+}
+
+#inj {
+  margin-left: 5%;
 }

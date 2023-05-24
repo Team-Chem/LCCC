@@ -59,7 +59,13 @@ import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './account/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-//import { MatIconModule } from
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgSwitch, NgSwitchCase } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 
@@ -99,6 +105,7 @@ import { HttpClientModule } from '@angular/common/http';
     VerifyEmailComponent,
     DashboardComponent,
     PolymerEntryFormComponent
+
   ],
   imports: [
     BrowserModule,
@@ -119,7 +126,14 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    NgSwitch,
+    NgSwitchCase,
+    MatFormFieldModule,
+    MatInputModule
     //BrowserAnimationsModule,
     //MatIconModule
   ],

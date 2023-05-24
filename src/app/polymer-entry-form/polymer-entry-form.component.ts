@@ -3,10 +3,10 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { PolymerEntry } from './polymer-entry-form.module';
 import { Injectable } from '@angular/core'; // Library for injection.
 import { HttpClient } from '@angular/common/http'; //Library for http requests
-import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-
+import { AuthService } from '../services/auth.service'; // Probably need this to get the user id.
 
 
 
@@ -23,6 +23,9 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
+//const app = provideFirebaseApp;
+
+console.log(app);
 const db = getFirestore(app);
 
 
@@ -84,6 +87,7 @@ export class PolymerEntryFormComponent implements OnInit {
     this.detectors = [];
     this.DOI = "";
     //This next part is just putting in a default PolymerEntry ojbect that is just filled with the empty values.
+    //TODO I probably need to delete this class because it is not really necessary.
     this.entries = [new PolymerEntry(this.polymerName, this.molarMassRange, this.solvent, this.diameter,
       this.poreSize, this.columnLength, this.columnName, this.temp, this.pressure, this.flowRate,
       this.injVolume, this.detectors, this.DOI)];
@@ -112,31 +116,28 @@ export class PolymerEntryFormComponent implements OnInit {
   entryForm!: FormGroup;
 
   ngOnInit() {
+    /*
+      This is creating an entry form with a form group with group controls so, that I can control the validations for user input.
+      You can directly get the values from the entry form and avoid having to use two way binding with this. If you attempt to use
+      two way binding it will cause some conflicst so just make sure to just use this
+    */
     this.entryForm = new FormGroup({
-      'polymerData': new FormGroup({
-        'polymerName': new FormControl(null, Validators.required),
-        'molarMassRange': new FormControl(null, Validators.required),
-        'kdCritical': new FormControl(null, Validators.required),
-      }),
-      'mobilePhaseData': new FormControl(null, Validators.required),
-      'composition': new FormControl(null, Validators.required),
-      'stationaryPhaseData': new FormGroup({
-        'particleDiameter': new FormControl(null, Validators.required),
-        'poreSizes': new FormControl(null, Validators.required),
-      }),
-      'columnLength': new FormControl(null, Validators.required),
-      'columnName': new FormControl(null, Validators.required),
-      'chromatographyConditions': new FormGroup({
-        'temperature': new FormControl(null, Validators.required),
-        'pressure': new FormControl(null, Validators.required),
-        'flowRate': new FormControl(null, Validators.required),
-        'injectionVolume': new FormControl(null, Validators.required),
-        'detectors': new FormControl(null, Validators.required),
-      }),
-      'references': new FormGroup({
-        'doiNumber': new FormControl(null, Validators.required),
-      })
-    });
+      polymerName: new FormControl(""),
+      molarHigh: new FormControl(NaN),
+      molarLow: new FormControl(NaN),
+      solventList: new FormControl(""),
+      solventType: new FormControl(""),
+      poreSize: new FormControl(NaN),
+      columnLength: new FormControl(NaN),
+      columnName: new FormControl(""),
+      temperature: new FormControl(NaN),
+      pressure: new FormControl(NaN),
+      particle: new FormControl(NaN),
+      flowRate: new FormControl(NaN),
+      injVolume: new FormControl(NaN),
+      detectors: new FormControl(""),
+      DOI: new FormControl("")
+    })
   }
 
   /*
@@ -148,35 +149,43 @@ export class PolymerEntryFormComponent implements OnInit {
   onSubmit() {
 
     //These tuples need to have their individual values updated accordingly.
-    this.molarMassRange = [this.molarHigh, this.molarLow];
-    this.solvent = [this.solventList, this.solventType];
+    this.molarMassRange = [this.entryForm.get('molarHigh')?.value || NaN, this.entryForm.get('molarLow')?.value || NaN];
+    this.solvent = [this.entryForm.get('solventList')?.value || "", this.entryForm.get('solventType')?.value || ""];
 
-    addDoc(collection(db, "PolymerData"), { //This adss a randomized document name and stores in the polymer information.
-      PolymerName: this.polymerName,
+    const documentData = { //this is just for showing the values inside of the console log for testing
+      PolymerName: this.entryForm.get('polymerName')?.value || "",
       MolarMassRange: this.molarMassRange,
       Solvent: this.solvent,
-      Diameter: this.diameter,
-      PoreSize: this.poreSize,
-      ColumnLength: this.columnLength,
-      ColumnName: this.columnName,
-      Temperature: this.temp,
-      Pressure: this.pressure,
-      FlowRate: this.flowRate,
-      InjectionVolume: this.injVolume,
-      Detectors: this.detectors,
-      DOI: this.DOI
+      Diameter: this.entryForm.get('particle')?.value || NaN,
+      PoreSize: this.entryForm.get('poreSize')?.value || NaN,
+      ColumnLength: this.entryForm.get('columnLength')?.value || NaN,
+      ColumnName: this.entryForm.get('columnName')?.value || "",
+      Temperature: this.entryForm.get('temperature')?.value || NaN,
+      Pressure: this.entryForm.get('pressure')?.value || NaN,
+      FlowRate: this.entryForm.get('flowRate')?.value || NaN,
+      InjectionVolume: this.entryForm.get('injVolume')?.value || NaN,
+      Detectors: this.entryForm.get('detectors')?.value || "",
+      DOI: this.entryForm.get('DOI')?.value || ""
+    };
+
+    addDoc(collection(db, "PolymerData"), { //This adss a randomized document name and stores in the polymer information.
+      PolymerName: this.entryForm.get('polymerName')?.value || "",
+      MolarMassRange: this.molarMassRange,
+      Solvent: this.solvent,
+      Diameter: this.entryForm.get('particle')?.value || NaN,
+      PoreSize: this.entryForm.get('poreSize')?.value || NaN,
+      ColumnLength: this.entryForm.get('columnLength')?.value || NaN,
+      ColumnName: this.entryForm.get('columnName')?.value || "",
+      Temperature: this.entryForm.get('temperature')?.value || NaN,
+      Pressure: this.entryForm.get('pressure')?.value || NaN,
+      FlowRate: this.entryForm.get('flowRate')?.value || NaN,
+      InjectionVolume: this.entryForm.get('injVolume')?.value || NaN,
+      Detectors: this.entryForm.get('detectors')?.value || "",
+      DOI: this.entryForm.get('DOI')?.value || ""
 
     });
 
-    /*
-    this.entries.push(new PolymerEntry(this.polymerName, this.molarMassRange, this.solvent, this.diameter,
-      this.poreSize, this.columnLength, this.columnName, this.temp, this.pressure, this.flowRate,
-      this.injVolume, this.detectors, this.DOI))
-      //You use put instead of push to auto loop through a list. You can use push for a single value.
-    return this.http.put("https://lccc-951e9-default-rtdb.firebaseio.com/entries.json", this.entries
-    ).subscribe(response => {
-      console.log(response);
-    });*/
+    console.log("Document data:", documentData); //displaying the information which should show in the console log because it is also located in local storage.
 
   }
 }
