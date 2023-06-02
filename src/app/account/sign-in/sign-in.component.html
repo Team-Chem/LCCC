@@ -26,7 +26,7 @@
             <span class="material-symbols-outlined" style="font-size: 60px; color:black">person</span>
         </div> -->
 
-        <form class="sign-in-form">
+        <form class="sign-in-form" [formGroup]="signInGroup" (ngSubmit)="onSubmit()">
 
             <div class="container">
 
@@ -37,7 +37,8 @@
                 </div>
 
                 <!-- <label class="email" for="email"><b>Email</b></label> -->
-                <input type="text" placeholder="Email" id="input-email-user" name="email" #userName required>
+                <input type="text" placeholder="Email" formControlName="email" id="input-email-user" name="email"
+                    #userName required>
 
                 <div id="password-icon">
                     <span class="material-symbols-outlined">
@@ -46,8 +47,8 @@
                 </div>
 
                 <!-- <label class="password" for="password"><b>Password</b></label> -->
-                <input type="password" placeholder="Password" id="input-password-user" name="password" required
-                    #userPassword required>
+                <input type="password" placeholder="Password" formControlName="password" id="input-password-user"
+                    name="password" required #userPassword required>
 
                 <hr>
 
@@ -55,7 +56,8 @@
 
                 <div>
                     <input type="button" value="Continue" class="sign-in-button"
-                        (click)="authService.SignIn(userName.value, userPassword.value)" routerLink="/account">
+                        (click)="authService.SignIn(userName.value, userPassword.value)" routerLink="/account"
+                        [disabled]="!signInGroup.valid">
                 </div>
 
                 <div class="hr-container">
