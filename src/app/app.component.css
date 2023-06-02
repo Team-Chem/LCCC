@@ -1,6 +1,35 @@
-.background{
-  background-image: url('src\Images\periodic_table.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+/*.background{*/
+/*  background-image: url('src\Images\periodic_table.png');*/
+/*  background-position: center;*/
+/*  background-repeat: no-repeat;*/
+/*  background-size: cover;*/
+/*}*/
+
+/* app.component.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+html, body, app-root {
+  height: 100%;
+}
+body {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }

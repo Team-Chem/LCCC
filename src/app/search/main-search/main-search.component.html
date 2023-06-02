@@ -1,16 +1,15 @@
-
 <div class="table-container mat-elevation-z8">
   <mat-form-field>
     <input matInput [formControl]="searchControl" placeholder="Enter search term" />
   </mat-form-field>
-      <table mat-table [dataSource]="dataSource" matSort class="mat-table">
-        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
-          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
-        </ng-container>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-table">
+    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+    </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      <mat-paginator [pageSize]="pageSize" [length]="totalItems" (page)="onPageChange($event)"></mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSize]="pageSize" [length]="totalItems" (page)="onPageChange($event)"></mat-paginator>
 </div>
