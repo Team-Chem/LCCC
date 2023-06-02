@@ -100,6 +100,7 @@ export class AuthService {
       });
   }
 
+  signedIn = false; // This variable will be used to determine if user has been signed in or not. Used to hide or show buttons on navbar
   SignIn(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email, password) // Asynchronously signs in using an email and password.
       .then((userCredential) => {
@@ -108,6 +109,7 @@ export class AuthService {
           // Add code to re route user to a page once they sign in.
 
           console.log(`User with email ${user.email} signed in successfully`);
+          this.signedIn = true;
         }
       })
       .catch((error) => {
@@ -132,6 +134,7 @@ export class AuthService {
   SignOut() {
     // Perform sign-out operation
     this.afAuth.signOut().then(() => {
+      this.signedIn = false;
       this.userData = null; // Update the userData property immediately
       sessionStorage.removeItem('user');
       console.log("User has signed out successfully");
