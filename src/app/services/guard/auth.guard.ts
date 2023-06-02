@@ -3,22 +3,23 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthGuard implements CanActivate {
-//   constructor(
-//     @Inject(AuthService) public authService: AuthService,
-//     public router: Router
-//   ){ }
-//   canActivate(
-//     next: ActivatedRouteSnapshot,
-    // route: ActivatedRouteSnapshot,
-//     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-//       if(this.authService.isLoggedIn !== true) {
-//         this.router.navigate(['sign-in'])
-//       }
-//       return true;
-//   }
-  
-// }
+class UserToken { }
+class Permissions {
+    canActivate(): boolean {
+        return true;
+    }
+}
+
+
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+    constructor(private authService: AuthService, private router: Router) { };
+
+    canActivate() {
+        console.log("hello")
+        return true;
+    }
+
+}

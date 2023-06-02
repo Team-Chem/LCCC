@@ -37,7 +37,7 @@ import { SignUpComponent } from './account/sign-up/sign-up.component';
 import { SignInComponent } from './account/sign-in/sign-in.component';
 import { AppRoutingModule } from './app-routing.module';
 import { VerifyEmailComponent } from './account/authentication/verify-email/verify-email.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { PolymerEntryFormComponent } from "./polymer-entry-form/polymer-entry-form.component";
 
 // Firebase import for services and environment variable
@@ -46,20 +46,27 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
-import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { provideFunctions,getFunctions } from '@angular/fire/functions';
-import { provideMessaging,getMessaging } from '@angular/fire/messaging';
-import { providePerformance,getPerformance } from '@angular/fire/performance';
-import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
-import { provideStorage,getStorage } from '@angular/fire/storage';
+import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+import { providePerformance, getPerformance } from '@angular/fire/performance';
+import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './account/dashboard/dashboard.component';
+import { AuthGuard } from './services/guard/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-//import { MatIconModule } from
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgSwitch, NgSwitchCase } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 
@@ -99,6 +106,7 @@ import { HttpClientModule } from '@angular/common/http';
     VerifyEmailComponent,
     DashboardComponent,
     PolymerEntryFormComponent
+
   ],
   imports: [
     BrowserModule,
@@ -119,7 +127,14 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    NgSwitch,
+    NgSwitchCase,
+    MatFormFieldModule,
+    MatInputModule
     //BrowserAnimationsModule,
     //MatIconModule
   ],
@@ -127,6 +142,7 @@ import { HttpClientModule } from '@angular/common/http';
     ScreenTrackingService,
     UserTrackingService,
     AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })
