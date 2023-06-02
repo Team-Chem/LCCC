@@ -67,6 +67,9 @@ import { NgSwitch, NgSwitchCase } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
+// import { UserService } from './services/user.service';
+import { User } from './services/user.model';
+
 
 
 
@@ -105,7 +108,7 @@ import { MatInputModule } from '@angular/material/input';
     SignInComponent,
     VerifyEmailComponent,
     DashboardComponent,
-    PolymerEntryFormComponent
+    PolymerEntryFormComponent,
 
   ],
   imports: [
@@ -143,6 +146,8 @@ import { MatInputModule } from '@angular/material/input';
     UserTrackingService,
     AuthService,
     AuthGuard,
+    User,
+    
   ],
   bootstrap: [AppComponent]
 })
