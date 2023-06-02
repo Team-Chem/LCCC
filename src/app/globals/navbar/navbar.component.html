@@ -13,13 +13,17 @@
         <a class="nav-link" routerLink="/search">Search</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/polymer-entry-form">New Entry</a>
+        <a class="nav-link" *ngIf="authService.signedIn && authService.userData" routerLink="/polymer-entry-form">New
+          <!--User must signed in and data for account must be present for button to show on navbar-->
+          Entry</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/sign_in">Sign In</a>
+        <a class="nav-link" *ngIf="!authService.signedIn && !authService.userData " routerLink="/sign_in">Sign In</a>
+        <!--If user is not signed in and their data for account is null then button will appear on navbar-->
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/sign_up">Sign Up</a>
+        <a class="nav-link" *ngIf="!authService.signedIn && !authService.userData" routerLink="/sign_up">Sign Up</a>
+        <!--If user is not signed in and their data for account is null then button will appear on navbar-->
       </li>
       <li class="nav-item">
         <a class="nav-link" *ngIf="authService.userData" (click)="authService.SignOut()" routerLink="/sign_in">
