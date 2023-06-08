@@ -12,6 +12,9 @@ import { user } from '@angular/fire/auth';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+  // These two variables are for the two way binding in the sign up page.
+  userEmail: string = '';
+  userPassword: string = '';
 
   onSubmit() {
 
@@ -26,8 +29,6 @@ export class SignInComponent implements OnInit {
 
   });
 
-
-  userEmail = null;
   constructor(public authService: AuthService, private formBuilder: FormBuilder, private afs: AngularFirestore, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
