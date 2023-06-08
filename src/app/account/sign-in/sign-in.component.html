@@ -38,7 +38,7 @@
 
                 <!-- <label class="email" for="email"><b>Email</b></label> -->
                 <input type="text" placeholder="Email" formControlName="email" id="input-email-user" name="email"
-                    #userName required>
+                    [(ngModel)]="userEmail">
 
                 <div id="password-icon">
                     <span class="material-symbols-outlined">
@@ -48,7 +48,7 @@
 
                 <!-- <label class="password" for="password"><b>Password</b></label> -->
                 <input type="password" placeholder="Password" formControlName="password" id="input-password-user"
-                    name="password" required #userPassword required>
+                    name="password" [(ngModel)]="userPassword">
 
                 <hr>
 
@@ -56,7 +56,7 @@
 
                 <div>
                     <input type="button" value="Continue" class="sign-in-button"
-                        (click)="authService.SignIn(userName.value, userPassword.value)" routerLink="/account"
+                        (click)="authService.SignIn(userEmail, userPassword)" routerLink="/account"
                         [disabled]="!signInGroup.valid">
                 </div>
 
