@@ -32,4 +32,21 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
+  // Create function that grabs the emaail from the database that the user is trying to sign in with
+  checkEmailFromUser() {
+
+  }
+
+
+  // Create a function that grabs the password from the database  that the user is tring to sign in with
+  checkPasswordFromUser() {
+
+  }
+
+  // If these two values are not from the same user then deny entry to page, else grant entry. If email in istance of UID and password is also in instance of UID then return true else false.
+  isEmailandPasswordCorrect() {
+
+  }
 }

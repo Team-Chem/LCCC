@@ -23,27 +23,25 @@
             </div>
             <div class="col-md-5 border-right" *ngIf="authService.userData as user">
                 <div class="media-body">
-                    <h1>Hello: <strong>{{(accountCreated) ? user.displayName : 'User'}}</strong></h1>
-                    <p>User ID: <strong>{{email}}</strong></p>
-                    <p>Email: <strong>{{accountCreated}}</strong></p>
-                    <p>Email: <strong>{{lastName}}</strong></p>
-
-                    <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+                    <h2><strong>Account Overview</strong></h2>
                 </div>
                 <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right"><label class='labels'>Profile Settings</label></h4>
-                    </div>
-                    <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
                     <div class="row mt-2">
                         <div class="col-md-6">
-                            <label class="labels"></label>
-                            <input type="text" class="form-control" [placeholder]="user.displayName">
+                            <label class="labels">First Name</label>
+                            <input type="text" class="form-control" [placeholder]="firstName" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label class="labels">{{(user.displayName) ? user.displayName :
-                                'User'}}</label>
-                            <input type="text" class="form-control" value="" placeholder="doe">
+                            <label class="labels">Last Name</label>
+                            <input type="text" class="form-control" [placeholder]="lastName" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Email</label>
+                            <input type="text" class="form-control" [placeholder]="email" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Password</label>
+                            <input type="text" class="form-control" placeholder="*********" readonly>
                         </div>
                     </div>
                     <div class="row mt-3">
