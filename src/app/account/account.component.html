@@ -23,9 +23,11 @@
             </div>
             <div class="col-md-5 border-right" *ngIf="authService.userData as user">
                 <div class="media-body">
-                    <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-                    <p>User ID: <strong>{{user.uid}}</strong></p>
-                    <p>Email: <strong>{{user.email}}</strong></p>
+                    <h1>Hello: <strong>{{(accountCreated) ? user.displayName : 'User'}}</strong></h1>
+                    <p>User ID: <strong>{{email}}</strong></p>
+                    <p>Email: <strong>{{accountCreated}}</strong></p>
+                    <p>Email: <strong>{{lastName}}</strong></p>
+
                     <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
                 </div>
                 <div class="p-3 py-5">

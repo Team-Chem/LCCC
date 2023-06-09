@@ -20,7 +20,6 @@ export class SignInComponent implements OnInit {
 
   }
 
-  // public showSignOutButton: boolean = false;
 
   signInGroup = this.formBuilder.group({
     email: new FormControl('', [Validators.required]),
@@ -32,6 +31,5 @@ export class SignInComponent implements OnInit {
   constructor(public authService: AuthService, private formBuilder: FormBuilder, private afs: AngularFirestore, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
-
   }
 }

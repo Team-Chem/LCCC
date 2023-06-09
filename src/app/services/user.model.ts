@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 
 export class User {
   uid!: string;
@@ -7,5 +8,5 @@ export class User {
   displayName!: string;
   photoURL!: string;
   emailVerified!: boolean;
-  } 
-  
+  accountCreated!: Timestamp;
+}
