@@ -67,6 +67,10 @@ import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 
 // import { UserService } from './services/user.service';
 import { User } from './services/user.model';
@@ -142,6 +146,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatSidenavModule,
     BrowserAnimationsModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule
     //BrowserAnimationsModule,
     //MatIconModule
   ],
