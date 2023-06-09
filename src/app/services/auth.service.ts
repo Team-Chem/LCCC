@@ -113,6 +113,7 @@ export class AuthService {
           this.currentSignedInUser = user.uid;
           this.signedIn = true;
         }
+        return userCredential;
       })
       .catch((error) => {
         const errorCode = error.code;
