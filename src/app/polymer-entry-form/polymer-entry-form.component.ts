@@ -51,7 +51,7 @@ export class PolymerEntryFormComponent implements OnInit {
   poreSize: number;
   columnLength: number;
   columnName: string;
-  temp: number;
+  temperature: number;
   pressure: number;
   flowRate: number;
   injVolume: number;
@@ -80,7 +80,7 @@ export class PolymerEntryFormComponent implements OnInit {
     this.poreSize = 0;
     this.columnLength = 0;
     this.columnName = "";
-    this.temp = 0;
+    this.temperature = 0;
     this.pressure = 0;
     this.flowRate = 0;
     this.injVolume = 0;
@@ -88,9 +88,11 @@ export class PolymerEntryFormComponent implements OnInit {
     this.DOI = "";
     //This next part is just putting in a default PolymerEntry ojbect that is just filled with the empty values.
     //TODO I probably need to delete this class because it is not really necessary.
-    this.entries = [new PolymerEntry(this.polymerName, this.molarMassRange, this.solvent, this.diameter,
-      this.poreSize, this.columnLength, this.columnName, this.temp, this.pressure, this.flowRate,
-      this.injVolume, this.detectors, this.DOI)];
+    this.entries = [
+      new PolymerEntry(this.polymerName, this.molarMassRange, this.solvent, this.diameter,
+      this.poreSize, this.columnLength, this.columnName, this.temperature, this.pressure, this.flowRate,
+      this.injVolume, this.detectors, this.DOI)
+    ];
   }
 
   fields = [
