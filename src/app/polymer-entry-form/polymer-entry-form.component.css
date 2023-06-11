@@ -25,14 +25,14 @@ form {
 input[type="text"], input[type=number], select {
   width: 100%;
   padding: 10px;
-  margin: 10px 0px;
+  margin: 10px 0;
   box-sizing: border-box;
   border-radius: 10px;
   border: 2px solid #ccc;
   transition: all 0.3s ease;
 }
 
-#molarMassRange{
+#molar-mass-range{
   width: 25%;
   margin: 0 auto;
 }
@@ -120,7 +120,7 @@ form{
   margin: 0 auto;
 }
 
-.molarMassContainer{
+.molar-mass-container{
   margin: 0 auto;
   text-align: center;
 }
@@ -147,31 +147,35 @@ label{
   text-align: center;
 }
 
-#solventList {
+#solvent-list {
   width: 80%;
 }
-#solventType {
+#solvent-type {
   width: 15%;
 }
 span {
   color: black;
-  margin-left: 0%;;
+  margin-left: 0;;
 }
 
-/*Alligning all of these input values. */
-#temp {
+/*Aligning all of these input values. */
+#temperature {
   margin-left: 10%;
 }
 
-#particle {
+#particle-size {
   margin-left: 4.5%;
 }
 
-#pore {
+#pore-size {
   margin-left: 14%;
 }
 
-#col-length {
+#column-length {
+  margin-left: 6.5%;
+}
+
+#column-length {
   margin-left: 6.5%;
 }
 
@@ -179,10 +183,18 @@ span {
   margin-left: 15%;
 }
 
-#flow {
+#flow-rate {
   margin-left: 13.5%;
 }
 
-#inj {
+#injection-volume {
   margin-left: 5%;
+}
+
+#detectors {
+/*  styles here */
+}
+
+#doi-link {
+/*  */
 }

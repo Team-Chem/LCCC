@@ -5,86 +5,99 @@
     <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
       <h4>Polymer Data</h4>
       <div class="form-group">
-        <label for="Polymer Name">Polymer Name</label>
-        <input type="text" formControlName="polymerName" placeholder="Polymer name">
+        <label for="polymer-name">Polymer Name</label>
+        <input type="text" id="polymer-name" formControlName="polymerName" placeholder="Polymer name">
 
         <div class="input-group">
-          <label for="Molar Range">Molar Range</label>
-          <input type="number" id="molarMassRange" formControlName="molarHigh">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">kd</span>
-          <input type="number" id="molarMassRange" formControlName="molarLow">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">kd</span>
+          <label for="molar-mass-high">Molar Range</label>
+            <input type="number" id="molar-mass-low" formControlName="molarLow">
+              <span class="input-group-text" style="margin: 1.2em 0;">to</span>
+            <input type="number" id="molar-mass-high" formControlName="molarHigh">
+          <span class="input-group-text" style="margin: 1.2em 0;">kd</span>
         </div>
       </div>
+
       <hr>
+
       <div class="form-group">
         <h4>Mobile Phase Data</h4>
-        <label for="Solvent">Solvent(s)</label>
+        <label for="solvent-list">Solvent(s)</label>
         <div class="input-group">
-          <input type="text" placeholder="Solvent list" id="solventList"
-          formControlName="solventList">
-          <select name="solventType" id="solventType"
-          formControlName="solventType">
+          <input type="text" placeholder="Enter in solvent(s) separate dy commas." id="solvent-list" formControlName="solventList">
+          <select id="solvent-type" formControlName="solventType">
             <option value="1">wt</option>
             <option value="2">vol</option>
           </select>
         </div>
-        <label for="Composition">Composition</label>
-        <input type="text" placeholder="Composition">
+
+        <label for="composition">Composition</label>
+        <input type="text"  id="composition" placeholder="Composition">
       </div>
+
       <hr>
+
       <div class="form-group">
         <h4>Chromatography Conditions</h4>
         <div class="row">
           <label for="temperature">Temperature</label>
-          <input type="number" id="temp" formControlName="temperature">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">&#8451;</span>
+          <input type="number" id="temperature" formControlName="temperature">
+          <span class="input-group-text" style="margin: 1.2em 0;">&#8451;</span>
         </div>
+
         <div class="row">
-          <label for="pore size">Particle Diameter</label>
-          <input type="number" id="particle" formControlName="particle">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">&#xb5;</span>
+          <label for="particle-size">Particle Diameter</label>
+          <input type="number" id="particle-size" formControlName="particle">
+          <span class="input-group-text" style="margin: 1.2em 0;">&#xb5;</span>
         </div>
+
         <div class="row">
-          <label for="">Pore Size</label>
-          <input type="number" id="pore" formControlName="poreSize">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">&#8491;</span>
+          <label for="pore-size">Pore Size</label>
+          <input type="number" id="pore-size" formControlName="poreSize">
+          <span class="input-group-text" style="margin: 1.2em 0;">&#8491;</span>
         </div>
+
         <div class="row">
-          <label for="">Column Length</label>
-          <input type="number" id="col-length" formControlName="columnLength">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">centi</span>
+          <label for="column-length">Column Length</label>
+          <input type="number" id="column-length" formControlName="columnLength">
+          <span class="input-group-text" style="margin: 1.2em 0;">centi</span>
         </div>
+
         <div class="row">
-          <label for="">Column Name</label>
-          <input type="text" formControlName="columnName">
+          <label for="column-name">Column Name</label>
+          <input type="text" id="column-name" formControlName="columnName">
         </div>
+
         <div class="row">
-          <label for="">Pressure</label>
+          <label for="pressure">Pressure</label>
           <input type="number" id="pressure" formControlName="pressure">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">atm</span>
+          <span class="input-group-text" style="margin: 1.2em 0;">atm</span>
         </div>
+
         <div class="row">
-          <label for="">Flow Rate</label>
-          <input type="number" id="flow" formControlName="flowRate">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">milli/min</span>
+          <label for="flow-rate">Flow Rate</label>
+          <input type="number" id="flow-rate" formControlName="flowRate">
+          <span class="input-group-text" style="margin: 1.2em 0;">milli/min</span>
         </div>
+
         <div class="row">
-          <label for="">Injection Volume</label>
-          <input type="number" id="inj" formControlName="injVolume">
-          <span class="input-group-text" id="basic-addon1" style="margin: 1.2em 0;">&#xb5;</span>
+          <label for="injection-volume">Injection Volume</label>
+          <input type="number" id="injection-volume" formControlName="injVolume">
+          <span class="input-group-text" style="margin: 1.2em 0;">&#xb5;</span>
         </div>
+
         <div class="row">
-          <label for="">Detector(s)</label>
-          <input type="text" formControlName="detectors">
+          <label for="detectors">Detector(s)</label>
+          <input type="text" id="detectors" formControlName="detectors">
         </div>
       </div>
+
       <div class="form-group">
         <h4>Reference</h4>
-        <label for="">DOI</label>
-        <input type="text" formControlName="DOI">
+        <label for="doi-link">DOI</label>
+        <input type="text" id="doi-link" formControlName="DOI">
       </div>
-      <button type="select">Continue</button>
+
+      <button type="submit">Submit</button>
     </form>
   </div>
 
