@@ -33,11 +33,10 @@
             </div>
           </div>
 
-          <!-- TODO: testing this -->
           <div class="input-pair input-group solvent-type-row">
             <div class="solvent-input-wrapper">
               <label for="solvent-list">Solvent(s)</label>
-              <input class="solvent-input" type="text" id="solvent-list" formControlName="solventList"
+              <input class="solvent-input" type="text" id="solvent-list" formControlName="solvents"
                      placeholder="Solvent(s) separated by commas (solvent, solvent2,..).">
             </div>
             <div class="solvent-type-wrapper">
@@ -48,6 +47,13 @@
               </select>
             </div>
           </div>
+
+          <div class="input-group" *ngIf="showComposition">
+            <label for="composition">Composition</label>
+            <input class="quarter-width" type="text" id="composition" formControlName="composition"
+                   placeholder="Composition corresponding to the solvents (value1, value2,..).">
+          </div>
+
 
           <div class="category">
             <h4>Chromatography Conditions</h4>
@@ -102,7 +108,7 @@
 
           <div class="input-group">
             <label for="injection-volume">Injection Volume</label>
-            <input class="quarter-width" type="number" id="injection-volume" formControlName="injVolume"
+            <input class="quarter-width" type="number" id="injection-volume" formControlName="injectionVolume"
                    title="Volume of the sample injected into the chromatographic system for analysis.">
             <span class="input-group-text">&#xb5;</span>
           </div>
@@ -124,7 +130,7 @@
                    placeholder="Digital Object Identifier.">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary submit-button">Submit</button>
+        <button type="submit" [disabled]="!entryForm.valid" class="btn btn-primary submit-button">Submit</button>
       </form>
     </div>
   </div>
