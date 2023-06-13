@@ -2,13 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder, AbstractControl} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { addDoc, collection } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-// import { AuthService } from '../services/auth.service'; // Probably need this to get the user id.
-import { environment } from "../../environments/environment";
-
-const app = initializeApp(environment.firebase);
-const db = getFirestore(app);
+import { db, auth } from "../../environments/firebase";
 
 @Component({
   selector: 'app-polymer-entry-form',
