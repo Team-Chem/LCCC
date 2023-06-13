@@ -4,24 +4,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MainSearchService } from './main-search.service';
 import { collection, getDocs } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyB7ZIv9yI955npmzc5MSarDB4OJ75aM5p8",
-  authDomain: "lccc-951e9.firebaseapp.com",
-  databaseURL: "https://lccc-951e9-default-rtdb.firebaseio.com",
-  projectId: "lccc-951e9",
-  storageBucket: "lccc-951e9.appspot.com",
-  messagingSenderId: "490603146752",
-  appId: "1:490603146752:web:9667961e622f67770172e5",
-  measurementId: "G-TEPQ8F3KYQ"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db, auth } from "../../../environments/firebase";
 
 @Component({
   selector: 'app-data',
@@ -97,4 +82,3 @@ export class MainSearchComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 }
-
