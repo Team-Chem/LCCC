@@ -8,6 +8,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../services/user.model';
 
 
+
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -23,7 +24,6 @@ export class AccountComponent implements OnInit {
   email: string = '';
   accountCreated: firebase.default.firestore.Timestamp | undefined;
   photoURL: string = '';
-
 
 
 

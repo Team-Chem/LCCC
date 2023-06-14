@@ -18,14 +18,14 @@ import { PolymerEntryFormComponent } from "./polymer-entry-form/polymer-entry-fo
 const appRoutes: Routes = [
     { path: '', component: AboutComponent },
     { path: 'sign_up', component: SignUpComponent },
-    { path: 'sign_in', component: SignInComponent, canActivate: [AuthGuard] },
+    { path: 'sign_in', component: SignInComponent },
     { path: 'about', component: AboutComponent },
     { path: 'password_reset', component: PasswordResetComponent },
     { path: 'verify_email', component: VerifyEmailComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'account', component: AccountComponent },
+    { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
     { path: 'search', component: MainSearchComponent },
-    { path: 'polymer-entry-form', component: PolymerEntryFormComponent }
+    { path: 'polymer-entry-form', component: PolymerEntryFormComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

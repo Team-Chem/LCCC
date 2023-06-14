@@ -14,6 +14,8 @@ import * as bcrypt from 'bcryptjs';
 import { Subscription } from 'rxjs';
 import { authState } from '@angular/fire/auth';
 
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -100,7 +102,8 @@ export class AuthService {
       });
   }
 
-  signedIn = false; // This variable will be used to determine if user has been signed in or not. Used to hide or show buttons on navbar
+
+  signedIn: boolean = false; // This variable will be used to determine if user has been signed in or not. Used to hide or show buttons on navbar
   currentSignedInUser = '';
   SignIn(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email, password) // Asynchronously signs in using an email and password.
