@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormControl, Validators, FormBuilder, AbstractControl} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../environments/firebase";
@@ -63,8 +63,8 @@ export class PolymerEntryFormComponent implements OnInit {
       polymerName: new FormControl("", Validators.required),
       molarLow: new FormControl("", Validators.required),
       molarHigh: new FormControl("", Validators.required),
-      solvents: new FormControl(""),
-      solventType: new FormControl(""),
+      solvents: new FormControl("", Validators.required), // TODO  test this
+      solventType: new FormControl("", Validators.required), // TODO test this
       composition: new FormControl(""),
       poreSize: new FormControl("", Validators.required),
       columnLength: new FormControl("", Validators.required),
@@ -74,12 +74,12 @@ export class PolymerEntryFormComponent implements OnInit {
       particle: new FormControl("", Validators.required),
       flowRate: new FormControl("", Validators.required),
       injectionVolume: new FormControl("", Validators.required),
-      detectors: new FormControl(""),
+      detectors: new FormControl(""), //TODO  test this
       DOI: new FormControl(""),
     }, {validators: this.compositionValidator});
   }
 
-// Custom validator at form level
+  // Custom validator at form level
   compositionValidator(form: AbstractControl) {
     if (!(form instanceof FormGroup)) {
       return null;
@@ -97,7 +97,6 @@ export class PolymerEntryFormComponent implements OnInit {
     const solvents = this.entryForm.get('solvents')?.value.split(',');
     return solvents && solvents.length > 1;
   }
-
 
   async onSubmit() {
     // These tuples need to have their individual values updated accordingly.
