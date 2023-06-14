@@ -54,35 +54,6 @@
  }
 
  #password-box {
-   left: 100px;
+   left: -15px;
    top: 20px;
- }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- mat-sidenav {
-   width: 200px;
-   position: fixed;
-   left: 0;
-   top: 0;
-   bottom: 0;
- }
-
- .mat-sidenav-content {
-   margin-left: 200px;
-   flex: 1;
-   background-color: #f2f2f2;
  }

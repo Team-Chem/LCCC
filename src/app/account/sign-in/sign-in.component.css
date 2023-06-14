@@ -1,6 +1,6 @@
 /*Controls the overall body of the page*/
 body {
-    background-image: url('src\Images\periodic_table.png');
+    /* background-image: url('src\Images\periodic_table.png'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

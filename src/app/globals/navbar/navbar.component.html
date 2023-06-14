@@ -20,7 +20,7 @@
       <li class="nav-item">
         <a class="nav-link" *ngIf="authService.userData" routerLink="/account">Account
           <!--User must signed in and data for account must be present for button to show on navbar-->
-          </a>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" *ngIf="!authService.signedIn && !authService.userData " routerLink="/sign_in">Sign In</a>

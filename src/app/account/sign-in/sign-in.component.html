@@ -58,6 +58,9 @@
                     <input type="button" value="Continue" class="sign-in-button"
                         (click)="authService.SignIn(userEmail, userPassword)" routerLink="/account"
                         [disabled]="!signInGroup.valid">
+                    <div *ngIf="showErrorMessage && !authService.signedIn && signInGroup.valid">
+                        Email and Password must be matching!
+                    </div>
                 </div>
 
                 <div class="hr-container">

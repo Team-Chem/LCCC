@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, Valid
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AuthGuard } from 'src/app/services/guard/auth.guard';
 import { user } from '@angular/fire/auth';
 
 @Component({
@@ -28,13 +29,32 @@ export class SignInComponent implements OnInit {
 
   });
 
-  constructor(public authService: AuthService, private formBuilder: FormBuilder, private afs: AngularFirestore, private afAuth: AngularFireAuth) { }
+  constructor(public authService: AuthService, private formBuilder: FormBuilder, private afs: AngularFirestore, private afAuth: AngularFireAuth, public route: AuthGuard) { }
 
   ngOnInit() {
+    this.SignIn();
+  }
+
+  showErrorMessage: boolean = false;
+
+  // WIll be used to show error message to show user if password and email is valid
+  SignIn() {
+    if (this.signInGroup.valid) {
+      this.authService.SignIn(this.userEmail, this.userPassword)
+        .then((userCredential) => {
+          // Handle successful sign-in
+        })
+        .catch((error) => {
+          // Handle sign-in error
+          this.showErrorMessage = true;
+        });
+    } else {
+      this.showErrorMessage = true;
+    }
   }
 
 
-  // Create function that grabs the emaail from the database that the user is trying to sign in with
+  // Create function that grabs the email from the database that the user is trying to sign in with
   checkEmailFromUser() {
 
   }
