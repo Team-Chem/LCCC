@@ -10,12 +10,12 @@
 
           <div class="input-group">
             <label for="polymer-name">Polymer Name*</label>
-            <input class="quarter-width" type="text" id="polymer-name" formControlName="polymerName" placeholder="Polymer name.">
+            <input class="quarter-width" type="text" id="polymer-name" formControlName="polymerName" placeholder="Polymer name">
           </div>
 
           <div>
             <div class="category">
-              <h4>Mobile Phase</h4>
+              <h4>Mobile Phase*</h4>
             </div>
             <div class="input-group">
               <label>Molar Range*</label>
@@ -37,7 +37,7 @@
             <div class="solvent-input-wrapper">
               <label for="solvent-list">Solvent(s)*</label>
               <input class="solvent-input" type="text" id="solvent-list" formControlName="solvents"
-                     placeholder="Solvent(s) separated by commas (solvent, solvent2,..).">
+                     placeholder="Solvent(s) separated by commas (solvent, solvent2,..)">
             </div>
 
             <div class="solvent-type-wrapper">
@@ -50,9 +50,9 @@
           </div>
 
           <div class="input-group" *ngIf="showComposition">
-            <label for="composition">Composition</label>
+            <label for="composition">Composition (Optional)</label>
             <input class="quarter-width" type="text" id="composition" formControlName="composition"
-                   placeholder="Composition corresponding to the solvents (value1, value2,..).">
+                   placeholder="Composition corresponding to the solvents (value1, value2,..)">
           </div>
 
 
@@ -60,7 +60,7 @@
             <h4>Chromatography Conditions*</h4>
           </div>
           <div class="input-pair">
-            <label for="temperature">Temperature</label>
+            <label for="temperature">Temperature*</label>
             <input class="quarter-width" type="number" id="temperature" formControlName="temperature"
                    title="Temperature at which the chromatographic separation is performed.">
             <span class="input-group-text" >&#8451;</span>
@@ -115,9 +115,10 @@
           </div>
 
           <div class="input-group">
-            <label for="detectors">Detector(s)</label>
+            <label for="detectors">Detector(s) (Optional)</label>
             <input class="half-width" type="text" id="detectors" formControlName="detectors"
-                   title="Detectors used to measure the analyte's concentration or other relevant properties.">
+                   title="Detectors used to measure the analyte's concentration or other relevant properties."
+                   placeholder="Detectors(s) separated by commas (solvent, solvent2,..) if more than one">
           </div>
         </div>
 
@@ -126,7 +127,7 @@
             <h4>Reference</h4>
           </div>
           <div class="input-group">
-            <label for="DOI-link">DOI</label>
+            <label for="DOI-link">DOI (optional)</label>
             <input class="half-width" type="text" id="DOI-link" formControlName="DOI"
                    placeholder="Digital Object Identifier.">
           </div>
