@@ -9,16 +9,16 @@
         <div class="form-group">
 
           <div class="input-group">
-            <label for="polymer-name">Polymer Name</label>
-            <input class="quarter-width" type="text" id="polymer-name" formControlName="polymerName" placeholder="Polymer name.">
+            <label for="polymer-name">Polymer Name*</label>
+            <input class="quarter-width" type="text" id="polymer-name" formControlName="polymerName" placeholder="Polymer name">
           </div>
 
           <div>
             <div class="category">
-              <h4>Mobile Phase</h4>
+              <h4>Mobile Phase*</h4>
             </div>
             <div class="input-group">
-              <label>Molar Range</label>
+              <label>Molar Range*</label>
               <div>
                 <div class="input-group">
                   <input class="quarter-width" type="number" id="molar-mass-low" formControlName="molarLow"
@@ -33,15 +33,15 @@
             </div>
           </div>
 
-          <!-- TODO: testing this -->
           <div class="input-pair input-group solvent-type-row">
             <div class="solvent-input-wrapper">
-              <label for="solvent-list">Solvent(s)</label>
-              <input class="solvent-input" type="text" id="solvent-list" formControlName="solventList"
-                     placeholder="Solvent(s) separated by commas (solvent, solvent2,..).">
+              <label for="solvent-list">Solvent(s)*</label>
+              <input class="solvent-input" type="text" id="solvent-list" formControlName="solvents"
+                     placeholder="Solvent(s) separated by commas (solvent, solvent2,..)">
             </div>
+
             <div class="solvent-type-wrapper">
-              <label for="solvent-type">Type</label>
+              <label for="solvent-type">Type*</label>
               <select class="solvent-type-select" id="solvent-type" formControlName="solventType">
                 <option value="1">Weight</option>
                 <option value="2">Volume</option>
@@ -49,68 +49,76 @@
             </div>
           </div>
 
+          <div class="input-group" *ngIf="showComposition">
+            <label for="composition">Composition (Optional)</label>
+            <input class="quarter-width" type="text" id="composition" formControlName="composition"
+                   placeholder="Composition corresponding to the solvents (value1, value2,..)">
+          </div>
+
+
           <div class="category">
-            <h4>Chromatography Conditions</h4>
+            <h4>Chromatography Conditions*</h4>
           </div>
           <div class="input-pair">
-            <label for="temperature">Temperature</label>
+            <label for="temperature">Temperature*</label>
             <input class="quarter-width" type="number" id="temperature" formControlName="temperature"
                    title="Temperature at which the chromatographic separation is performed.">
             <span class="input-group-text" >&#8451;</span>
           </div>
 
           <div class="input-group">
-            <label for="particle-size">Particle Diameter</label>
+            <label for="particle-size">Particle Diameter*</label>
             <input class="quarter-width" type="number" id="particle-size" formControlName="particle"
                    title="Size of the chromatographic particles used in the stationary phase.">
             <span class="input-group-text">&#xb5;</span>
           </div>
 
           <div class="input-group">
-            <label for="pore-size">Pore Size</label>
+            <label for="pore-size">Pore Size*</label>
             <input class="quarter-width" type="number" id="pore-size" formControlName="poreSize"
                    title="Size of the pores within the chromatographic particles.">
             <span class="input-group-text">&#8491;</span>
           </div>
 
           <div class="input-group">
-            <label for="column-length">Column Length</label>
+            <label for="column-length">Column Length*</label>
             <input class="quarter-width" type="number" id="column-length" formControlName="columnLength"
                    title="Physical length of the chromatographic column.">
             <span class="input-group-text">centi</span>
           </div>
 
           <div class="input-group">
-            <label for="column-name">Column Name</label>
+            <label for="column-name">Column Name*</label>
             <input class="quarter-width" type="text" id="column-name" formControlName="columnName"
                    title="Specific name or brand of the chromatographic column used in the analysis.">
           </div>
 
           <div class="input-group">
-            <label for="pressure">Pressure</label>
+            <label for="pressure">Pressure*</label>
             <input class="quarter-width" type="number" id="pressure" formControlName="pressure"
                    title="Pressure at which the mobile phase is forced through the column.">
             <span class="input-group-text">atm</span>
           </div>
 
           <div class="input-group">
-            <label for="flow-rate">Flow Rate</label>
+            <label for="flow-rate">Flow Rate*</label>
             <input class="quarter-width" type="number" id="flow-rate" formControlName="flowRate"
                    title="Rate at which the mobile phase flows through the column.">
             <span class="input-group-text">milli/min</span>
           </div>
 
           <div class="input-group">
-            <label for="injection-volume">Injection Volume</label>
-            <input class="quarter-width" type="number" id="injection-volume" formControlName="injVolume"
+            <label for="injection-volume">Injection Volume*</label>
+            <input class="quarter-width" type="number" id="injection-volume" formControlName="injectionVolume"
                    title="Volume of the sample injected into the chromatographic system for analysis.">
             <span class="input-group-text">&#xb5;</span>
           </div>
 
           <div class="input-group">
-            <label for="detectors">Detector(s)</label>
+            <label for="detectors">Detector(s) (Optional)</label>
             <input class="half-width" type="text" id="detectors" formControlName="detectors"
-                   title="Detectors used to measure the analyte's concentration or other relevant properties.">
+                   title="Detectors used to measure the analyte's concentration or other relevant properties."
+                   placeholder="Detectors(s) separated by commas (solvent, solvent2,..) if more than one">
           </div>
         </div>
 
@@ -119,12 +127,12 @@
             <h4>Reference</h4>
           </div>
           <div class="input-group">
-            <label for="DOI-link">DOI</label>
+            <label for="DOI-link">DOI (optional)</label>
             <input class="half-width" type="text" id="DOI-link" formControlName="DOI"
                    placeholder="Digital Object Identifier.">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary submit-button">Submit</button>
+        <button type="submit" [disabled]="!entryForm.valid" class="btn btn-primary submit-button">Submit</button>
       </form>
     </div>
   </div>
