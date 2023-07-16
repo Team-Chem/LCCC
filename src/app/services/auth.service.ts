@@ -126,17 +126,6 @@ export class AuthService {
       });
   }
 
-  // TODO: Will need to create a button that allows the user to sign out. Can add this button on the navbar.
-  // async SignOut() {
-  //   try {
-  //     await this.afAuth.signOut();
-  //     console.log('User signed out.');
-  //     sessionStorage.removeItem('user');
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
   SignOut() {
     // Perform sign-out operation
     this.afAuth.signOut().then(() => {
@@ -204,13 +193,6 @@ export class AuthService {
   GoogleAuth() {
     return this.AuthLogin(new GoogleAuthProvider());
   }
-
-  // Keeps track of the user when they login
-  // get isLoggedIn(): boolean {
-  //   const user = JSON.parse(localStorage.getItem('user')!);
-  //   console.log("Hellonbvnvbnvbnvb");
-  //   return user !== null && user.emailVerified !== false ? true : false;
-  // }
 
   // Send data to firebase
   SetUserData(user: firebase.default.User, firstName: string, lastName: string, email: string, hashedPassword: string, emailVerified: boolean, accountCreated: string) {
