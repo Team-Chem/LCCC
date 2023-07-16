@@ -9,18 +9,19 @@ import 'firebase/auth';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
+import { BehaviorSubject, Observable } from 'rxjs';
+
 // Password hahsing function
 import * as bcrypt from 'bcryptjs';
-import { Subscription } from 'rxjs';
-import { authState } from '@angular/fire/auth';
 
-import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+
 
   // public loggedIn = false;
 
@@ -56,7 +57,7 @@ export class AuthService {
     });
   }
 
-
+  // Method to handle the signup process when a user wants to make an account.
   SignUp(email: string, password: string, firstName: string, lastName: string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password) // Creating a new user account in Firebase Authentication using the provided email address and password
       .then((userCredential) => { // Making a promise, user info is stored in userCredential object. Has the user property, which contains uid, email of user
@@ -102,34 +103,57 @@ export class AuthService {
       });
   }
 
+  // Observables similar to an event handeler to allow this information to be used in other files when the event happens in this file, asyncronous.
+  private iscurrentlySignedInUser = new BehaviorSubject<string>(''); // Used to store the UID of the current signed in user
+  public iscurrentlySignedIn = this.iscurrentlySignedInUser.asObservable(); // Observable to be used in other files with the updated values, examples: navbar and route guards to see if user is signed in or not.
 
-  signedIn: boolean = false; // This variable will be used to determine if user has been signed in or not. Used to hide or show buttons on navbar
-  currentSignedInUser = '';
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated = this.isAuthenticatedSubject.asObservable(); // Observable to be used in other files with the updated values, examples: navbar and route guards to see if user is signed in or not.
+
+  public signInInProgress = new BehaviorSubject<boolean>(false); // Used in route guard to see if it is set to false or true
+
+  // Method is used to handle the signin process of logging a valid user in.
   SignIn(email: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password) // Asynchronously signs in using an email and password.
+    this.signInInProgress.next(true);
+    return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         if (user != null) {
-          // Add code to re route user to a page once they sign in.
-
           console.log(`User with email ${user.email} signed in successfully`);
-          this.currentSignedInUser = user.uid;
-          this.signedIn = true;
+          this.iscurrentlySignedInUser.next(user.uid);
+          this.isAuthenticatedSubject.next(true);
+
+          // // Log the current value
+          // this.isAuthenticated.subscribe(
+          //   isAuthenticated => {
+          //     console.log(isAuthenticated);
+          //   }
+          // );
+
+          // // Log the current value
+          // this.iscurrentlySignedIn.subscribe(
+          //   iscurrentlySignedIn => {
+          //     console.log(iscurrentlySignedIn);
+          //   }
+          // );
+
         }
+        this.signInInProgress.next(false);
         return userCredential;
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(`Failed to sign in user: ${errorCode} - ${errorMessage}`);
-        // Optional: You can display an error message to the user
+        this.signInInProgress.next(false);
       });
   }
 
   SignOut() {
     // Perform sign-out operation
     this.afAuth.signOut().then(() => {
-      this.signedIn = false;
+      this.isAuthenticatedSubject.next(false);
+      this.iscurrentlySignedInUser.next('');
       this.userData = null; // Update the userData property immediately
       sessionStorage.removeItem('user');
       console.log("User has signed out successfully");
@@ -222,4 +246,6 @@ export class AuthService {
         console.log(`There was an error when trying to add user data: ${errorCode} - ${errorMessage}`);
       });
   }
+
+
 }

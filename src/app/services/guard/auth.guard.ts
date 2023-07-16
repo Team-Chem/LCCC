@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -34,18 +35,25 @@ export class AuthGuard implements CanActivate {
     }
 
 
-    // Route guard that will grant access if user has signed in and if not redirect to the sign in page
+    // Route guard that will grant access if user has signed in and if not redirect to the sign in page. --> observable is grabbed from the auth.service.ts file
     canActivate(
         route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): boolean {
-
-        this.getCurrentUserUID(); // Will run function and update userId with the UID
-        if (this.userId !== '') { // FIXME <-- user has to click contineu button for it to redirect
-            return true
-        } else {
-            this.router.navigate(['/sign_in']);
-            return false;
-        }
+        state: RouterStateSnapshot
+    ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+        return this.authService.signInInProgress.pipe(
+            filter(signInInProgress => !signInInProgress), // wait until sign-in process completes. Filter items emitted by the source Observable by only emitting those that satisfy a specified predicate.
+            switchMap(() => this.authService.isAuthenticated), // then check authentication status
+            take(1), // only take the first value emitted by isAuthenticated after signInInProgress is set to false
+            map(isAuthenticated => {
+                if (isAuthenticated) {
+                    console.log("Route Guard Success! User is authenticated.");
+                    return true;
+                } else {
+                    console.log("Route Guard Failure! User is not authenticated.");
+                    return this.router.createUrlTree(['/sign_up']);
+                }
+            })
+        );
     }
 
 }

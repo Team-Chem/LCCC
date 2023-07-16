@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthGuard } from 'src/app/services/guard/auth.guard';
 import { user } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -29,7 +30,7 @@ export class SignInComponent implements OnInit {
 
   });
 
-  constructor(public authService: AuthService, private formBuilder: FormBuilder, private afs: AngularFirestore, private afAuth: AngularFireAuth, public route: AuthGuard) { }
+  constructor(public authService: AuthService, private formBuilder: FormBuilder, private afs: AngularFirestore, private afAuth: AngularFireAuth, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.SignIn();

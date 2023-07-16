@@ -23,11 +23,13 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="!authService.signedIn && !authService.userData " routerLink="/sign_in">Sign In</a>
+        <a class="nav-link" *ngIf="authService.isAuthenticated && !authService.userData " routerLink="/sign_in">Sign
+          In</a>
         <!--If user is not signed in and their data for account is null then button will appear on navbar-->
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="!authService.signedIn && !authService.userData" routerLink="/sign_up">Sign Up</a>
+        <a class="nav-link" *ngIf="authService.isAuthenticated && !authService.userData" routerLink="/sign_up">Sign
+          Up</a>
         <!--If user is not signed in and their data for account is null then button will appear on navbar-->
       </li>
       <li class="nav-item">
