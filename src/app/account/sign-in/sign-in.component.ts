@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthGuard } from 'src/app/services/guard/auth.guard';
 import { user } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,6 +17,9 @@ export class SignInComponent implements OnInit {
   // These two variables are for the two way binding in the sign up page.
   userEmail: string = '';
   userPassword: string = '';
+
+  // Error message used to display bootstrap.
+  errorMessage?: string;
 
   onSubmit() {
 
@@ -29,11 +33,18 @@ export class SignInComponent implements OnInit {
 
   });
 
-  constructor(public authService: AuthService, private formBuilder: FormBuilder, private afs: AngularFirestore, private afAuth: AngularFireAuth, public route: AuthGuard) { }
+  constructor(public authService: AuthService, private formBuilder: FormBuilder, private afs: AngularFirestore, private afAuth: AngularFireAuth, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.SignIn();
+    // Subscribe to the errormessage to show in the sign-in.html file for bootstrap.
+    this.authService.errorMessage$.subscribe(
+      message => {
+        this.errorMessage = message;
+      }
+    )
   }
+
 
   showErrorMessage: boolean = false;
 

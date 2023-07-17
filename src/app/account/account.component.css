@@ -2,6 +2,16 @@
    font-family: Arial, sans-serif;
  }
 
+ /*Controls the success alert message bootstrap*/
+ .success-message {
+   width: 30%;
+   position: absolute;
+   top: auto;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   text-align: center;
+ }
+
  #full-account {
    width: auto;
 
@@ -33,9 +43,11 @@
    line-height: 1.5;
  }
 
+ /*This controls the main container where everything is structured on*/
  .container {
    display: flex;
-   height: 75vh;
+   height: 85vh;
+   width: auto;
    background-color: #f2f2f2;
  }
 
@@ -56,4 +68,23 @@
  #password-box {
    left: -15px;
    top: 20px;
+ }
+
+ .table-container {
+   margin-top: 50px;
+ }
+
+
+ .table-wrapper {
+   height: calc(100% - 56px);
+   /* Adjust the height as needed */
+   overflow: auto;
+ }
+
+ .mat-table {
+   width: 100%;
+ }
+
+ .mat-paginator {
+   margin-top: 10px;
  }

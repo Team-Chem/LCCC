@@ -16,6 +16,14 @@
 
 <body>
 
+    <!--A bootstrap error message will be shown to user if credentials are invalid-->
+    <div class="error-message">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+    </div>
+
+
 
     <div class="sign-in-div">
 
@@ -49,7 +57,9 @@
                 <!-- <label class="password" for="password"><b>Password</b></label> -->
                 <input type="password" placeholder="Password" formControlName="password" id="input-password-user"
                     name="password" [(ngModel)]="userPassword">
-
+                <div *ngIf="showErrorMessage && !authService.isAuthenticated && signInGroup.valid">
+                    Email and Password must be matching!
+                </div>
                 <hr>
 
                 <a class="forgot-password-link" routerLink="/password_reset">Forgot Password?</a>
@@ -58,9 +68,6 @@
                     <input type="button" value="Continue" class="sign-in-button"
                         (click)="authService.SignIn(userEmail, userPassword)" routerLink="/account"
                         [disabled]="!signInGroup.valid">
-                    <div *ngIf="showErrorMessage && !authService.signedIn && signInGroup.valid">
-                        Email and Password must be matching!
-                    </div>
                 </div>
 
                 <div class="hr-container">
