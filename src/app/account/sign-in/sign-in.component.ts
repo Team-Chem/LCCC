@@ -18,6 +18,9 @@ export class SignInComponent implements OnInit {
   userEmail: string = '';
   userPassword: string = '';
 
+  // Error message used to display bootstrap.
+  errorMessage?: string;
+
   onSubmit() {
 
   }
@@ -34,7 +37,14 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.SignIn();
+    // Subscribe to the errormessage to show in the sign-in.html file for bootstrap.
+    this.authService.errorMessage$.subscribe(
+      message => {
+        this.errorMessage = message;
+      }
+    )
   }
+
 
   showErrorMessage: boolean = false;
 

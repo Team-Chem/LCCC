@@ -248,4 +248,37 @@ export class AuthService {
   }
 
 
+
+  /* Code below is used for UI improvements */
+
+
+  // Error messages that are being used with bootstrap for a better User Interface
+  private errorMessageSource = new BehaviorSubject<string>('');
+  public errorMessage$ = this.errorMessageSource.asObservable();
+
+  // Method will show the error message
+  public setErrorMessage(message: string) {
+    this.errorMessageSource.next(message);
+  }
+
+  // Method will be used to clear the error message
+  public clearErrorMessage() {
+    this.errorMessageSource.next('');
+  }
+
+  // Success messages that are being used with bootstrap for a better User Interface
+  private successMessageSource = new BehaviorSubject<string>('');
+  public successMessage$ = this.successMessageSource.asObservable();
+
+
+  public setSuccessMessage(message: string) {
+    this.successMessageSource.next(message);
+  }
+
+
+  public clearSuccessMessage() {
+    this.successMessageSource.next('');
+  }
+
+
 }

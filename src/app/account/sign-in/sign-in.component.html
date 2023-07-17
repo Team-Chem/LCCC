@@ -16,6 +16,11 @@
 
 <body>
 
+    <div class="error-message">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+    </div>
 
 
 

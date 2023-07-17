@@ -23,6 +23,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class AccountComponent implements OnInit {
 
+  successMessage?: string;
+
   // Storing data of user interface
   userInfo?: AngularFirestoreCollection<User>;
 
@@ -77,6 +79,12 @@ export class AccountComponent implements OnInit {
     this.getUserResults(userUID);
     this.loadData();
     this.setupSearchControl();
+    // Displays a success message on account page when user successfully logs in.
+    this.authService.successMessage$.subscribe(
+      message => {
+        this.successMessage = message;
+      }
+    )
   }
 
   // Get the UID of the current user who is signed in
