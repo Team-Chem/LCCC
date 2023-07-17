@@ -9,7 +9,7 @@ import { VerifyEmailComponent } from "./account/authentication/verify-email/veri
 import { DashboardComponent } from "./account/dashboard/dashboard.component";
 import { AccountComponent } from "./account/account.component";
 import { MainSearchComponent } from "./search/main-search/main-search.component";
-import { AuthGuard } from "./services/guard/auth.guard";
+import { AuthGuard, PreventAccessSignIn } from "./services/guard/auth.guard";
 import { PolymerEntryFormComponent } from "./polymer-entry-form/polymer-entry-form.component";
 
 // Route guard
