@@ -96,19 +96,27 @@ export class AuthService {
                 emailVerified: false,
                 accountCreated: new Date()
               });
-
+              this.router.navigate(['/sign_in']);
               console.log(`User with email ${user.email} signed up successfully`);
             })
             .catch((err) => {
               console.error(`Failed to hash password: ${err}`);
             });
-
         }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(`Failed to sign up user: ${errorCode} - ${errorMessage}`);
+        if (errorCode === 'auth/email-already-in-use') {
+          this.setErrorMessage('The provided email is already in use by an existing user.');
+        }
+        else {
+          this.setErrorMessage(`Failed to sign up user: ${errorCode} - ${errorMessage}`);
+        }
+        setTimeout(() => {
+          this.clearErrorMessage();
+        }, 5000);  // Clear the error message after 5 seconds.
       });
   }
 
@@ -224,7 +232,18 @@ export class AuthService {
 
   // Allow the user to log in with their Google account
   GoogleAuth() {
-    return this.AuthLogin(new GoogleAuthProvider());
+    this.signInInProgress.next(true);  // Sign in process has started
+    return this.AuthLogin(new GoogleAuthProvider())
+      .then(() => {
+        // Redirect to the account page after successful login
+        this.signInInProgress.next(false);  // Sign in process has ended
+        this.isAuthenticatedSubject.next(true);  // User is now authenticated
+        this.router.navigate(['/account']);
+      })
+      .catch((error) => {
+        // Handle any errors here.
+        this.signInInProgress.next(false);  // Sign in process has ended, regardless of outcome
+      });
   }
 
   // Send data to firebase

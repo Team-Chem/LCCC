@@ -32,6 +32,15 @@
 </head>
 
 <body>
+
+    <!--A bootstrap error message will be shown to user if credentials are invalid-->
+    <div class="error-message">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+    </div>
+
+
     <!--This is for the sign up portion of the reactive form-->
     <div class="sign-up-div">
         <h3>Sign Up</h3>
@@ -174,7 +183,7 @@
               firstNameInput.value,
               lastNameInput.value
             );
-          " routerLink="/verify_email" [disabled]="!signUpGroup.valid">
+          " [disabled]="!signUpGroup.valid">
                 Sign up
             </button>
 
