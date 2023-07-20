@@ -6,6 +6,15 @@ body {
     height: 85vh;
 }
 
+.error-message {
+    width: 28%;
+    position: absolute;
+    bottom: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
 .sign-up-div {
     position: relative;
     width: 525px;
