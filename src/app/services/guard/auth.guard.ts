@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -43,16 +43,19 @@ export class AuthGuard implements CanActivate {
         state: RouterStateSnapshot
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         return this.authService.signInInProgress.pipe(
-            filter(signInInProgress => !signInInProgress), // wait until sign-in process completes. Filter items emitted by the source Observable by only emitting those that satisfy a specified predicate.
-            switchMap(() => this.authService.isAuthenticated), // then check authentication status
-            take(1), // only take the first value emitted by isAuthenticated after signInInProgress is set to false
+            filter(signInInProgress => !signInInProgress), // wait until sign-in process completes.
+            switchMap(() => {
+                // If user data is available in localStorage, consider the user as authenticated.
+                if (this.authService.isUserAuthenticated()) {
+                    return of(true);
+                }
+                // Otherwise, check authentication status.
+                return this.authService.isAuthenticated;
+            }),
+            take(1), // only take the first value emitted
             map(isAuthenticated => {
                 if (isAuthenticated) {
                     console.log("Route Guard Success! User is authenticated.");
-                    // this.authService.setSuccessMessage('Successfully signed in!');
-                    // setTimeout(() => {
-                    //     this.authService.clearSuccessMessage();
-                    // }, 5000);  // Clear the error message after 5 seconds.
                     return true;
                 } else {
                     console.log("Route Guard Failure! User is not authenticated.");
