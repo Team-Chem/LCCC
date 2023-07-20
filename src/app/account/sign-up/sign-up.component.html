@@ -44,6 +44,7 @@
     <!--This is for the sign up portion of the reactive form-->
     <div class="sign-up-div">
         <h3>Sign Up</h3>
+        <hr style="height: 0.75px; background-color: rgb(0, 81, 255, 0.863);">
         <!--Start of the form where the user will start inputting data-->
         <form class="sign_up-form" [formGroup]="signUpGroup" (ngSubmit)="onSubmit()">
             <!-- <span class="fa fa-solid fa-user-plus" style="font-size: 60px; color: black"></span> -->
@@ -184,12 +185,23 @@
               lastNameInput.value
             );
           " [disabled]="!signUpGroup.valid">
-                Sign up
+                Continue
             </button>
 
-        </form>
+            <div class="hr-container">
+                <hr>
+                <span class="hr-text">Or</span>
+            </div>
 
-        <hr />
+            <!-- Calling GoogleAuth Api from AuthService -->
+            <div class="google-sign-in">
+                <button type="button" style="color: black;" class="btn googleBtn" (click)="authService.GoogleAuth()">
+                    <i class="fab fa-google-plus-g"></i>
+                    Continue with Google
+                </button>
+            </div>
+
+        </form>
 
         <div class="already-have-account-link">
             <p>Have an account?<a routerLink="/sign_in"> Sign In</a></p>

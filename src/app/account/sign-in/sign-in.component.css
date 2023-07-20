@@ -10,7 +10,7 @@
 .error-message {
     width: 28%;
     position: absolute;
-    bottom: 80%;
+    bottom: 88%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -30,7 +30,7 @@
     /* background-color: rgba(255, 255, 255, 0.9); */
     display: block;
     margin-top: 0px;
-    top: 200px;
+    top: 100px;
 }
 
 /*This also controls the sign in form*/
