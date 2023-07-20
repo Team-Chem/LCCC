@@ -31,6 +31,8 @@ export class AuthService {
     private afs: AngularFirestore, // Inject Firestore service
     private router: Router
   ) {
+
+
     // Initialize userData variable
     this.userData = null;
 
@@ -48,13 +50,20 @@ export class AuthService {
 
         console.log("Keeping track of user login!");
       } else {
-        // User is not authenticated
-        localStorage.setItem('user', 'null'); // Set user data to Null if there is none
+        this.userData = null;
+
+        localStorage.removeItem('user');  // Remove 'user' item from localStorage.
 
         // Retrieve and parse user data from localStorage
         JSON.parse(localStorage.getItem('user')!);
       }
     });
+  }
+
+  // Used in Route Guard to check data for the user is still in localstorage
+  isUserAuthenticated(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user !== null;
   }
 
   // Method to handle the signup process when a user wants to make an account.
