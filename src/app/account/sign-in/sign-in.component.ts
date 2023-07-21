@@ -20,6 +20,7 @@ export class SignInComponent implements OnInit {
 
   // Error message used to display bootstrap.
   errorMessage?: string;
+  successMessage?: string;
 
   onSubmit() {
 
@@ -42,7 +43,13 @@ export class SignInComponent implements OnInit {
       message => {
         this.errorMessage = message;
       }
-    )
+    );
+    // Displays a success message on account page when user successfully logs in.
+    this.authService.successMessage$.subscribe(
+      message => {
+        this.successMessage = message;
+      }
+    );
   }
 
 

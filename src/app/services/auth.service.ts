@@ -96,8 +96,12 @@ export class AuthService {
                 emailVerified: false,
                 accountCreated: new Date()
               });
-              this.router.navigate(['/sign_in']);
+              this.router.navigate(['/account']);
               console.log(`User with email ${user.email} signed up successfully`);
+              this.setSuccessMessage("Account has been registered & signed in!");
+              setTimeout(() => {
+                this.clearSuccessMessage();
+              }, 5000);  // Clear the error message after 5 seconds.
             })
             .catch((err) => {
               console.error(`Failed to hash password: ${err}`);
@@ -239,6 +243,10 @@ export class AuthService {
         this.signInInProgress.next(false);  // Sign in process has ended
         this.isAuthenticatedSubject.next(true);  // User is now authenticated
         this.router.navigate(['/account']);
+        this.setSuccessMessage("Account has been signed in!");
+        setTimeout(() => {
+          this.clearSuccessMessage();
+        }, 5000);  // Clear the error message after 5 seconds.
       })
       .catch((error) => {
         // Handle any errors here.
