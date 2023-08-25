@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AuthService } from '../services/auth.service';
 import { db } from 'src/environments/firebase';
+import { MainSearchService } from '../search/main-search/main-search.service';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { user } from '@angular/fire/auth';
 import * as firebase from 'firebase/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../services/user.model';
+import { collection, getDocs } from 'firebase/firestore';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 
 
 @Component({
@@ -15,16 +23,52 @@ import { User } from '../services/user.model';
 })
 export class AccountComponent implements OnInit {
 
+  successMessage?: string;
+
   // Storing data of user interface
   userInfo?: AngularFirestoreCollection<User>;
 
+  // Each variable used to store results from collection from firebase
   firstName: string = '';
   lastName: string = '';
   email: string = '';
   accountCreated: firebase.default.firestore.Timestamp | undefined;
   photoURL: string = '';
 
+
   constructor(public authService: AuthService, private firestore: AngularFirestore, private afAuth: AngularFireAuth) {
+    
+  // List that contains all data from the PolymerData collection that will be used to display on account page
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'PolymerName',
+    'FlowRate',
+    'MolarMassRange',
+    'ColumnName',
+    'DOI',
+    'Detectors',
+    'Diameter',
+    'ColumnLength',
+    'InjectionVolume',
+    'PoreSize',
+    'Pressure',
+    'Solvent',
+    'Temperature'
+  ];
+
+  searchControl = new FormControl();
+
+  column: string = "";
+
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  pageSize = 5;
+  currentPage = 0;
+  totalItems!: number;
+
+
+  constructor(public authService: AuthService, private firestore: AngularFirestore, private afAuth: AngularFireAuth, private dataService: MainSearchService) {
 
     // Pulling data from collection
     this.userInfo = this.firestore.collection<User>('users');
@@ -32,7 +76,17 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     // Note -> functions won't be called automatically unless ran from the ngOnInit method
-    this.getCurrentUserUID()
+    this.getCurrentUserUID();
+    const userUID = "ynbrWdF2IFbbIMU7e05iMT9pm8f2";
+    this.getUserResults(userUID);
+    this.loadData();
+    this.setupSearchControl();
+    // Displays a success message on account page when user successfully logs in.
+    this.authService.successMessage$.subscribe(
+      message => {
+        this.successMessage = message;
+      }
+    )
   }
 
   // Get the UID of the current user who is signed in
@@ -71,6 +125,58 @@ export class AccountComponent implements OnInit {
       console.log('Invalid UID');
     }
   }
+
+  // Get results form PolymerData collection for unique user
+  getUserResults(userUID: string) {
+    this.firestore
+      .collection('PolymerData', (ref) => ref.where('uid', '==', userUID))
+      .valueChanges()
+      .subscribe((results: any[]) => {
+        this.displayedColumns = results.map(result => result.columnName); // Extract column names
+        this.dataSource = new MatTableDataSource(results);
+
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalItems = results.length;
+      });
+  }
+
+  async loadData() {
+    const collectionRef = collection(db, 'PolymerData');
+    const querySnapshot = await getDocs(collectionRef);
+
+    const data = querySnapshot.docs.map(doc => doc.data());
+    console.log(data); // Log the data to check if it's retrieved correctly
+
+    this.dataSource = new MatTableDataSource(data);
+
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.totalItems = data.length;
+  }
+
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+  }
+
+  setupSearchControl() {
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(300), // Add a debounce time to wait for user input
+        distinctUntilChanged() // Only emit distinct values
+      )
+      .subscribe(searchTerm => {
+        this.applyFilter(searchTerm);
+      });
+  }
+
+  applyFilter(searchTerm: string) {
+    const filterValue = searchTerm.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+
 }
 
 

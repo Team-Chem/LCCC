@@ -3,8 +3,10 @@ import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from
 import { HttpClient } from '@angular/common/http';
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../environments/firebase";
-import {AuthService} from "../services/auth.service";
-import {user} from "@angular/fire/auth";
+import { AuthService } from "../services/auth.service";
+import { user } from "@angular/fire/auth";
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 
 @Component({
   selector: 'app-polymer-entry-form',
@@ -38,6 +40,7 @@ export class PolymerEntryFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
   ) {
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private afAuth: AngularFireAuth) {
     this.polymerName = "";
     this.molarHigh = 0;
     this.molarLow = 0;
@@ -100,6 +103,9 @@ export class PolymerEntryFormComponent implements OnInit {
     this.authService.userId$.subscribe(userId => {
       this.currentUserId = userId;
     })
+    }, { validators: this.compositionValidator });
+
+    this.getCurrentUserUID(); // Calling function to Grab the UID of the current signed in user
   }
 
   // Custom validator at form level
@@ -111,7 +117,7 @@ export class PolymerEntryFormComponent implements OnInit {
     const solvents = form.get('solvents')?.value.split(',').map((s: string) => s.trim());
     const composition = form.get('composition')?.value;
     if (solvents && solvents.length > 1 && (!composition || composition === '')) {
-      return {'compositionRequired': true}; // error if multiple solvents but no composition
+      return { 'compositionRequired': true }; // error if multiple solvents but no composition
     }
     return null;
   }
@@ -160,6 +166,8 @@ export class PolymerEntryFormComponent implements OnInit {
 
       // Submit user ID with their form data submitted to database.
       userId: this.currentUserId,
+      uid: this.userId
+
     };
 
     try {
@@ -168,5 +176,19 @@ export class PolymerEntryFormComponent implements OnInit {
     } catch (error) {
       console.error("Error writing document: ", error);
     }
+  }
+
+  // Get the UID of the current user who is signed in. Needed to make this to only show results that each individual has created for their own account.
+  userId: string = '';
+  getCurrentUserUID(): void {
+    this.afAuth.user.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+        console.log('Current user UID:', this.userId);
+      } else {
+        // User is not signed in
+        console.log('No user is currently signed in');
+      }
+    });
   }
 }

@@ -9,18 +9,19 @@ import 'firebase/auth';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
+import { BehaviorSubject, Observable } from 'rxjs';
+
 // Password hahsing function
 import * as bcrypt from 'bcryptjs';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { authState, user} from '@angular/fire/auth';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   // public loggedIn = false;
-
   // Stores entire user authenticated object from firebase
   userData: any;
 
@@ -34,6 +35,8 @@ export class AuthService {
     private afs: AngularFirestore, // Inject Firestore service
     private router: Router
   ) {
+
+
     // Initialize userData variable
     this.userData = null;
     // Subscribe to the authState to track user authentication state changes
@@ -56,6 +59,9 @@ export class AuthService {
         this.userIdSubject.next(null); // Reset the userIdSubject if no user is authenticated
         // User is not authenticated
         localStorage.setItem('user', 'null'); // Set user data to Null if there is none
+        this.userData = null;
+
+        localStorage.removeItem('user');  // Remove 'user' item from localStorage.
 
         // TODO: Could be redundant because its setting 'user' to 'null'
         // Retrieve and parse user data from localStorage
@@ -64,7 +70,13 @@ export class AuthService {
     });
   }
 
+  // Used in Route Guard to check data for the user is still in localstorage
+  isUserAuthenticated(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user !== null;
+  }
 
+  // Method to handle the signup process when a user wants to make an account.
   SignUp(email: string, password: string, firstName: string, lastName: string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password) // Creating a new user account in Firebase Authentication using the provided email address and password
       .then((userCredential) => { // Making a promise, user info is stored in userCredential object. Has the user property, which contains uid, email of user
@@ -94,60 +106,85 @@ export class AuthService {
                 emailVerified: false,
                 accountCreated: new Date()
               });
-
+              this.router.navigate(['/account']);
               console.log(`User with email ${user.email} signed up successfully`);
+              this.setSuccessMessage("Account has been registered & signed in!");
+              setTimeout(() => {
+                this.clearSuccessMessage();
+              }, 5000);  // Clear the error message after 5 seconds.
             })
             .catch((err) => {
               console.error(`Failed to hash password: ${err}`);
             });
-
         }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(`Failed to sign up user: ${errorCode} - ${errorMessage}`);
+        if (errorCode === 'auth/email-already-in-use') {
+          this.setErrorMessage('The provided email is already in use by an existing user.');
+        }
+        else {
+          this.setErrorMessage(`Failed to sign up user: ${errorCode} - ${errorMessage}`);
+        }
+        setTimeout(() => {
+          this.clearErrorMessage();
+        }, 5000);  // Clear the error message after 5 seconds.
       });
   }
 
-  signedIn = false; // This variable will be used to determine if user has been signed in or not. Used to hide or show buttons on navbar
-  currentSignedInUser = '';
+  // Observables similar to an event handeler to allow this information to be used in other files when the event happens in this file, asyncronous.
+  private iscurrentlySignedInUser = new BehaviorSubject<string>(''); // Used to store the UID of the current signed in user
+  public iscurrentlySignedIn = this.iscurrentlySignedInUser.asObservable(); // Observable to be used in other files with the updated values, examples: navbar and route guards to see if user is signed in or not.
+
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated = this.isAuthenticatedSubject.asObservable(); // Observable to be used in other files with the updated values, examples: navbar and route guards to see if user is signed in or not.
+
+  public signInInProgress = new BehaviorSubject<boolean>(false); // Used in route guard to see if it is set to false or true
+
+  // Method is used to handle the signin process of logging a valid user in.
   SignIn(email: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password) // Asynchronously signs in using an email and password.
+    this.signInInProgress.next(true);
+    return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         if (user != null) {
-          // Add code to re route user to a page once they sign in.
-
           console.log(`User with email ${user.email} signed in successfully`);
-          this.currentSignedInUser = user.uid;
-          this.signedIn = true;
+          this.iscurrentlySignedInUser.next(user.uid);
+          this.isAuthenticatedSubject.next(true);
+
+          // // Log the current value
+          // this.isAuthenticated.subscribe(
+          //   isAuthenticated => {
+          //     console.log(isAuthenticated);
+          //   }
+          // );
+
+          // // Log the current value
+          // this.iscurrentlySignedIn.subscribe(
+          //   iscurrentlySignedIn => {
+          //     console.log(iscurrentlySignedIn);
+          //   }
+          // );
+
         }
+        this.signInInProgress.next(false);
         return userCredential;
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(`Failed to sign in user: ${errorCode} - ${errorMessage}`);
-        // Optional: You can display an error message to the user
+        this.signInInProgress.next(false);
       });
   }
-
-  // TODO: Will need to create a button that allows the user to sign out. Can add this button on the navbar.
-  // async SignOut() {
-  //   try {
-  //     await this.afAuth.signOut();
-  //     console.log('User signed out.');
-  //     sessionStorage.removeItem('user');
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   SignOut() {
     // Perform sign-out operation
     this.afAuth.signOut().then(() => {
-      this.signedIn = false;
+      this.isAuthenticatedSubject.next(false);
+      this.iscurrentlySignedInUser.next('');
       this.userData = null; // Update the userData property immediately
       sessionStorage.removeItem('user');
       console.log("User has signed out successfully");
@@ -209,15 +246,23 @@ export class AuthService {
 
   // Allow the user to log in with their Google account
   GoogleAuth() {
-    return this.AuthLogin(new GoogleAuthProvider());
+    this.signInInProgress.next(true);  // Sign in process has started
+    return this.AuthLogin(new GoogleAuthProvider())
+      .then(() => {
+        // Redirect to the account page after successful login
+        this.signInInProgress.next(false);  // Sign in process has ended
+        this.isAuthenticatedSubject.next(true);  // User is now authenticated
+        this.router.navigate(['/account']);
+        this.setSuccessMessage("Account has been signed in!");
+        setTimeout(() => {
+          this.clearSuccessMessage();
+        }, 5000);  // Clear the error message after 5 seconds.
+      })
+      .catch((error) => {
+        // Handle any errors here.
+        this.signInInProgress.next(false);  // Sign in process has ended, regardless of outcome
+      });
   }
-
-  // Keeps track of the user when they login
-  // get isLoggedIn(): boolean {
-  //   const user = JSON.parse(localStorage.getItem('user')!);
-  //   console.log("Hellonbvnvbnvbnvb");
-  //   return user !== null && user.emailVerified !== false ? true : false;
-  // }
 
   // Send data to firebase
   SetUserData(user: firebase.default.User, firstName: string, lastName: string, email: string, hashedPassword: string, emailVerified: boolean, accountCreated: string) {
@@ -247,4 +292,39 @@ export class AuthService {
         console.log(`There was an error when trying to add user data: ${errorCode} - ${errorMessage}`);
       });
   }
+
+
+
+  /* Code below is used for UI improvements */
+
+
+  // Error messages that are being used with bootstrap for a better User Interface
+  private errorMessageSource = new BehaviorSubject<string>('');
+  public errorMessage$ = this.errorMessageSource.asObservable();
+
+  // Method will show the error message
+  public setErrorMessage(message: string) {
+    this.errorMessageSource.next(message);
+  }
+
+  // Method will be used to clear the error message
+  public clearErrorMessage() {
+    this.errorMessageSource.next('');
+  }
+
+  // Success messages that are being used with bootstrap for a better User Interface
+  private successMessageSource = new BehaviorSubject<string>('');
+  public successMessage$ = this.successMessageSource.asObservable();
+
+
+  public setSuccessMessage(message: string) {
+    this.successMessageSource.next(message);
+  }
+
+
+  public clearSuccessMessage() {
+    this.successMessageSource.next('');
+  }
+
+
 }

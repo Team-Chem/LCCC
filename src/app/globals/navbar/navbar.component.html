@@ -1,5 +1,6 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
-  <a class="navbar-brand" href="#">PolymerSift</a>
+  <a class="navbar-brand" routerLink="">PolymerSift</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -7,7 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" routerLink="">About</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/search">Search</a>
@@ -20,14 +21,16 @@
       <li class="nav-item">
         <a class="nav-link" *ngIf="authService.userData" routerLink="/account">Account
           <!--User must signed in and data for account must be present for button to show on navbar-->
-          </a>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="!authService.signedIn && !authService.userData " routerLink="/sign_in">Sign In</a>
+        <a class="nav-link" *ngIf="authService.isAuthenticated && !authService.userData" routerLink="/sign_in">Sign
+          In</a>
         <!--If user is not signed in and their data for account is null then button will appear on navbar-->
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="!authService.signedIn && !authService.userData" routerLink="/sign_up">Sign Up</a>
+        <a class="nav-link" *ngIf="authService.isAuthenticated && !authService.userData" routerLink="/sign_up">Sign
+          Up</a>
         <!--If user is not signed in and their data for account is null then button will appear on navbar-->
       </li>
       <li class="nav-item">
