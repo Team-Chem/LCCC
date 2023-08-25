@@ -75,6 +75,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 // import { UserService } from './services/user.service';
 import { User } from './services/user.model';
 import { MatButtonModule } from '@angular/material/button';
+import { EditUserEntriesComponent } from './search/edit-user-entries/edit-user-entries.component';
 
 
 
@@ -115,6 +116,7 @@ import { MatButtonModule } from '@angular/material/button';
     VerifyEmailComponent,
     DashboardComponent,
     PolymerEntryFormComponent,
+    EditUserEntriesComponent,
 
   ],
     imports: [

@@ -16,19 +16,36 @@ import { db, auth } from "../../../environments/firebase";
 export class MainSearchComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
-    'PolymerName',
-    'FlowRate',
-    'MolarMassRange',
-    'ColumnName',
+    'Polymer',
+    'Flow Rate',
+    'Molar Mass Range',
+    'Column Name',
     'DOI',
     'Detectors',
     'Diameter',
-    'ColumnLength',
-    'InjectionVolume',
-    'PoreSize',
+    'Column Length',
+    'Injection Volume',
+    'Pore Size',
     'Pressure',
     'Solvent',
     'Temperature'
+
+    // // Primary Info
+    // 'Polymer',
+    // 'Column Name',
+    // 'DOI',
+    // // Experimental Conditions
+    // 'Solvent',
+    // 'Temperature',
+    // 'Pressure',
+    // 'Flow Rate',
+    // 'Injection Volume',
+    // // Instrumental Details
+    // 'Diameter',
+    // 'Column Length',
+    // 'Pore Size',
+    // 'Detectors',
+    // 'Molar Mass Range',
   ];
 
   searchControl = new FormControl();

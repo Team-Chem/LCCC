@@ -11,9 +11,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 
 // Password hahsing function
 import * as bcrypt from 'bcryptjs';
-import { Subscription } from 'rxjs';
-import { authState } from '@angular/fire/auth';
-
+import { Subscription, BehaviorSubject } from 'rxjs';
+import { authState, user} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,14 @@ export class AuthService {
 
   // public loggedIn = false;
 
+  // Stores entire user authenticated object from firebase
   userData: any;
+
+  // Components to access just the UID without needing the entire user object
+  private userIdSubject = new BehaviorSubject<string | null>(null);
+  // "$" means this variable is an observable/accessible to other components.
+  public userId$ = this.userIdSubject.asObservable();
+
   constructor(
     private afAuth: AngularFireAuth, // Inject Firebase auth service
     private afs: AngularFirestore, // Inject Firestore service
@@ -30,12 +36,13 @@ export class AuthService {
   ) {
     // Initialize userData variable
     this.userData = null;
-
     // Subscribe to the authState to track user authentication state changes
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         // User is authenticated
         this.userData = user;
+        // Update the userIdSubject with the authenticated user's UID
+        this.userIdSubject.next(user.uid);
 
         // Save user data to localStorage as a JSON string
         localStorage.setItem('user', JSON.stringify(this.userData));
@@ -45,11 +52,14 @@ export class AuthService {
 
         console.log("Keeping track of user login!");
       } else {
+
+        this.userIdSubject.next(null); // Reset the userIdSubject if no user is authenticated
         // User is not authenticated
         localStorage.setItem('user', 'null'); // Set user data to Null if there is none
 
+        // TODO: Could be redundant because its setting 'user' to 'null'
         // Retrieve and parse user data from localStorage
-        JSON.parse(localStorage.getItem('user')!);
+        // JSON.parse(localStorage.getItem('user')!);
       }
     });
   }
@@ -68,7 +78,7 @@ export class AuthService {
 
           // Hashing the password
           const saltRounds = 10; // Number of times a random data string (known as a salt) is added to a password before it is hashed
-          bcrypt.hash(password, saltRounds) // Passing in our password and the number of times we want to salt it 
+          bcrypt.hash(password, saltRounds) // Passing in our password and the number of times we want to salt it
             .then((hashedPassword) => {
               this.SetUserData(user, email, hashedPassword, firstName, lastName, false, Date());
               uid = user.uid; // Storing the uid from the user object

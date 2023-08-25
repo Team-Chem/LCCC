@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from
 import { HttpClient } from '@angular/common/http';
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../environments/firebase";
+import {AuthService} from "../services/auth.service";
+import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-polymer-entry-form',
@@ -30,7 +32,12 @@ export class PolymerEntryFormComponent implements OnInit {
   DOI: string;
 
   // Need the constructor to initialize the http variable.
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+  constructor(
+    // Inject
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+  ) {
     this.polymerName = "";
     this.molarHigh = 0;
     this.molarLow = 0;
@@ -58,7 +65,17 @@ export class PolymerEntryFormComponent implements OnInit {
     two-way binding it will cause some conflict so just make sure to just use this
   */
   entryForm!: FormGroup;
+  // Hold the user's UID
+  currentUserId: string | null = null;
+  // Flash the user about issues
+  errorMessage: string = '';
+
   ngOnInit() {
+    // Check if a user is authenticated
+    if (!this.currentUserId) {
+      console.error("User is not authenticated");
+      return;
+    }
     this.entryForm = new FormGroup({
       polymerName: new FormControl("", Validators.required),
       molarLow: new FormControl("", Validators.required),
@@ -77,6 +94,12 @@ export class PolymerEntryFormComponent implements OnInit {
       detectors: new FormControl(""), //TODO  test this
       DOI: new FormControl(""),
     }, {validators: this.compositionValidator});
+
+    // Subscribe to the userId$ observable.
+    // This is used to associate the user submitting form.
+    this.authService.userId$.subscribe(userId => {
+      this.currentUserId = userId;
+    })
   }
 
   // Custom validator at form level
@@ -99,13 +122,28 @@ export class PolymerEntryFormComponent implements OnInit {
   }
 
   async onSubmit() {
+    // Check if the user is authenticated
+    if (!this.currentUserId) {
+      console.error("User is not authenticated");
+      // Optionally: Display an error message to the user
+      this.errorMessage = "You must be logged in to submit the form";
+      return;
+    }
+
+    // Check if the form is valid
+    if (this.entryForm.invalid) {
+      console.error("Form is not valid");
+      // Optionally: Display an error message to the user
+      this.errorMessage = "Please fill all required fields correctly";
+      return;
+    }
     // These tuples need to have their individual values updated accordingly.
     const detectorsList = this.entryForm.get('detectors')?.value.split(',').map((d: string) => d.trim());
     const solventsList = this.entryForm.get('solvents')?.value.split(',').map((s: string) => s.trim());
 
     // Document to send to firebase.
     const documentData = {
-      PolymerName: this.entryForm.get('polymerName')?.value || "",
+      Polymer: this.entryForm.get('polymerName')?.value || "",
       MolarMassRange: [this.entryForm.get('molarLow')?.value || NaN, this.entryForm.get('molarHigh')?.value || NaN],
       Solvent: solventsList,
       Composition: this.entryForm.get('composition')?.value || "",
@@ -118,7 +156,10 @@ export class PolymerEntryFormComponent implements OnInit {
       FlowRate: this.entryForm.get('flowRate')?.value || NaN,
       InjectionVolume: this.entryForm.get('injectionVolume')?.value || NaN,
       Detectors: detectorsList,
-      DOI: this.entryForm.get('DOI')?.value || ""
+      DOI: this.entryForm.get('DOI')?.value || "",
+
+      // Submit user ID with their form data submitted to database.
+      userId: this.currentUserId,
     };
 
     try {

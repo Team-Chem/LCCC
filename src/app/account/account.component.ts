@@ -24,9 +24,6 @@ export class AccountComponent implements OnInit {
   accountCreated: firebase.default.firestore.Timestamp | undefined;
   photoURL: string = '';
 
-
-
-
   constructor(public authService: AuthService, private firestore: AngularFirestore, private afAuth: AngularFireAuth) {
 
     // Pulling data from collection
