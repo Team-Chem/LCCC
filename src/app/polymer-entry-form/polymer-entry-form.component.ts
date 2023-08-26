@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { addDoc, collection } from "firebase/firestore";
-import { db, auth } from "../../environments/firebase";
-import {AuthService} from "../services/auth.service";
-import {user} from "@angular/fire/auth";
+import { db } from "../../environments/firebase";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-polymer-entry-form',
@@ -137,6 +136,7 @@ export class PolymerEntryFormComponent implements OnInit {
       this.errorMessage = "Please fill all required fields correctly";
       return;
     }
+
     // These tuples need to have their individual values updated accordingly.
     const detectorsList = this.entryForm.get('detectors')?.value.split(',').map((d: string) => d.trim());
     const solventsList = this.entryForm.get('solvents')?.value.split(',').map((s: string) => s.trim());

@@ -6,7 +6,7 @@ import { MainSearchService } from './main-search.service';
 import { collection, getDocs } from 'firebase/firestore';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { db, auth } from "../../../environments/firebase";
+import { db } from "../../../environments/firebase";
 
 @Component({
   selector: 'app-data',
@@ -50,8 +50,6 @@ export class MainSearchComponent implements OnInit {
 
   searchControl = new FormControl();
 
-  column: string = "";
-
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -59,7 +57,7 @@ export class MainSearchComponent implements OnInit {
   currentPage = 0;
   totalItems!: number;
 
-  constructor(private dataService: MainSearchService) {}
+  constructor() {}
 
   ngOnInit() {
     this.loadData();
@@ -86,7 +84,7 @@ export class MainSearchComponent implements OnInit {
   setupSearchControl() {
     this.searchControl.valueChanges
       .pipe(
-        debounceTime(300), // Add a debounce time to wait for user input
+        debounceTime(300), // Add a debounced time to wait for user input
         distinctUntilChanged() // Only emit distinct values
       )
       .subscribe(searchTerm => {

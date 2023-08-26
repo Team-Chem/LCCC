@@ -63,7 +63,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {NgIf, NgOptimizedImage, NgSwitch, NgSwitchCase} from '@angular/common';
+import { NgOptimizedImage, NgSwitch, NgSwitchCase } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -75,9 +75,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 // import { UserService } from './services/user.service';
 import { User } from './services/user.model';
 import { MatButtonModule } from '@angular/material/button';
-import { EditUserEntriesComponent } from './search/edit-user-entries/edit-user-entries.component';
-
-
 
 
 @NgModule({
@@ -116,8 +113,6 @@ import { EditUserEntriesComponent } from './search/edit-user-entries/edit-user-e
     VerifyEmailComponent,
     DashboardComponent,
     PolymerEntryFormComponent,
-    EditUserEntriesComponent,
-
   ],
     imports: [
         BrowserModule,
