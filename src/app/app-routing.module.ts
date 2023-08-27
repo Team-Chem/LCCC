@@ -16,7 +16,6 @@ import {AccountPageComponent} from "./account/account-page/account-page.componen
 // import { AuthGuard } from "./services/guard/auth.guard";
 
 const appRoutes: Routes = [
-
   { path: '', component: AboutComponent },
   { path: 'sign_up', component: SignUpComponent },
   { path: 'sign_in', component: SignInComponent },
@@ -26,7 +25,7 @@ const appRoutes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'search', component: MainSearchComponent },
   { path: 'polymer-entry-form', component: PolymerEntryFormComponent, canActivate: [AuthGuard] },
-  { path: 'account-page', component: AccountPageComponent, canActivate: [AuthGuard] },
+  { path: '', component: AccountPageComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
