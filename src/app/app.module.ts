@@ -31,6 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { VerifyEmailComponent } from './account/authentication/verify-email/verify-email.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { PolymerEntryFormComponent } from "./polymer-entry-form/polymer-entry-form.component";
+import { AccountPageComponent} from "./account/account-page/account-page.component";
 
 // Firebase import for services and environment variable
 import { AngularFireModule } from '@angular/fire/compat';
@@ -90,6 +91,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     SignInComponent,
     VerifyEmailComponent,
     PolymerEntryFormComponent,
+    AccountPageComponent,
   ],
   imports: [
     BrowserModule,
