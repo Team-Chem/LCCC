@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
 <body>
     <div id="full-account" class="container rounded bg-white mt-5 mb-5">
         <div class="row">
@@ -17,7 +7,7 @@
                     <span class="font-weight-bold">{{firstName + ' ' + lastName}}</span>
                     <span class="text-black-50">{{email}}</span>
                     <form style="display: flex; align-items: center;">
-                        <input type="file" name="imageUpload" style="margin-right: 10px;">
+                        <input type="file" name="imageUpload" id="image_input">
                         <input type="submit" value="Upload">
                     </form>
                 </div>
@@ -47,21 +37,19 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div id="email-box" class="col-md-6">
-                            <label class="labels">Email</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" [placeholder]="email" readonly>
-                                <button class="btn btn-secondary ml-2" type="button">Edit</button>
-                            </div>
-                        </div>
-                        <div id="password-box" class="col-md-6">
-                            <label class="labels">Password</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="*********" readonly>
-                                <button class="btn btn-secondary ml-2" type="button">Edit</button>
-                            </div>
-                        </div>
                     </div>
-                    <!-- <div class="mt-1 text-center">
-                        <button class="btn btn-primary profile-button" type="button">Save</button>
-                    </div> -->
+                    <div id="password-box" class="col-md-6">
+                        <label class="labels">Password</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="*********" readonly>
+                            <button class="btn btn-secondary ml-2" type="button"
+                                routerLink="/password_reset">Edit</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
