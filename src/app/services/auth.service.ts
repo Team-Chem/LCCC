@@ -1,31 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import * as auth from 'firebase/auth';
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/compat';
-import 'firebase/auth';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-
-// Password hahsing function
+// Password hashing function
 import * as bcrypt from 'bcryptjs';
-
+import { Subscription, BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-
-
   // public loggedIn = false;
 
+  // Store entire user authenticated an object from firebase
   userData: any;
+
+  // Components to access just the UID without needing the entire user object
+  private userIdSubject = new BehaviorSubject<string | null>(null);
+  // "$" means this variable is an observable/accessible to other components.
+  public userId$ = this.userIdSubject.asObservable();
+
   constructor(
     private afAuth: AngularFireAuth, // Inject Firebase auth service
     private afs: AngularFirestore, // Inject Firestore service
@@ -35,12 +34,13 @@ export class AuthService {
 
     // Initialize userData variable
     this.userData = null;
-
     // Subscribe to the authState to track user authentication state changes
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         // User is authenticated
         this.userData = user;
+        // Update the userIdSubject with the authenticated user's UID
+        this.userIdSubject.next(user.uid);
 
         // Save user data to localStorage as a JSON string
         localStorage.setItem('user', JSON.stringify(this.userData));
@@ -50,12 +50,14 @@ export class AuthService {
 
         console.log("Keeping track of user login!");
       } else {
+
+        // TODO: Remove this if merge is successful.
+        // this.userIdSubject.next(null); // Reset the userIdSubject if no user is authenticated
+        // // User is not authenticated
+        // localStorage.setItem('user', 'null'); // Set user data to Null if there is none
         this.userData = null;
 
         localStorage.removeItem('user');  // Remove 'user' item from localStorage.
-
-        // Retrieve and parse user data from localStorage
-        JSON.parse(localStorage.getItem('user')!);
       }
     });
   }
@@ -80,7 +82,7 @@ export class AuthService {
 
           // Hashing the password
           const saltRounds = 10; // Number of times a random data string (known as a salt) is added to a password before it is hashed
-          bcrypt.hash(password, saltRounds) // Passing in our password and the number of times we want to salt it 
+          bcrypt.hash(password, saltRounds) // Passing in our password and the number of times we want to salt it
             .then((hashedPassword) => {
               this.SetUserData(user, email, hashedPassword, firstName, lastName, false, Date());
               uid = user.uid; // Storing the uid from the user object
@@ -124,14 +126,18 @@ export class AuthService {
       });
   }
 
-  // Observables similar to an event handeler to allow this information to be used in other files when the event happens in this file, asyncronous.
-  private iscurrentlySignedInUser = new BehaviorSubject<string>(''); // Used to store the UID of the current signed in user
-  public iscurrentlySignedIn = this.iscurrentlySignedInUser.asObservable(); // Observable to be used in other files with the updated values, examples: navbar and route guards to see if user is signed in or not.
+  // Observables similar to an event handler to allow this information to be used in other files when the event happens
+  // in this file, asynchronous.
 
+  // Used to store the UID of the current signed-in user
+  private iscurrentlySignedInUser = new BehaviorSubject<string>('');
+  // Observable to be used in other files with the updated values, examples: navbar and route guards to see if user is signed in or not.
+  public iscurrentlySignedIn = this.iscurrentlySignedInUser.asObservable();
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  public isAuthenticated = this.isAuthenticatedSubject.asObservable(); // Observable to be used in other files with the updated values, examples: navbar and route guards to see if user is signed in or not.
-
-  public signInInProgress = new BehaviorSubject<boolean>(false); // Used in route guard to see if it is set to false or true
+  // Observable to be used in other files with the updated values, examples: navbar and route guards to see if user is signed in or not.
+  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+  // Used in route guard to see if it is set to false or true
+  public signInInProgress = new BehaviorSubject<boolean>(false);
 
   // Method is used to handle the signin process of logging a valid user in.
   SignIn(email: string, password: string) {
@@ -255,7 +261,9 @@ export class AuthService {
   }
 
   // Send data to firebase
-  SetUserData(user: firebase.default.User, firstName: string, lastName: string, email: string, hashedPassword: string, emailVerified: boolean, accountCreated: string) {
+  SetUserData(
+    user: firebase.default.User, firstName: string, lastName: string, email: string,
+    hashedPassword: string, emailVerified: boolean, accountCreated: string) {
     // Get a reference to the user document in the 'users' collection using the user's UID
     const userRef = this.afs.collection('users').doc(user.uid);
 

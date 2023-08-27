@@ -77,8 +77,6 @@ import { User } from './services/user.model';
 import { MatButtonModule } from '@angular/material/button';
 
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,7 +113,6 @@ import { MatButtonModule } from '@angular/material/button';
     VerifyEmailComponent,
     DashboardComponent,
     PolymerEntryFormComponent,
-
   ],
   imports: [
     BrowserModule,
