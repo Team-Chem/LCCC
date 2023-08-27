@@ -19,18 +19,10 @@ import { DarkComponent } from './globals/alerts/dark/dark.component';
 import { LightComponent } from './globals/alerts/light/light.component';
 import { SearchComponent } from './search/search.component';
 import { MainSearchComponent } from './search/main-search/main-search.component';
-import { SubSearchComponent } from './search/sub-search/sub-search.component';
-import { ResultsComponent } from './search/results/results.component';
 import { AccountComponent } from './account/account.component';
 import { AuthenticationComponent } from './account/authentication/authentication.component';
 import { ReCaptchaComponent } from './account/authentication/re-captcha/re-captcha.component';
 import { PasswordResetComponent } from './account/authentication/password-reset/password-reset.component';
-import { ManagementComponent } from './account/management/management.component';
-import { PrivilegesComponent } from './account/management/privileges/privileges.component';
-import { UserAccessComponent } from './account/management/user-access/user-access.component';
-import { UserCommComponent } from './account/user_comm/chat-communication.component';
-import { ChatBotComponent } from './account/chat-bot/chat-bot.component';
-import { AboutUserComponent } from './account/about-user/about-user.component';
 import { AboutComponent } from './about/about.component';
 import { FooterComponent } from './globals/footer/footer.component';
 import { SignUpComponent } from './account/sign-up/sign-up.component';
@@ -56,25 +48,19 @@ import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AuthService } from './services/auth.service';
-import { DashboardComponent } from './account/dashboard/dashboard.component';
 import { AuthGuard } from './services/guard/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { NgIf, NgOptimizedImage, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgOptimizedImage, NgSwitch, NgSwitchCase } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
-
-// import { UserService } from './services/user.service';
-import { User } from './services/user.model';
-import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -94,24 +80,15 @@ import { MatButtonModule } from '@angular/material/button';
     LightComponent,
     SearchComponent,
     MainSearchComponent,
-    SubSearchComponent,
-    ResultsComponent,
     AccountComponent,
     AuthenticationComponent,
     ReCaptchaComponent,
     PasswordResetComponent,
-    ManagementComponent,
-    PrivilegesComponent,
-    UserAccessComponent,
-    UserCommComponent,
-    ChatBotComponent,
-    AboutUserComponent,
     AboutComponent,
     FooterComponent,
     SignUpComponent,
     SignInComponent,
     VerifyEmailComponent,
-    DashboardComponent,
     PolymerEntryFormComponent,
   ],
   imports: [
@@ -147,8 +124,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatToolbarModule,
     NgOptimizedImage,
-    //BrowserAnimationsModule,
-    //MatIconModule
   ],
   providers: [
     ScreenTrackingService,
