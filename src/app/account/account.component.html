@@ -1,55 +1,22 @@
-<body>
-    <div id="full-account" class="container rounded bg-white mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-3 border-right">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" width="150px">
-                    <span class="font-weight-bold">{{firstName + ' ' + lastName}}</span>
-                    <span class="text-black-50">{{email}}</span>
-                    <form style="display: flex; align-items: center;">
-                        <input type="file" name="imageUpload" id="image_input">
-                        <input type="submit" value="Upload">
-                    </form>
-                </div>
-                <div class="mt-1 text-center">
-                    <button class="btn btn-primary profile-button" type="button">Manage My Entries</button>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="media-body">
-                    <h2><strong>Account Overview</strong></h2>
-                </div>
-                <div class="p-3 py-5">
-                    <div class="row mt-2">
-                        <div id="firstname-box" class="col-md-6">
-                            <label class="labels">First Name</label>
-                            <div class="input-group">
-                                <input type="text" id="my-test" class="form-control" [placeholder]="firstName" readonly>
-                                <button class="btn btn-secondary ml-2" type="button">Edit</button>
-                            </div>
-                        </div>
-                        <div id="lastname-box" class="col-md-6">
-                            <label class="labels">Last Name</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" [placeholder]="lastName" readonly>
-                                <button class="btn btn-secondary ml-2" type="button">Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                    </div>
-                    <div id="password-box" class="col-md-6">
-                        <label class="labels">Password</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="*********" readonly>
-                            <button class="btn btn-secondary ml-2" type="button"
-                                routerLink="/password_reset">Edit</button>
-                        </div>
+<div class="settings-container">
+  <div class="settings-box">
+    <h2>User Settings</h2>
 
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <div class="settings-field">
+      <label for="email">Change Email:</label>
+      <input type="email" id="email" placeholder="Enter new email">
     </div>
-</body>
+
+    <div class="settings-field">
+      <label for="password">Reset Password:</label>
+      <input type="password" id="password" placeholder="Enter new password">
+    </div>
+
+    <div class="settings-field">
+      <label for="confirm-password">Confirm Reset Password:</label>
+      <input type="password" id="confirm-password" placeholder="Re-enter new password">
+    </div>
+
+    <button class="submit-btn">Save Changes</button>
+  </div>
+</div>

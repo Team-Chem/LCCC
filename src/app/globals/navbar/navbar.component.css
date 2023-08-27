@@ -26,6 +26,6 @@ nav {
 }
 
 .navbar {
-  background-color: transparent;
+  background-color: #202b38;
   transition: background-color 0.3s ease-in-out;
 }
