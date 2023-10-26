@@ -1,1 +1,102 @@
-<app-account-page></app-account-page>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="success-message">
+        <div *ngIf="successMessage" class="alert alert-success" role="alert">
+            {{successMessage}}
+        </div>
+    </div>
+
+
+    <div id="full-account" class="container custom-width rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-2 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-4">
+                    <img class="rounded-circle mt-5" width="150px">
+                    <span class="font-weight-bold">{{firstName + ' ' + lastName}}</span>
+                    <span class="text-black-50">{{email}}</span>
+                    <!-- <form style="display: flex; align-items: center;">
+                        <input type="file" name="imageUpload" id="image_input">
+                        <input type="submit" value="Upload">
+                    </form> -->
+                </div>
+                <div class="mt-1 text-center">
+                    <button class="btn btn-primary profile-button" type="button" routerLink="/password_reset">Reset
+                        Password</button>
+                </div>
+                <!-- <div id="password-box" class="col-md-6">
+                    <label class="labels">Password</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="*********" readonly>
+                        <button class="btn btn-secondary ml-2" type="button" routerLink="/password_reset">Edit</button>
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-md-10">
+                <div class="media-body">
+                    <h2><strong>Account Overview</strong></h2>
+                </div>
+                <div class="p-3 py-5">
+                    <!-- <div class="row mt-2">
+                        <div id="firstname-box" class="col-md-6">
+                            <label class="labels">First Name</label>
+                            <div class="input-group">
+                                <input type="text" id="my-test" class="form-control" [placeholder]="firstName" readonly>
+                                <button class="btn btn-secondary ml-2" type="button">Edit</button>
+                            </div>
+                        </div>
+                        <div id="lastname-box" class="col-md-6">
+                            <label class="labels">Last Name</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" [placeholder]="lastName" readonly>
+                                <button class="btn btn-secondary ml-2" type="button">Edit</button>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                    <hr style="color: black;">
+
+                    <div class="table-container mat-elevation-z8">
+                        <!-- CSV Download Button -->
+                        <div class="mt-1 text-center">
+                            <button mat-raised-button color="primary" class="btn btn-primary profile-button"
+                                type="button" (click)="downloadCSV(dataSource.data)">Download CSV</button>
+                        </div>
+                        <mat-form-field>
+                            <input matInput [formControl]="searchControl" placeholder="Enter search term" />
+                        </mat-form-field>
+
+                        <table mat-table [dataSource]="dataSource" matSort class="mat-table">
+                            <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <!-- Check if current column is 'Delete' to show icon -->
+                                    <ng-container *ngIf="column === 'Delete'; else defaultColumn">
+                                        <mat-icon (click)="onDelete(element)">delete</mat-icon>
+                                    </ng-container>
+                                    <!-- Default column template -->
+                                    <ng-template #defaultColumn>{{ element[column] }}</ng-template>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSize]="pageSize" [length]="totalItems"
+                            (page)="onPageChange($event)"></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

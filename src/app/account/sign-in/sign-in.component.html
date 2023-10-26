@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
 
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
+    <!--Imports that allow the use of icons in html-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -23,34 +23,27 @@
         </div>
     </div>
 
+    <!--Success message when user successfully signs in.-->
     <div class="success-message">
         <div *ngIf="successMessage" class="alert alert-success" role="alert">
             {{successMessage}}
         </div>
     </div>
 
-
-
+    <!--Main div tag for the form page-->
     <div class="sign-in-div">
-
         <h3>Sign In</h3>
         <hr style="height: 0.75px; background-color: rgb(0, 81, 255, 0.863);">
 
-        <!-- <div class="person-icon">
-            <span class="material-symbols-outlined" style="font-size: 60px; color:black">person</span>
-        </div> -->
-
         <form class="sign-in-form" [formGroup]="signInGroup" (ngSubmit)="onSubmit()">
-
             <div class="container">
-
                 <div id="email-icon">
                     <span class="material-symbols-outlined">
                         mail
                     </span>
                 </div>
 
-                <!-- <label class="email" for="email"><b>Email</b></label> -->
+                <!--Input box for email-->
                 <input type="text" placeholder="Email" formControlName="email" id="input-email-user" name="email"
                     [(ngModel)]="userEmail">
 
@@ -60,8 +53,7 @@
                     </span>
                 </div>
 
-
-                <!-- <label class="password" for="password"><b>Password</b></label> -->
+                <!--Input box for password, validation is used to check if email and password is matching-->
                 <input type="password" placeholder="Password" formControlName="password" id="input-password-user"
                     name="password" [(ngModel)]="userPassword">
                 <div *ngIf="showErrorMessage && !authService.isAuthenticated && signInGroup.valid">
@@ -69,29 +61,21 @@
                 </div>
                 <hr>
 
+                <!--Link to reset password-->
                 <a class="forgot-password-link" routerLink="/password_reset">Forgot Password?</a>
 
+                <!--Continue button will log the user in, the following function below will be executed to do so-->
                 <div>
                     <input type="button" value="Continue" class="sign-in-button"
                         (click)="authService.SignIn(userEmail, userPassword)" routerLink="/account"
                         [disabled]="!signInGroup.valid">
                 </div>
 
+                <!--Adds a horizontal bar-->
                 <div class="hr-container">
                     <hr>
                     <span class="hr-text">Or</span>
                 </div>
-
-                <!-- <a style="position: relative; right: 170px;" routerLink="/passsword_reset">Forgot your password</a> -->
-
-                <!-- <p><b>Forgot your password?</b> <a routerLink="/password_reset">Reset</a></p> -->
-
-                <!-- <p class="check-box">
-                    <input type="checkbox" id="remember-user">
-                    <label for="remember-user">Remember me</label>
-                </p> -->
-
-                <!-- <button style="position: relative; left: 0px;" type="submit">Sign In</button> -->
 
                 <!-- Calling GoogleAuth Api from AuthService -->
                 <div class="google-sign-in">
@@ -102,21 +86,17 @@
                     </button>
                 </div>
 
-
+                <!--Link to the sign up page-->
                 <div class="create-acc-link">
                     <p>Don't have an account?<a routerLink="/sign_up"> Create an account</a></p>
                 </div>
 
-                <!-- <input style="position: relative; left: 190px;"  type="button" value="Go Back" onclick="history.back()"> -->
-
-                <!-- <button style="position: relative; left: 0px;" type="submit" value="Go Back" onclick="history.back()">Go
-                    Back</button> -->
+                <!--Below code will add a button that once clicked on will take you back to the previous page-->
+                <!-- <input style="position: relative; left: 190px;" type="button" value="Go Back" onclick="history.back()"> -->
 
             </div>
         </form>
     </div>
-
-
 </body>
 
 </html>

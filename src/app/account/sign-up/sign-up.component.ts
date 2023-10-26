@@ -31,8 +31,9 @@ export class SignUpComponent implements OnInit {
   //   }
   // }
 
-
+  // Variable below is a FormGroup which is a way to apply client side validation to a form. The rules must be met below in order for a new user to successfully sign up.
   signUpGroup = this.formBuilder.group({
+
     firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern(/^[A-Z][a-z]+(([',. -][a-z])?[a-z]*)*$/)]),
 
     lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern(/^[A-Z][a-z]+(([',. -][a-z])?[a-z]*)*$/)]),

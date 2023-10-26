@@ -1,4 +1,9 @@
 <div class="table-container mat-elevation-z8">
+  <!-- CSV Download Button -->
+  <div class="mt-1 text-center">
+    <button mat-raised-button color="primary" class="btn btn-primary profile-button" type="button"
+      (click)="downloadCSV(dataSource.data)">Download CSV</button>
+  </div>
   <mat-form-field>
     <input matInput [formControl]="searchControl" placeholder="Enter search term" />
   </mat-form-field>
@@ -11,9 +16,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator
-    (page)="onPageChange($event)"
-    [pageSize]="pageSize"
-    [length]="totalItems">
-  </mat-paginator>
+  <mat-paginator [pageSize]="pageSize" [length]="totalItems" (page)="onPageChange($event)"></mat-paginator>
 </div>
