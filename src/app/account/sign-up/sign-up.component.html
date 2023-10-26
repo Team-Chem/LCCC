@@ -49,13 +49,13 @@
         <form class="sign_up-form" [formGroup]="signUpGroup" (ngSubmit)="onSubmit()">
             <!-- <span class="fa fa-solid fa-user-plus" style="font-size: 60px; color: black"></span> -->
 
-            <!--This handels the first name of the input box-->
+            <!--This is the input box for first name, the client side validation must be correct using a FormGroup-->
             <div class="form-field-firstname">
                 <!-- <label class="label_first_sign_up" generated="true" for="first_name"><b>First Name</b></label> -->
                 <input type="text" placeholder="First Name" id="input-first_name"
                     [ngClass]="{'is-valid': signUpGroup.controls['firstName'].valid && signUpGroup.controls['firstName'].touched}"
                     name="FirstName" formControlName="firstName" #firstNameInput />
-                <!--ngif is used in this case for validation-->
+                <!--ngif is used in this case for validation, below is examples on how to use ngif whcich a conditional through Angular to set conditions for the FormGroup-->
                 <div id="ng-style-firstName" *ngIf="
               signUpGroup.controls['firstName'].invalid &&
               signUpGroup.controls['firstName'].touched
@@ -82,6 +82,7 @@
                 </div>
             </div>
 
+            <!--This is the input box for last name, the client side validation must be correct using a FormGroup-->
             <div class="form-field-lastname">
                 <!-- <label class="label_last_sign_up" for="last_name"><b>Last Name</b></label> -->
                 <input type="text" placeholder="Last Name" id="input-last_name" name="LastName"
@@ -111,6 +112,7 @@
                 </div>
             </div>
 
+            <!--This is the input box for email, the client side validation must be correct using a FormGroup-->
             <div class="form-field-email">
                 <!-- <label class="label_email_sign_up" for="email"><b>Email</b></label> -->
                 <input type="email" placeholder="Email" id="input-email" name="Email" formControlName="email"
@@ -133,6 +135,7 @@
                 </div>
             </div>
 
+            <!--This is the input box for password, the client side validation must be correct using a FormGroup-->
             <div class="form-field-password">
                 <!-- <label class="label_password_sign_up" for="password"><b>Password</b></label> -->
                 <input type="password" id="input-password" placeholder="Password" name="password"
@@ -159,6 +162,7 @@
                 </div>
             </div>
 
+            <!--This is the input box for confirming password, the client side validation must be correct using a FormGroup-->
             <div class="form-field-confirm-password">
                 <!-- <label class="label_confirm_password_sign_up" for="re-enter-password"><b>Re-enter password</b></label> -->
                 <input type="password" placeholder="Re-enter Password" id="input-confirm_password" name="Re-Password"
@@ -175,8 +179,7 @@
             </div>
             <span id="captcha" style="color: red"></span>
 
-            <!-- <input style="position: relative; left: 190px;" type="submit" name="submit" id="submit-sign-up" value="Submit"> -->
-
+            <!--Button to initiate the sign up process. Will call the SignUp function from auth.service.ts.-->
             <button id="signup-button" type="submit" (click)="
             authService.SignUp(
               userEmailInput.value,
@@ -188,12 +191,13 @@
                 Continue
             </button>
 
+            <!--Adding a horizontal bar-->
             <div class="hr-container">
                 <hr>
                 <span class="hr-text">Or</span>
             </div>
 
-            <!-- Calling GoogleAuth Api from AuthService -->
+            <!-- Calling GoogleAuth Api function from AuthService.ts -->
             <div class="google-sign-in">
                 <button type="button" style="color: black;" class="btn googleBtn" (click)="authService.GoogleAuth()">
                     <i class="fab fa-google-plus-g"></i>
@@ -203,9 +207,12 @@
 
         </form>
 
+        <!--Hyperlink, this will redirect user back to sign in page-->
         <div class="already-have-account-link">
             <p>Have an account?<a routerLink="/sign_in"> Sign In</a></p>
         </div>
+
+        <!--Below code will add a button that once clicked on will take you back to the previous page-->
         <!-- <input style="position: relative; left: 190px;" type="button" value="Go Back" onclick="history.back()"> -->
 
         <!-- <button style="position: relative; left: 0px" type="submit" value="Go Back" onclick="history.back()">

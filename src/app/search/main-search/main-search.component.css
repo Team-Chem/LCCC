@@ -1,49 +1,49 @@
 .details {
-    margin: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-  }
+  margin: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
 
-  .details-row {
-    display: none;
-  }
+.details-row {
+  display: none;
+}
 
-  .clickable {
-    cursor: pointer;
-  }
+.clickable {
+  cursor: pointer;
+}
 
-  .clickable.active {
-    background-color: #555;
-  }
+.clickable.active {
+  background-color: #555;
+}
 
-  .background{
-    background-color: black;
-  }
+.background {
+  background-color: black;
+}
 
-  .table-container {
-    overflow-x: auto;
-    max-width: 100%;
-    margin: 10% 1.2em;
-  }
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 10% 1.2em;
+}
 
-  table {
-    width: 100%;
-  }
+table {
+  width: 100%;
+}
 
-  .mat-row,
-  .mat-header-row {
-    display: flex;
-  }
+.mat-row,
+.mat-header-row {
+  display: flex;
+}
 
-  .mat-cell,
-  .mat-header-cell {
-    flex: 1 0 auto;
-    overflow: hidden;
-    word-wrap: break-word;
-    padding: 8px 16px;
-    white-space: normal;
-  }
+.mat-cell,
+.mat-header-cell {
+  flex: 1 0 auto;
+  overflow: hidden;
+  word-wrap: break-word;
+  padding: 8px 16px;
+  white-space: normal;
+}
 
-  mat-form-field {
-    width: 100%;
-  }
+mat-form-field {
+  width: 100%;
+}

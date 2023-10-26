@@ -42,7 +42,7 @@ export class MainSearchComponent implements OnInit {
   currentPage = 0;
   totalItems!: number;
 
-  constructor(private dataService: MainSearchService) {}
+  constructor(private dataService: MainSearchService) { }
 
   ngOnInit() {
     this.loadData();
@@ -81,4 +81,40 @@ export class MainSearchComponent implements OnInit {
     const filterValue = searchTerm.trim().toLowerCase();
     this.dataSource.filter = filterValue;
   }
+
+  convertToCSV(data: any[], excludeFields: string[] = ['uid', 'Composition']): string {
+    const csvRows = [];
+
+    // Get the headers and exclude the specified fields
+    const headers = Object.keys(data[0]).filter(header => !excludeFields.includes(header));
+    csvRows.push(headers.join(','));
+
+    // Loop through the rows and push to csvRows
+    for (const row of data) {
+      const values = headers.map(header => {
+        const escaped = ('' + row[header]).replace(/"/g, '\\"');
+        return `"${escaped}"`;
+      });
+      csvRows.push(values.join(','));
+    }
+
+    return csvRows.join('\n');
+  }
+
+
+
+  downloadCSV(data: any[]) {
+    const csvData = this.convertToCSV(data);
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    const anchor = document.createElement('a');
+    anchor.setAttribute('hidden', '');
+    anchor.setAttribute('href', url);
+    anchor.setAttribute('download', 'data.csv');
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+  }
+
 }
