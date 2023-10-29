@@ -3,12 +3,18 @@ import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/compat';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from '@firebase/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 // Password hashing function
 import * as bcrypt from 'bcryptjs';
 import { Subscription, BehaviorSubject } from 'rxjs';
+import 'firebase/compat/auth';
+import { auth } from 'src/environments/firebase';
+import { User } from '@firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 
 
 @Injectable({
@@ -70,7 +76,7 @@ export class AuthService {
 
   // Method to handle the signup process when a user wants to make an account.
   SignUp(email: string, password: string, firstName: string, lastName: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password) // Creating a new user account in Firebase Authentication using the provided email address and password
+    return createUserWithEmailAndPassword(auth, email, password) // Creating a new user account in Firebase Authentication using the provided email address and password
       .then((userCredential) => { // Making a promise, user info is stored in userCredential object. Has the user property, which contains uid, email of user
         const user = userCredential.user;
         let uid = '';
@@ -243,26 +249,41 @@ export class AuthService {
   // Allow the user to log in with their Google account
   GoogleAuth() {
     this.signInInProgress.next(true);  // Sign in process has started
-    return this.AuthLogin(new GoogleAuthProvider())
+
+    return signInWithPopup(auth, new GoogleAuthProvider())
+      .then((result) => {
+        // Extract user details from the result
+        const user = result.user;
+        const email = user.email;
+        const firstName = user.displayName?.split(' ')[0];  // Assuming the first word is the first name
+        const lastName = user.displayName?.split(' ')[1] || '';  // Assuming the second word is the last name
+        const hashedPassword = 'N/A';  // Google sign-in doesn't give you the user's password
+        const emailVerified = user.emailVerified;
+        const accountCreated = new Date().toISOString();  // Using the current date as an example
+
+        // Save user details to Firestore using SetUserData
+        return this.SetUserData(user, firstName, lastName, email, hashedPassword, emailVerified, accountCreated);
+      })
       .then(() => {
-        // Redirect to the account page after successful login
+        // Continue with your post-login process
         this.signInInProgress.next(false);  // Sign in process has ended
         this.isAuthenticatedSubject.next(true);  // User is now authenticated
         this.router.navigate(['/account']);
         this.setSuccessMessage("Account has been signed in!");
         setTimeout(() => {
           this.clearSuccessMessage();
-        }, 5000);  // Clear the error message after 5 seconds.
+        }, 5000);  // Clear the success message after 5 seconds.
       })
       .catch((error) => {
         // Handle any errors here.
         this.signInInProgress.next(false);  // Sign in process has ended, regardless of outcome
+        console.error("Error during Google authentication:", error);
       });
   }
 
   // Send data to firebase
   SetUserData(
-    user: firebase.default.User, firstName: string, lastName: string, email: string,
+    user: User, firstName: any, lastName: string, email: any,
     hashedPassword: string, emailVerified: boolean, accountCreated: string) {
     // Get a reference to the user document in the 'users' collection using the user's UID
     const userRef = this.afs.collection('users').doc(user.uid);

@@ -223,7 +223,7 @@ export class AccountComponent implements OnInit {
           this.firstName = user.firstName;
           this.lastName = user.lastName;
           this.email = user.email;
-          this.accountCreated = user.accountCreated
+          // this.accountCreated = user.accountCreated
           this.photoURL = user.photoURL;
           console.log(user);
           // Display or process the retrieved user information
