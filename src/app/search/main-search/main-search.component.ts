@@ -6,7 +6,7 @@ import { MainSearchService } from './main-search.service';
 import { collection, getDocs } from 'firebase/firestore';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { db, auth } from "../../../environments/firebase";
+import { db } from "../../../environments/firebase";
 
 @Component({
   selector: 'app-data',
@@ -16,24 +16,39 @@ import { db, auth } from "../../../environments/firebase";
 export class MainSearchComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
-    'PolymerName',
-    'FlowRate',
-    'MolarMassRange',
-    'ColumnName',
+    'Polymer',
+    'Flow Rate',
+    'Molar Mass Range',
+    'Column Name',
     'DOI',
     'Detectors',
     'Diameter',
-    'ColumnLength',
-    'InjectionVolume',
-    'PoreSize',
+    'Column Length',
+    'Injection Volume',
+    'Pore Size',
     'Pressure',
     'Solvent',
     'Temperature'
+
+    // // Primary Info
+    // 'Polymer',
+    // 'Column Name',
+    // 'DOI',
+    // // Experimental Conditions
+    // 'Solvent',
+    // 'Temperature',
+    // 'Pressure',
+    // 'Flow Rate',
+    // 'Injection Volume',
+    // // Instrumental Details
+    // 'Diameter',
+    // 'Column Length',
+    // 'Pore Size',
+    // 'Detectors',
+    // 'Molar Mass Range',
   ];
 
   searchControl = new FormControl();
-
-  column: string = "";
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -69,7 +84,7 @@ export class MainSearchComponent implements OnInit {
   setupSearchControl() {
     this.searchControl.valueChanges
       .pipe(
-        debounceTime(300), // Add a debounce time to wait for user input
+        debounceTime(300), // Add a debounced time to wait for user input
         distinctUntilChanged() // Only emit distinct values
       )
       .subscribe(searchTerm => {
