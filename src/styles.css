@@ -14,3 +14,23 @@ body {
     background-color: #333;
     /* Dark color when scrolled */
 }
+
+/*Controls the error alert message bootstrap for sign in and sign up*/
+.error-message {
+    width: 28%;
+    position: absolute;
+    /* bottom: 88%; */
+    left: 35%;
+    /* transform: translate(-50%, -50%); */
+    text-align: center;
+}
+
+/*Controls the success alert message bootstrap for sign in and sign up*/
+.success-message {
+    width: 28%;
+    position: absolute;
+    /* bottom: 75%; */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}

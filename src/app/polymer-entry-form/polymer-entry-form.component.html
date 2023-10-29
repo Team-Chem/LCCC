@@ -133,7 +133,8 @@
               placeholder="Digital Object Identifier.">
           </div>
         </div>
-        <button [disabled]="!currentUserId || !entryForm.valid" type="submit" class="btn btn-primary submit-button">Submit</button>
+        <button (click)="onSubmit()" [disabled]="!currentUserId || !entryForm.valid" type="submit"
+          class="btn btn-primary submit-button">Submit</button>
       </form>
     </div>
   </div>

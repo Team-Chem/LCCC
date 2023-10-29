@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../environments/firebase";
 import { AuthService } from "../services/auth.service";
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-polymer-entry-form',
@@ -36,6 +38,7 @@ export class PolymerEntryFormComponent implements OnInit {
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private router: Router,
   ) {
     this.polymerName = "";
     this.molarHigh = 0;
@@ -71,10 +74,10 @@ export class PolymerEntryFormComponent implements OnInit {
 
   ngOnInit() {
     // Check if a user is authenticated
-    if (!this.currentUserId) {
-      console.error("User is not authenticated");
-      return;
-    }
+    // if (!this.currentUserId) {
+    //   console.error("User is not authenticated");
+    //   return;
+    // }
     this.entryForm = new FormGroup({
       polymerName: new FormControl("", Validators.required),
       molarLow: new FormControl("", Validators.required),
@@ -92,7 +95,7 @@ export class PolymerEntryFormComponent implements OnInit {
       injectionVolume: new FormControl("", Validators.required),
       detectors: new FormControl(""), //TODO  test this
       DOI: new FormControl(""),
-    }, {validators: this.compositionValidator});
+    }, { validators: this.compositionValidator });
 
     // Subscribe to the userId$ observable.
     // This is used to associate the user submitting form.
@@ -110,7 +113,7 @@ export class PolymerEntryFormComponent implements OnInit {
     const solvents = form.get('solvents')?.value.split(',').map((s: string) => s.trim());
     const composition = form.get('composition')?.value;
     if (solvents && solvents.length > 1 && (!composition || composition === '')) {
-      return {'compositionRequired': true}; // error if multiple solvents but no composition
+      return { 'compositionRequired': true }; // error if multiple solvents but no composition
     }
     return null;
   }
@@ -128,14 +131,17 @@ export class PolymerEntryFormComponent implements OnInit {
       this.errorMessage = "You must be logged in to submit the form";
       return;
     }
+    else {
+      this.router.navigate(['/search']);
+    }
 
     // Check if the form is valid
-    if (this.entryForm.invalid) {
-      console.error("Form is not valid");
-      // Optionally: Display an error message to the user
-      this.errorMessage = "Please fill all required fields correctly";
-      return;
-    }
+    // if (this.entryForm.invalid) {
+    //   console.error("Form is not valid");
+    //   // Optionally: Display an error message to the user
+    //   this.errorMessage = "Please fill all required fields correctly";
+    //   return;
+    // }
 
     // These tuples need to have their individual values updated accordingly.
     const detectorsList = this.entryForm.get('detectors')?.value.split(',').map((d: string) => d.trim());

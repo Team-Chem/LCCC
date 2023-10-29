@@ -75,7 +75,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     // Note -> functions won't be called automatically unless ran from the ngOnInit method
-    this.fetchData()
+    this.fetchData();
     this.getCurrentUserUID();
     // this.loadDataForUser('LniKvYXiBuhHp4LZNy6f4z4AFCS2');
     // this.loadData();
@@ -103,8 +103,9 @@ export class AccountComponent implements OnInit {
 
   // Whenever a user wants to delete their data, they can delete it and it will be updated back in FireBase
   onDelete(element: any): void {
-
+    console.log('Deleting', element)
     if (element.id) {
+      console.log(element.id)
       this.firestore.collection('PolymerData').doc(element.id).delete()
         .then(() => {
           // Successfully deleted the document
@@ -222,7 +223,7 @@ export class AccountComponent implements OnInit {
           this.firstName = user.firstName;
           this.lastName = user.lastName;
           this.email = user.email;
-          this.accountCreated = user.accountCreated
+          // this.accountCreated = user.accountCreated
           this.photoURL = user.photoURL;
           console.log(user);
           // Display or process the retrieved user information
