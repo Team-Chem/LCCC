@@ -169,7 +169,7 @@ export class AccountComponent implements OnInit {
   }
 
 
-  convertToCSV(data: any[], excludeFields: string[] = ['uid', 'Composition']): string {
+  convertToCSV(data: any[], excludeFields: string[] = ['uid', 'Composition', 'id']): string {
     const csvRows = [];
 
     // Get the headers and exclude the specified fields
