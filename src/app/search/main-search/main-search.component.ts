@@ -17,15 +17,15 @@ export class MainSearchComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'Polymer',
-    'Flow Rate',
-    'Molar Mass Range',
-    'Column Name',
+    'FlowRate',
+    'MolarMassRange',
+    'ColumnName',
     'DOI',
     'Detectors',
     'Diameter',
-    'Column Length',
-    'Injection Volume',
-    'Pore Size',
+    'ColumnLength',
+    'InjectionVolume',
+    'PoreSize',
     'Pressure',
     'Solvent',
     'Temperature'

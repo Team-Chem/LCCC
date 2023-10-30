@@ -17,10 +17,6 @@ export class SignUpComponent implements OnInit {
   // Error message used to display bootstrap.
   errorMessage?: string;
 
-  onSubmit() {
-
-  }
-
   // matchPasswordValidator(): boolean {
   //   const password = this.signUpGroup.get('password')?.value;
   //   const confirmPassword = this.signUpGroup.get('confirmPass')?.value;
@@ -75,7 +71,7 @@ export class SignUpComponent implements OnInit {
 
 
 
-  constructor(public authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(public authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
 
 
   ngOnInit() {
@@ -88,5 +84,9 @@ export class SignUpComponent implements OnInit {
 
   }
 
+  async onSubmit() {
+    // Check if the user is authenticated
+    this.router.navigate(['/account']);
+  }
 
 }

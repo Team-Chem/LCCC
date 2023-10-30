@@ -37,9 +37,10 @@ export class AccountComponent implements OnInit {
 
   // List that contains all data from the PolymerData collection that will be used to display on account page
 
-  dataSource!: MatTableDataSource<any>;
+  public dataSource = new MatTableDataSource<any>();
+
   displayedColumns: string[] = [
-    'PolymerName',
+    'Polymer',
     'FlowRate',
     'MolarMassRange',
     'ColumnName',
@@ -92,14 +93,19 @@ export class AccountComponent implements OnInit {
   // Retireve the polymer data from the PolymerData collection
   fetchData() {
     this.firestore.collection('PolymerData').snapshotChanges().subscribe(data => {
-      this.dataSource.data = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data() as any
-        };
-      });
+      if (this.dataSource) {
+        this.dataSource.data = data.map(e => {
+          return {
+            id: e.payload.doc.id,
+            ...e.payload.doc.data() as any
+          };
+        });
+      } else {
+        console.error('dataSource is undefined');
+      }
     });
   }
+
 
   // Whenever a user wants to delete their data, they can delete it and it will be updated back in FireBase
   onDelete(element: any): void {
@@ -240,12 +246,19 @@ export class AccountComponent implements OnInit {
   loadDataForUniqueUser(uid: string) {
     this.firestore.collection('PolymerData', ref => ref.where('uid', '==', uid))
       .valueChanges()
-      .subscribe(data => {
+      .subscribe(
+        data => {
+          console.log('Data from Firestore:', data); // Add this line
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalItems = data.length;
 
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalItems = data.length;
-      });
+          console.log("Data loaded successfully");
+        },
+        error => {
+          console.error('Error loading data:', error);
+        }
+      );
   }
 }
