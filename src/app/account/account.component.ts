@@ -76,7 +76,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     // Note -> functions won't be called automatically unless ran from the ngOnInit method
-    this.fetchData();
+    // this.fetchData();
     this.getCurrentUserUID();
     // this.loadDataForUser('LniKvYXiBuhHp4LZNy6f4z4AFCS2');
     // this.loadData();
@@ -100,6 +100,7 @@ export class AccountComponent implements OnInit {
             ...e.payload.doc.data() as any
           };
         });
+        // console.log(this.dataSource)
       } else {
         console.error('dataSource is undefined');
       }
@@ -107,11 +108,13 @@ export class AccountComponent implements OnInit {
   }
 
 
+
   // Whenever a user wants to delete their data, they can delete it and it will be updated back in FireBase
   onDelete(element: any): void {
-    console.log('Deleting', element)
+    // console.log(this.dataSource)
+    // console.log('Deleting', element)
     if (element.id) {
-      console.log(element.id)
+      // console.log("Here it is", element.id)
       this.firestore.collection('PolymerData').doc(element.id).delete()
         .then(() => {
           // Successfully deleted the document
@@ -206,14 +209,14 @@ export class AccountComponent implements OnInit {
   getCurrentUserUID(): void {
     this.afAuth.user.subscribe(user => {
       if (user) {
-        console.log('Current user UID:', user.uid);
+        // console.log('Current user UID:', user.uid);
         // Call getUserInfo method to retrieve info about the current user
         this.getUserInfo(user.uid);
         // Call method loadDataForUniqueUser to retrive only the users information from FireBase and display it as a table
         this.loadDataForUniqueUser(user.uid)
       } else {
         // User is not signed in
-        console.log('No user is currently signed in');
+        // console.log('No user is currently signed in');
       }
     });
   }
@@ -231,7 +234,7 @@ export class AccountComponent implements OnInit {
           this.email = user.email;
           // this.accountCreated = user.accountCreated
           this.photoURL = user.photoURL;
-          console.log(user);
+          // console.log(user);
           // Display or process the retrieved user information
         } else {
           console.log('User not found');
@@ -245,20 +248,27 @@ export class AccountComponent implements OnInit {
   // Get results form PolymerData collection for unique user
   loadDataForUniqueUser(uid: string) {
     this.firestore.collection('PolymerData', ref => ref.where('uid', '==', uid))
-      .valueChanges()
+      .snapshotChanges()
       .subscribe(
         data => {
-          console.log('Data from Firestore:', data); // Add this line
-          this.dataSource = new MatTableDataSource(data);
+          const formattedData = data.map(e => {
+            return {
+              id: e.payload.doc.id,
+              ...e.payload.doc.data() as any
+            };
+          });
+          // console.log('Formatted Data with IDs:', formattedData);
+          this.dataSource = new MatTableDataSource(formattedData);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.totalItems = data.length;
+          this.totalItems = formattedData.length;
 
-          console.log("Data loaded successfully");
+          // console.log("Data loaded successfully");
         },
         error => {
           console.error('Error loading data:', error);
         }
       );
   }
+
 }

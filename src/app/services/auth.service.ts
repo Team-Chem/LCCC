@@ -54,7 +54,7 @@ export class AuthService {
         // Retrieve and parse user data from localStorage
         JSON.parse(localStorage.getItem('user')!);
 
-        console.log("Keeping track of user login!");
+        // console.log("Keeping track of user login!");
       } else {
 
         // TODO: Remove this if merge is successful.
@@ -105,7 +105,7 @@ export class AuthService {
                 accountCreated: new Date()
               });
               this.router.navigate(['/account']);
-              console.log(`User with email ${user.email} signed up successfully`);
+              // console.log(`User with email ${user.email} signed up successfully`);
               this.setSuccessMessage("Account has been registered & signed in!");
               setTimeout(() => {
                 this.clearSuccessMessage();
@@ -119,7 +119,7 @@ export class AuthService {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(`Failed to sign up user: ${errorCode} - ${errorMessage}`);
+        // console.log(`Failed to sign up user: ${errorCode} - ${errorMessage}`);
         if (errorCode === 'auth/email-already-in-use') {
           this.setErrorMessage('The provided email is already in use by an existing user.');
         }
@@ -152,7 +152,7 @@ export class AuthService {
       .then((userCredential) => {
         const user = userCredential.user;
         if (user != null) {
-          console.log(`User with email ${user.email} signed in successfully`);
+          // console.log(`User with email ${user.email} signed in successfully`);
           this.iscurrentlySignedInUser.next(user.uid);
           this.isAuthenticatedSubject.next(true);
 
@@ -169,6 +169,11 @@ export class AuthService {
           //     console.log(iscurrentlySignedIn);
           //   }
           // );
+          this.router.navigate(['/account']);
+          this.setSuccessMessage("Account has been signed in!");
+          setTimeout(() => {
+            this.clearSuccessMessage();
+          }, 5000);  // Clear the error message after 5 seconds.
 
         }
         this.signInInProgress.next(false);
@@ -177,8 +182,12 @@ export class AuthService {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(`Failed to sign in user: ${errorCode} - ${errorMessage}`);
+        // console.log(`Failed to sign in user: ${errorCode} - ${errorMessage}`);
         this.signInInProgress.next(false);
+        this.setErrorMessage(`Your email and password do not match. Please try again!`);
+        setTimeout(() => {
+          this.clearErrorMessage();
+        }, 5000);  // Clear the error message after 5 seconds.
       });
   }
 
@@ -189,11 +198,11 @@ export class AuthService {
       this.iscurrentlySignedInUser.next('');
       this.userData = null; // Update the userData property immediately
       sessionStorage.removeItem('user');
-      console.log("User has signed out successfully");
+      // console.log("User has signed out successfully");
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(`Failed to sign out user: ${errorCode} - ${errorMessage}`);
+      // console.log(`Failed to sign out user: ${errorCode} - ${errorMessage}`);
     });
   }
 
@@ -227,7 +236,7 @@ export class AuthService {
     try {
       // Send a password reset email to the provided email address
       await this.afAuth.sendPasswordResetEmail(email);
-      console.log('Password reset email sent, check your inbox.');
+      // console.log('Password reset email sent, check your inbox.');
     } catch (error) {
       console.error(error);
     }
@@ -239,7 +248,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        console.log('You have been successfully logged in!');
+        // console.log('You have been successfully logged in!');
       })
       .catch((error) => {
         console.log(error);
@@ -302,13 +311,13 @@ export class AuthService {
     return userRef.set(userData, { merge: true })
       .then(() => {
         // Data was successfully added to the database
-        console.log("User data added successfully");
+        // console.log("User data added successfully");
       })
       .catch(error => {
         // An error occurred while adding data to the database
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(`There was an error when trying to add user data: ${errorCode} - ${errorMessage}`);
+        // console.log(`There was an error when trying to add user data: ${errorCode} - ${errorMessage}`);
       });
   }
 

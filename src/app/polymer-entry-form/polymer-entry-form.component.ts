@@ -170,7 +170,7 @@ export class PolymerEntryFormComponent implements OnInit {
 
     try {
       await addDoc(collection(db, "PolymerData"), documentData);
-      console.log("Document successfully written!");
+      // console.log("Document successfully written!");
     } catch (error) {
       console.error("Error writing document: ", error);
     }
