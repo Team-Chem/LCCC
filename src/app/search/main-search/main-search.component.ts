@@ -17,15 +17,15 @@ export class MainSearchComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'Polymer',
-    'Flow Rate',
-    'Molar Mass Range',
-    'Column Name',
+    'FlowRate',
+    'MolarMassRange',
+    'ColumnName',
     'DOI',
     'Detectors',
     'Diameter',
-    'Column Length',
-    'Injection Volume',
-    'Pore Size',
+    'ColumnLength',
+    'InjectionVolume',
+    'PoreSize',
     'Pressure',
     'Solvent',
     'Temperature'
@@ -68,7 +68,7 @@ export class MainSearchComponent implements OnInit {
     const querySnapshot = await getDocs(collectionRef);
 
     const data = querySnapshot.docs.map(doc => doc.data());
-    console.log(data); // Log the data to check if it's retrieved correctly
+    // console.log(data); // Log the data to check if it's retrieved correctly
 
     this.dataSource = new MatTableDataSource(data);
 

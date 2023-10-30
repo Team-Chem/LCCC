@@ -162,15 +162,15 @@ export class PolymerEntryFormComponent implements OnInit {
       FlowRate: this.entryForm.get('flowRate')?.value || NaN,
       InjectionVolume: this.entryForm.get('injectionVolume')?.value || NaN,
       Detectors: detectorsList,
-      DOI: this.entryForm.get('DOI')?.value || "",
+      DOI: this.entryForm.get('DOI')?.value || NaN,
 
       // Submit user ID with their form data submitted to database.
-      userId: this.currentUserId,
+      uid: this.currentUserId,
     };
 
     try {
       await addDoc(collection(db, "PolymerData"), documentData);
-      console.log("Document successfully written!");
+      // console.log("Document successfully written!");
     } catch (error) {
       console.error("Error writing document: ", error);
     }

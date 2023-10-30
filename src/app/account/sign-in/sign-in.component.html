@@ -67,8 +67,7 @@
                 <!--Continue button will log the user in, the following function below will be executed to do so-->
                 <div>
                     <input type="button" value="Continue" class="sign-in-button"
-                        (click)="authService.SignIn(userEmail, userPassword)" routerLink="/account"
-                        [disabled]="!signInGroup.valid">
+                        (click)="authService.SignIn(userEmail, userPassword)" [disabled]="!signInGroup.valid">
                 </div>
 
                 <!--Adds a horizontal bar-->

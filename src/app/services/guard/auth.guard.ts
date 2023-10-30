@@ -55,11 +55,11 @@ export class AuthGuard implements CanActivate {
             take(1), // only take the first value emitted
             map(isAuthenticated => {
                 if (isAuthenticated) {
-                    console.log("Route Guard Success! User is authenticated.");
+                    // console.log("Route Guard Success! User is authenticated.");
                     return true;
                 } else {
-                    console.log("Route Guard Failure! User is not authenticated.");
-                    this.authService.setErrorMessage('Your email and password do not match. Please try again.');
+                    // console.log("Route Guard Failure! User is not authenticated.");
+                    this.authService.setErrorMessage('Must be signed in to access this page!');
                     setTimeout(() => {
                         this.authService.clearErrorMessage();
                     }, 5000);  // Clear the error message after 5 seconds.
